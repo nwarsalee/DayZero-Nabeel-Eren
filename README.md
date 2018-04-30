@@ -1,6 +1,8 @@
 # ICS-Summative
 Starting Summative Files
 
+Deatils of the summative can be found inside the Mindomo project plan.
+
 Ask for your copy of the Mindomo project plan:  Place the URL here: ________________
 
 Use Tom's Planner to start a project plan using a GANTT chart: Place URL here: __________________
