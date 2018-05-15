@@ -1,4 +1,4 @@
-#To-do list for ICS4U Game
+# To-do list for ICS4U Game
 
 * Get Tom's Planner done
 * Get Mindomo done
