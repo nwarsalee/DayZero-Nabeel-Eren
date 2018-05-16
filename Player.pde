@@ -6,16 +6,16 @@ Player class
 Made by Eren Sulutas and Nabeel Warsalee
 */
 
-public class Player extends Person {
-  PImage playerBody = loadImage(/* enter name of file */);
+class Player extends Person {
+  // PImage playerBody = loadImage(/* enter name of file */);
   
   // Default constructor that sets the values to zero
-  public Player() {
+  Player() {
     super();
   }
 
   // Constructor that initializes the Player 
-  public Player(float xStart, float yStart) {
+  Player(float xStart, float yStart) {
     super(3, xStart, yStart); // Automatically sets the lives to 3
   }
 
