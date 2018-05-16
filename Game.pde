@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/16 v0.2
+2018/05/16 v0.3
 Game Summative
 Made by Eren Sulutas and Nabeel Warsalee
 */
@@ -40,5 +40,5 @@ void draw() {
 
 void gameIsOver() {
   // Checks if the players are out of health points
-  state = 0;
+  state = 1;
 }
