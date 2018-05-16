@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/15
+2018/05/15 v0.1
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
