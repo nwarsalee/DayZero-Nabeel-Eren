@@ -6,21 +6,21 @@ Player class
 Made by Eren Sulutas and Nabeel Warsalee
 */
 
-public class Enemy extends Person {
-  PImage playerBody = loadImage(/* enter name of file */);
+class Enemy extends Person {
+  // PImage playerBody = loadImage(/* enter name of file */);
   
   // Default constructor that sets the values to zero
-  public Enemy() {
+  Enemy() {
     super();
   }
 
   // Constructor that initializes the Enemy, sets the life to 1
-  public Enemy(float xStart, float yStart) {
+  Enemy(float xStart, float yStart) {
     super(1, xStart, yStart); // Automatically sets the lives to 3
   }
   
   // Constructor that initializes the Enemy, sets the life to whatever the user wants 
-  public Enemy(int lives, float xStart, float yStart) {
+  Enemy(int lives, float xStart, float yStart) {
     super(lives, xStart, yStart); // Automatically sets the lives to 3
   }
 
