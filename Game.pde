@@ -1,11 +1,11 @@
 /* 
 ICS4U
-2018/05/16 0.1
+2018/05/16 v0.2
 Game Summative
 Made by Eren Sulutas and Nabeel Warsalee
 */
 
-int state = 0;
+int state = 1;
 Interface gui;
 
 void setup() {
@@ -20,17 +20,20 @@ void reset() {
   // Resets the score
   // Resets the objects
   // Returns to the main menu
-  state = 0; 
+  state = 1; 
   setup();
 }
 
 void draw() {
   if (state == 0) {
-    // Main menu
-  } else if (state == 1) {
-    // Game over
-  } else if (state == 2) {
     // Game in progress
+    gui.gamePlay();
+  } else if (state == 1) {
+    // Main menu
+    gui.menu();
+  } else if (state == 2) {
+    // Game over
+    gui.gameOver();
   }
   
 }
