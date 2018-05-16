@@ -1,4 +1,10 @@
-// Class which handles all the graphic user interface
+/* 
+ICS4U
+2018/06/16 v 0.0
+Game Summative
+Interface class
+Made by Eren Sulutas and Nabeel Warsalee
+*/
 
 class Interface {
 
