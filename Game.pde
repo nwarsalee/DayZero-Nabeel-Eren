@@ -6,22 +6,14 @@ Made by Eren Sulutas and Nabeel Warsalee
 */
 
 int state = 0;
+Interface gui;
 
 void setup() {
   size(1600, 1600);
   // Initializes the objects
   
-  // Outline (MOVE to GUI method)
-  background(0);
-  fill(255, 0, 0);
-  rect(0, 0, width, width/160); 
-  noStroke();
-  rect(width - width/160, 0, width/160, height); 
-  noStroke();
-  rect(0, height-height/160, width, width/160); 
-  noStroke();
-  rect(0, 0, height/160, height); 
-  noStroke();
+  // Outline
+  gui = new Interface();
 }
 
 void reset() {
