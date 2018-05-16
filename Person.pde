@@ -1,7 +1,10 @@
-/* Person class for the game
-   Will extend into a player and a enemy class
-   ICS4U Summative Nabeel Warsalee and Eren Sulutas
-   May 15th 2018 */
+/* 
+ICS4U
+2018/05/15
+Game Summative
+Person class
+Made by Eren Sulutas and Nabeel Warsalee
+*/
 
 public class Person {
    private int lives; // Private integer variable for the number of lives.
