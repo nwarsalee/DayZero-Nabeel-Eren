@@ -32,8 +32,17 @@ class Person extends Rectangle {
   }
   
   // Move method to move the person on screen
-  void move(float xMove, float yMove) {
-    setPos(getX() + xMove, getBottom() + yMove);
+  void move(char direction) {
+    float v = 100;
+    if (direction == 'u') { // For moving up
+      setPos(getX(), getBottom() - v); // Will substract to move it up screen
+    } else if (direction == 'd') { // For moving down
+      setPos(getX(), getBottom() + v);
+    } else if (direction == 'r') { // For moving right
+      setPos(getX() + v, getBottom());
+    } else if (direction == 'l') { // For moving left
+      setPos(getX() - v, getBottom());
+    }
     updatePos(); // Updating the coordinates of the right, top and middle
   }
   
