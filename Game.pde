@@ -55,9 +55,9 @@ void keyPressed() {
       player[0].move('u');
     } else if (keyCode == 'S') {
       player[0].move('d');
-    } else if (keyCode == 'L') {
+    } else if (keyCode == 'A') {
       player[0].move('l');
-    } else if (keyCode == 'R') {
+    } else if (keyCode == 'D') {
       player[0].move('r');
     } 
     // Player 2
