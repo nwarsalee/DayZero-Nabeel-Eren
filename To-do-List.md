@@ -18,5 +18,5 @@
 *More to be done*
 
 Note: 
-Top left of grid: 200, 210
-Bottom right of grid: 1400, 1410
+Top left of grid: 200, 200
+Bottom right of grid: 1400, 1400
