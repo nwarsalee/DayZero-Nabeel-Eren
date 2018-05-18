@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/18 v0.2
+2018/05/18 v0.3
 Game Summative
 Interface class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -44,19 +44,19 @@ class Interface {
     fill(0);
     // Y axis 
     for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
-      line(i - width/160, width/8, i - width/160, width - width/8 + width/160);
+      line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
     }
     // X axis
     for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / 24) {
-      line(height/8 - height/160, i, height - height/8 + height/160 - width/160, i);
+      line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
     }
     fill(255, 0, 0);
     noStroke();
     // Game box
-    rect(width/8 - width/160, width/8, width - 2 * width/8 + width/140, width/160);
-    rect(width/8 - width/160, width - width/8 + width/140,width - 2 * width/8 + width/140, width/160);
-    rect(width/8 - width/160, width/8, width/160, width - 2 * width/8 + width/140);
-    rect(width - width/8 + width/140 - width/160, width/8, width/160, width - 2 * width/8 + width/75);
+    rect(width/8 - width/160, width/8 - width/160, width - 2 * width/8 + width/140, width/160);
+    rect(width/8 - width/160, width - width/8 + width/140 - width/160, width - 2 * width/8 + width/140, width/160);
+    rect(width/8 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/140);
+    rect(width - width/8 + width/140 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/75);
   }
   
   // Instance method that displays the game over screen
