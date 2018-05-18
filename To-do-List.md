@@ -21,10 +21,10 @@ Top left of grid: 200, 200
 Bottom right of grid: 1400, 1400
 
 ## UI To do list
-* Main menu
-** Add instructions
-** Add credits
-* In-game
-** Added user interface for lives, waves etc
-* End game
-** Return to main menu and leaderboard
+### Main menu
+* Add instructions
+* Add credits
+### In-game
+* Added user interface for lives, waves etc
+### End game
+* Return to main menu and leaderboard
