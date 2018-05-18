@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/18 v0.1
+ 2018/05/18 v0.2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -91,11 +91,9 @@ void keyPressed() {
 
 // Method which keeps track of mouse clicks 
 void mousePressed() {
-  println(mouseX +  " " + mouseY);
   if (state == 1) { // Menu
     if (singleplayer()) {
       players = 1;
-      print("singleplayer");
       reset();
     } else if (multiplayer()) {
       players = 2;
