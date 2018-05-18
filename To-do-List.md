@@ -16,3 +16,7 @@
 *Side note - Have zombies fade in on the border of the screen???*
 
 *More to be done*
+
+Note: 
+Top left of grid: 200, 210
+Bottom right of grid: 1400, 1410
