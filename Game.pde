@@ -1,36 +1,42 @@
 /* 
-ICS4U
-2018/05/17 v0.1
-Game Summative
-Made by Eren Sulutas and Nabeel Warsalee
-*/
+ ICS4U
+ 2018/05/18 v0.1
+ Game Summative
+ Made by Eren Sulutas and Nabeel Warsalee
+ */
 
+Player[] player;
 int players = 0;
 int state = 1;
 Interface gui;
 
-void setup() {
-  size(1600, 1600);
-  // Initializes the objects
-  
-  // Outline
-  gui = new Interface();
-}
-
 void reset() {
   // Resets the score
   // Resets the objects
-  // Returns to the main menu
-  state = 1; 
-  // Resets the game mode 
-  players = 0;
+  player[0] = new Player(width/2, height/2);
+  // Game begins 
+  state = 0; 
   setup();
+}
+
+void setup() {
+  size(1600, 1600);
+  // Initializes the objects
+  player = new Player[2];
+  player[0] = new Player(width/2, height/2);
+  player[1] = new Player(width/2 - 100, height/2);
+  // Outline
+  gui = new Interface();
 }
 
 void draw() {
   if (state == 0) {
     // Game in progress
     gui.gamePlay();
+    player[0].show();
+    if (players == 2) {
+      player[1].show();
+    }
   } else if (state == 1) {
     // Main menu
     gui.menu();
@@ -38,12 +44,19 @@ void draw() {
     // Game over
     gui.gameOver();
   }
-  
 }
 
 void gameIsOver() {
-  // Checks if the players are out of health points
-  state = 1;
+  // Checks if the players are out of health points then sets the state to main menu
+  if (players == 1) {
+    if (player[0].getLives() == 0) {
+    state = 1;
+    }
+  } else {
+    if (player[0].getLives() + player[1].getLives() == 0) {
+      state = 1;
+    }
+  }
 }
 
 // Keeps track of user key inputs  
@@ -74,3 +87,46 @@ void keyPressed() {
     }
   }
 }
+
+
+// Method which keeps track of mouse clicks 
+void mousePressed() {
+  println(mouseX +  " " + mouseY);
+  if (state == 1) { // Menu
+    if (singleplayer()) {
+      players = 1;
+      print("singleplayer");
+      reset();
+    } else if (multiplayer()) {
+      players = 2;
+      reset();
+    }
+  }
+}
+
+// Instance method that checks if the user's mouse is on the singleplayer option
+boolean singleplayer() {
+  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= width/2.06 - 0.5 * width/15 && mouseY <= 853 * width / 1545 - 0.5 * width/15) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+// Instance method that checks if the user's mouse is on the multipayer option
+boolean multiplayer() {
+  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= width/1.538 - 0.5 * width/15 && mouseY <= 8269 * width / 11535 - 0.5 * width/15) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+
+
+
+
+
+
+
+
