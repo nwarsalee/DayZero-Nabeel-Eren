@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/17
+2018/05/19 v0.3
 Game Summative
 Rectangle class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -107,6 +107,15 @@ class Rectangle {
   //
   public boolean contains(Rectangle other) {
     if (other.l >= this.l && other.b >= this.b && other.r <= this.r && other.t <= this.t) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  // Method to check if the player is out of bounds (Uses the known dimensions of te gameplay box)
+  boolean inBounds(float newX, float newY) {
+    if (newX >= 200 && newX < 1400 && newY >= 200 && newY < 1400) {
       return true;
     } else {
       return false;
