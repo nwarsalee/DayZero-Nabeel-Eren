@@ -1,11 +1,12 @@
 /* 
  ICS4U
- 2018/05/18 v0.2
+ 2018/05/19 v0.3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 Player[] player;
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 int players = 0;
 int state = 1;
 Interface gui;
@@ -34,6 +35,11 @@ void draw() {
     // Game in progress
     gui.gamePlay();
     player[0].show();
+    // Loop to go through all bullets
+    for (Bullet bullet : bullets) {
+      bullet.show();
+      bullet.move();
+    }
     if (players == 2) {
       player[1].show();
     }
@@ -72,6 +78,11 @@ void keyPressed() {
       player[0].move('l');
     } else if (keyCode == 'D') {
       player[0].move('r');
+    } else if (keyCode == ' ') {
+      println("Sent key = " + player[0].getDir());
+      Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
+      bullets.add(bullet); // Addin new bullet
+      println("Length of bullet array: " + bullets.size());
     } 
     // Player 2
     if (players == 2) {
@@ -119,12 +130,3 @@ boolean multiplayer() {
     return false;
   }
 }
-
-
-
-
-
-
-
-
-
