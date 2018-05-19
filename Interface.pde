@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/18 v0.3
+2018/05/19 v0.3
 Game Summative
 Interface class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -41,6 +41,7 @@ class Interface {
   void gamePlay() {
     // Game grid
     stroke(255);
+    background(0);
     fill(0);
     // Y axis 
     for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
