@@ -8,8 +8,8 @@ Made by Eren Sulutas and Nabeel Warsalee
 
 class Person extends Rectangle {
    private int lives; // Private integer variable for the number of lives.
-   
-   // Default constructor for the Person class
+   private char dir = 'u'; // Variable for the direction the person is facing, automatically set to up
+  // Default constructor for the Person class
   Person() {
     super();
     lives = 0;
@@ -28,13 +28,13 @@ class Person extends Rectangle {
   // Show method to show the player object
   void show() {
     fill(255);
-    rect(getX(), getY(), getWidth(), getHeight()); // Shows player as a rectangle on screen.
+    rect(getX(), getBottom(), getWidth(), getHeight()); // Shows player as a rectangle on screen.
   }
   
   // Move method to move the person on screen
   void move(char direction) {
     float v = 50; // Float for how many pixels it moves per move
-    
+    dir = direction; // Changing facing direction
     // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move
     if (direction == 'u' && inBounds(getX(), getBottom() - v)) { // For moving up
       setPos(getX(), getBottom() - v); // Will substract to move it up screen
@@ -58,6 +58,11 @@ class Person extends Rectangle {
   // Getter/accessor for the lives
   int getLives() {
     return this.lives;
+  }
+  
+  // Getter for the direction
+  char getDir() {
+    return this.dir;
   }
 
 }
