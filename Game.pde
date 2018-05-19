@@ -94,6 +94,9 @@ void keyPressed() {
         player[1].move('l');
       } else if (keyCode == RIGHT) {
         player[1].move('r');
+      } else if (keyCode == 16) {
+        Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
+        bullets.add(bullet); // Adding new bullet
       }
     }
   }
