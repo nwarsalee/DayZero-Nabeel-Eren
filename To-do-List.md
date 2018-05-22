@@ -10,6 +10,7 @@
 * ~Make sure player can't move outside the gameplay box~
 * ~Start working on the fighting mechanics~
 * ~Center the grid~
+* ~Have bullets be deleted if they are out of bounds~
 * Get the enemy class to spawn and define its special properties
 * Be able to make the enemy class die to bullets
 * Have the enemy class move to the player block by block at a fixed speed (use loop?)
