@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/19 v0.3
+ 2018/05/22 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -18,6 +18,10 @@ void reset() {
   // Game begins 
   state = 0; 
   setup();
+}
+
+void newState(int state1) {
+  state = state1;
 }
 
 void setup() {
@@ -44,24 +48,29 @@ void draw() {
         bullets.remove(i);
         println("Number of bullets: " + bullets.size()); // Println statement can be DELETED later
       }
-    }
-    if (players == 2) {
-      player[1].show();
-    }
-  } else if (state == 1) {
-    // Main menu
-    gui.menu();
-  } else if (state == 2) {
-    // Game over
-    gui.gameOver();
-  }
+      if (players == 2) {
+        player[1].show();
+      }
+    } else if (state == 1) {
+  // Main menu
+  gui.menu();
+} else if (state == 2) {
+  // Game over
+  gui.gameOver();
+} else if (state == 3) {
+  // How to play
+  gui.instructions();
+} else if (state == 4) {
+  // Leaderboard;
+  gui.leaderboard();
+}
 }
 
 void gameIsOver() {
   // Checks if the players are out of health points then sets the state to main menu
   if (players == 1) {
     if (player[0].getLives() == 0) {
-    state = 1;
+      state = 1;
     }
   } else {
     if (player[0].getLives() + player[1].getLives() == 0) {
@@ -84,10 +93,8 @@ void keyPressed() {
     } else if (keyCode == 'D') {
       player[0].move('r');
     } else if (keyCode == ' ') {
-      println("Sent key = " + player[0].getDir());
       Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
       bullets.add(bullet); // Addin new bullet
-      println("Length of bullet array: " + bullets.size());
     } 
     // Player 2
     if (players == 2) {
@@ -104,26 +111,37 @@ void keyPressed() {
         bullets.add(bullet); // Adding new bullet
       }
     }
+  } else if (state == 3) { // How to play menu
+    gui.instructions();
+  } else if (state == 4) { // Leaderboard 
+    gui.leaderboard();
   }
 }
-
 
 // Method which keeps track of mouse clicks 
 void mousePressed() {
   if (state == 1) { // Menu
-    if (singleplayer()) {
+    if (singleplayer()) { // Singleplayer option is chosen
       players = 1;
       reset();
-    } else if (multiplayer()) {
+    } else if (multiplayer()) { // Multiplayer option is chosen
       players = 2;
       reset();
+    } else if (instructions()) { // How to play screen 
+      newState(3);
+    } else if (leaderboard()) { // Leaderboard screen
+      newState(4);
+    }
+  } else if (state != 0 && state != 1) { // Leaderboard or instructions page 
+    if (backToMenu()) { // Returns to main menu
+      newState(1);
     }
   }
 }
 
 // Instance method that checks if the user's mouse is on the singleplayer option
 boolean singleplayer() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= width/2.06 - 0.5 * width/15 && mouseY <= 853 * width / 1545 - 0.5 * width/15) {
+  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= width/2.06 - width/30 && mouseY <= 853 * width / 1545 - width/30) {
     return true;
   } else { 
     return false;
@@ -132,7 +150,34 @@ boolean singleplayer() {
 
 // Instance method that checks if the user's mouse is on the multipayer option
 boolean multiplayer() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= width/1.538 - 0.5 * width/15 && mouseY <= 8269 * width / 11535 - 0.5 * width/15) {
+  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= height/2 + height/8 - 23 - width/30 && mouseY <= 3251 / 3 - width/30) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+// Instance method that checks if the user's mouse is on the instructions option
+boolean instructions() {
+  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= height/2 + height/4 - 23 - height/30 && mouseY <= 3851 / 3 - height/30) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+// Instance method that checks if the user's mouse is on the leaderboad option
+boolean leaderboard() {
+  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= 7 * height/8 - 23 - height/30 && mouseY <= 4451/3 - height/30) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+// Instance method that checks if the user's mouse is on the back to menu option
+boolean backToMenu() {
+  if (mouseX >= width/2 - 0.5 * width/2.2 && mouseX <= 21 * width / 22 - 0.5 * width/2.2 && mouseY >= height - 115 - width/30 && mouseY <= 16  * height / 15 - 115 - width/30) {
     return true;
   } else { 
     return false;
