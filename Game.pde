@@ -35,10 +35,15 @@ void draw() {
     // Game in progress
     gui.gamePlay();
     player[0].show();
-    // Loop to go through all bullets
-    for (Bullet bullet : bullets) {
-      bullet.show();
-      bullet.move();
+    // Loop to go through the bullets
+    for (int i=0; i<bullets.size(); i++) {
+      bullets.get(i).show();
+      bullets.get(i).move();
+      if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
+        println("Removed bullet at index " + i);
+        bullets.remove(i);
+        println("Number of bullets: " + bullets.size()); // Println statement can be DELETED later
+      }
     }
     if (players == 2) {
       player[1].show();
