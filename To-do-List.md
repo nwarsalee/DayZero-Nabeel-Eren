@@ -37,5 +37,7 @@ Bottom right of grid: 1400, 1400
 * Added user interface for lives, waves etc
 ### End game
 * Return to main menu and leaderboard
+### Instructions
+* Add lines to emphasize the controls and rules
 ### General
 * Simplify calculations 
