@@ -5,12 +5,15 @@
 * ~Get files onto Processing~  
 * ~Work on Game class~       
 * ~Work on the Person class~
-* Get the player to move based on grid location and not pixel location
-* ~Get the grid size readjusted to 50x50 px
-* Make sure player can't move outside the gameplay box
-* Start working on the fighting mechanics
+* Get the player to move based on grid location and not pixel location!
+* ~Get the grid size readjusted to 50x50 px~
+* ~Make sure player can't move outside the gameplay box~
+* ~Start working on the fighting mechanics~
+* ~Center the grid~
+* Get the enemy class to spawn and define its special properties
+* Be able to make the enemy class die to bullets
+* Have the enemy class move to the player block by block at a fixed speed (use loop?)
 * Make sure user's can't move and/or obstruct gameplay when dead
-* ~Center the grid
 
 *Side note - Have zombies fade in on the border of the screen???*
 
