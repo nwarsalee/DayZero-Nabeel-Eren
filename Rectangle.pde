@@ -122,6 +122,15 @@ class Rectangle {
     }
   }
   
+  // Method to check if the player is out of bounds (Uses the known dimensions of te gameplay box)
+  boolean inBounds() {
+    if (l >= 200 && l < 1400 && b >= 200 && b < 1400) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   // Updating pos method
   void updatePos() {
     // Updates bottom and right positions
