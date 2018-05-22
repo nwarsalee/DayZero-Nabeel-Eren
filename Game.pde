@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/22 v2
+ 2018/05/22 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -48,22 +48,23 @@ void draw() {
         bullets.remove(i);
         println("Number of bullets: " + bullets.size()); // Println statement can be DELETED later
       }
-      if (players == 2) {
-        player[1].show();
-      }
-    } else if (state == 1) {
-  // Main menu
-  gui.menu();
-} else if (state == 2) {
-  // Game over
-  gui.gameOver();
-} else if (state == 3) {
-  // How to play
-  gui.instructions();
-} else if (state == 4) {
-  // Leaderboard;
-  gui.leaderboard();
-}
+    }
+    if (players == 2) {
+      player[1].show();
+    }
+  } else if (state == 1) {
+    // Main menu
+    gui.menu();
+  } else if (state == 2) {
+    // Game over
+    gui.gameOver();
+  } else if (state == 3) {
+    // How to play
+    gui.instructions();
+  } else if (state == 4) {
+    // Leaderboard;
+    gui.leaderboard();
+  }
 }
 
 void gameIsOver() {
