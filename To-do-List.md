@@ -30,7 +30,7 @@ Bottom right of grid: 1400, 1400
 
 ## UI To do list
 ### Main menu
-* Add instructions
+* ~Add instructions~
 * Add leaderboard
 * Add credits
 ### In-game
@@ -38,6 +38,6 @@ Bottom right of grid: 1400, 1400
 ### End game
 * Return to main menu and leaderboard
 ### Instructions
-* Add lines to emphasize the controls and rules
+* ~Add lines to emphasize the controls and rules~
 ### General
 * Simplify calculations 
