@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/23
+ 2018/05/22
  Game Summative
  Player class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -8,23 +8,30 @@
 
 class Enemy extends Person {
   // PImage playerBody = loadImage(/* enter name of file */);
+  private float x, y; // Float values for the enemy's x and y location
 
   // Default constructor that sets the values to zero
   Enemy() {
     super();
+    x = 0;
+    y = 0;
   }
 
   // Constructor that initializes the Enemy, sets the life to 1
   Enemy(float xStart, float yStart) {
     super(1, xStart, yStart); // Automatically sets the lives to 1
+    x = xStart;
+    y = yStart;
   }
 
   // Constructor that initializes the Enemy, sets the life to whatever the user wants 
   Enemy(int lives, float xStart, float yStart) {
     super(lives, xStart, yStart);
+    x = xStart;
+    y = yStart;
   }
- 
-    // Method to have the enemy move towards the player
+
+  // Method to have the enemy move towards the player
   void move(Player p1) {
     // Changing the x pos numbers depending on where the player is
     if (p1.getX() > x) { // If the enemy has to move to the right
@@ -48,7 +55,7 @@ class Enemy extends Person {
     }
     updatePos();
   }
- 
+
   // Method to check if the enemy is dead
   boolean isDead(ArrayList<Bullet> bullets) {
     // Method to show the bullets
