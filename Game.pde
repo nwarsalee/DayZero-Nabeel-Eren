@@ -1,12 +1,13 @@
 /* 
  ICS4U
- 2018/05/22 v3
+ 2018/05/23 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 Player[] player;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 int players = 0;
 int state = 1;
 Interface gui;
@@ -30,6 +31,9 @@ void setup() {
   player = new Player[2];
   player[0] = new Player(width/2, height/2);
   player[1] = new Player(width/2 - 100, height/2);
+  // Adding enemies
+  Enemy newZombie = new Enemy(200,200);
+  zombies.add(newZombie);
   // Outline
   gui = new Interface();
 }
@@ -39,16 +43,8 @@ void draw() {
     // Game in progress
     gui.gamePlay();
     player[0].show();
-    // Loop to go through the bullets
-    for (int i=0; i<bullets.size(); i++) {
-      bullets.get(i).show();
-      bullets.get(i).move();
-      if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
-        println("Removed bullet at index " + i);
-        bullets.remove(i);
-        println("Number of bullets: " + bullets.size()); // Println statement can be DELETED later
-      }
-    }
+    zombieMoves(); // Method to show the moves of the zombies
+    bulletMoves(); // Method to show and move the bullets
     if (players == 2) {
       player[1].show();
     }
@@ -183,4 +179,32 @@ boolean backToMenu() {
   } else { 
     return false;
   }
+}
+
+// Method to show the bullets
+void bulletMoves() {
+  // Loop to go through the bullets
+  for (int i=0; i<bullets.size(); i++) {
+    bullets.get(i).show();
+    bullets.get(i).move();
+    if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
+      println("Removed bullet at index " + i);
+      bullets.remove(i);
+      println("Number of bullets: " + bullets.size()); // Println statement can be DELETED later
+    }
+  }
+}
+
+// Method to show the zombies and their moves
+void zombieMoves() {
+  for(int i=0; i<zombies.size(); i++) {
+      zombies.get(i).show();
+      zombies.get(i).move(player[0]);
+      // Add move function...
+      if (zombies.get(i).isDead(bullets)) {
+        println("A zombie died!");
+        zombies.remove(i);
+        // ADD AMOUNT ONTO SCORE
+      }
+    }
 }
