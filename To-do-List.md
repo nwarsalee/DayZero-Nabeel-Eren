@@ -41,3 +41,4 @@ Bottom right of grid: 1400, 1400
 * ~Add lines to emphasize the controls and rules~
 ### General
 * Simplify calculations 
+* Pixel text: https://www.dafont.com/pix-riddim.font
