@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/22
+ 2018/05/23
  Game Summative
  Player class
  Made by Eren Sulutas and Nabeel Warsalee
