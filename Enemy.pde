@@ -23,7 +23,32 @@ class Enemy extends Person {
   Enemy(int lives, float xStart, float yStart) {
     super(lives, xStart, yStart);
   }
+ 
+    // Method to have the enemy move towards the player
+  void move(Player p1) {
+    // Changing the x pos numbers depending on where the player is
+    if (p1.getX() > x) { // If the enemy has to move to the right
+      x++;
+    } else if (p1.getX() <= x) { // If the enemy has to move to the left
+      x--;
+    }
+    // Changing the y pos numbers depending on where the player is
+    if (p1.getBottom() > y) { // If the enemy has to move downwards
+      y++;
+    } else if (p1.getBottom() <= y) { // If the enemy has to move upwards
+      y--;
+    }
 
+    // Determining whether or not the enemy can move a full block space
+    if (x%50 == 0) {
+      setPos(x, getBottom());
+    }
+    if (y%50 == 0) {
+      setPos(getX(), y);
+    }
+    updatePos();
+  }
+ 
   // Method to check if the enemy is dead
   boolean isDead(ArrayList<Bullet> bullets) {
     // Method to show the bullets
