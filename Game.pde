@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/23 v2
+ 2018/05/23 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -29,10 +29,10 @@ void setup() {
   size(1600, 1600);
   // Initializes the objects
   player = new Player[2];
-  player[0] = new Player(width/2, height/2);
-  player[1] = new Player(width/2 - 100, height/2);
+  player[0] = new Player(width/2 - 100, height/2);
+  player[1] = new Player(width/2, height/2);
   // Adding enemies
-  Enemy newZombie = new Enemy(200,200);
+  Enemy newZombie = new Enemy(200, 200);
   zombies.add(newZombie);
   // Outline
   gui = new Interface();
@@ -132,6 +132,9 @@ void mousePressed() {
   } else if (state != 0 && state != 1) { // Leaderboard or instructions page 
     if (backToMenu()) { // Returns to main menu
       newState(1);
+    } 
+    if (leaderboard2()) { // View leaderboard from end-game screen
+      newState(4);
     }
   }
 }
@@ -172,6 +175,15 @@ boolean leaderboard() {
   }
 }
 
+// Instance method that checks if the user's mouse is on the leaderboad option when in end game screen
+boolean leaderboard2() {
+  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= 7 * height/8 - 123 - height/30 && mouseY <= 4451/3 - height/30  - 123) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
 // Instance method that checks if the user's mouse is on the back to menu option
 boolean backToMenu() {
   if (mouseX >= width/2 - 0.5 * width/2.2 && mouseX <= 21 * width / 22 - 0.5 * width/2.2 && mouseY >= height - 115 - width/30 && mouseY <= 16  * height / 15 - 115 - width/30) {
@@ -197,14 +209,14 @@ void bulletMoves() {
 
 // Method to show the zombies and their moves
 void zombieMoves() {
-  for(int i=0; i<zombies.size(); i++) {
-      zombies.get(i).show();
-      zombies.get(i).move(player[0]);
-      // Add move function...
-      if (zombies.get(i).isDead(bullets)) {
-        println("A zombie died!");
-        zombies.remove(i);
-        // ADD AMOUNT ONTO SCORE
-      }
+  for (int i=0; i<zombies.size(); i++) {
+    zombies.get(i).show();
+    zombies.get(i).move(player[0]);
+    // Add move function...
+    if (zombies.get(i).isDead(bullets)) {
+      println("A zombie died!");
+      zombies.remove(i);
+      // ADD AMOUNT ONTO SCORE
     }
+  }
 }
