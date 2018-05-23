@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/23 v1
+ 2018/05/23 v2
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -75,15 +75,18 @@ class Interface {
     textAlign(CENTER);
     textSize(width/10);
     fill(255, 0, 0);
-    text("GAME OVER", width/2, height/2);
+    text("GAME OVER", width/2, height/5);
     fill(255);
-    textSize(width/20);
-    text("Main Menu", width/2, height/1.5);
-    noFill();
-    stroke(255, 0, 0);
+    textSize(width/30);
+    text("Score: " + "1337" + " XP | Waves Survived: " + "9001", width/2, height/2 - 300);
+    text("Time elapsed: " + "00:25:12", width/2, height/2 - 100);
+    text("Zombies Slain: " + "60", width/2, height/2 + 100);
+    text("Bullets Shot: " + "420" + " | Weapon Accuracy: " + "99.9" + "%", width/2, height/2 + 300);
+    returnToMenu();
+    text("Leaderboard", width/2, 7 * height/8 - 100);
     rectMode(CENTER);
-    rect(width/2, width/1.54, width/3, width/15);
-    textSize(30);
+    rect(width/2, 7 * height/8 - 123, width/3, height/15);
+    rectMode(CORNER);
   }
 
   // Instance method which returns to the main menu when needed
@@ -121,7 +124,7 @@ class Interface {
     text("Player1: SPACE | Player2: SHIFT", width/2, height/3 + 200);
     text("RULES", width/2, height/3 + 300);
     textAlign(LEFT);
-    text("-  Each player has 3 hearts", width/16,  height/3 + 400);
+    text("-  Each player has 3 hearts", width/16, height/3 + 400);
     text("-  Zombies come in endless waves", width/16, height/3 + 500);
     text("-  Golden hearts are armour and serve as extra health", width/16, height/3 + 600);
     text("-  Game is over when both players have no more hearts", width/16, height/3 + 700);
@@ -138,5 +141,4 @@ class Interface {
     text("LEADERBOARD", width/2, height/6);
     returnToMenu();
   }
-  
 }
