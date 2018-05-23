@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/22 v1
+ 2018/05/23 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -106,6 +106,26 @@ class Interface {
     textSize(width/10);
     fill(255, 0, 0);
     text("HOW TO PLAY", width/2, height/6);
+    fill(255);
+    textSize(width/30);
+    textAlign(CENTER);
+    rectMode(CENTER);
+    rect(width/2, height/3 - 70, 650, 10);
+    rect(width/2, height/2 - 150, 250, 10);
+    rect(width/2, height/2 + 50, 170, 10);
+    rectMode(CORNER);
+    // Each text is 100 px beneath the last 
+    text("MOVEMENT CONTROLS", width/2, height/3 - 100);
+    text("Player1 : W, A, S, D | Player2: ARROW KEYS", width/2, height/3);
+    text("FIRE GUN", width/2, height/3 + 100);
+    text("Player1: SPACE | Player2: SHIFT", width/2, height/3 + 200);
+    text("RULES", width/2, height/3 + 300);
+    textAlign(LEFT);
+    text("-  Each player has 3 hearts", width/16,  height/3 + 400);
+    text("-  Zombies come in endless waves", width/16, height/3 + 500);
+    text("-  Golden hearts are armour and serve as extra health", width/16, height/3 + 600);
+    text("-  Game is over when both players have no more hearts", width/16, height/3 + 700);
+    text("-  Your objective is to survive as long as possible", width/16, height/3 + 800);
     returnToMenu();
   }
 
@@ -120,4 +140,3 @@ class Interface {
   }
   
 }
-
