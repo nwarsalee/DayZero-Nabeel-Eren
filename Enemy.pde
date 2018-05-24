@@ -2,7 +2,7 @@
  ICS4U
  2018/05/22
  Game Summative
- Player class
+ Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
@@ -56,18 +56,39 @@ class Enemy extends Person {
     updatePos();
   }
 
-  // Method to check if the enemy is dead
-  boolean isDead(ArrayList<Bullet> bullets) {
+  // Method to check if the enemy is hit
+  boolean isHit(ArrayList<Bullet> bullets) {
     // Method to show the bullets
     for (Bullet bullet : bullets) {
       if (intersect(bullet)) {
-        // bullet.getIdentifier(); method to get the ID of the bullet so they know who killed it (EXTENSION)
         return true;
-      } else {
-        return false;
       }
     }
     return false;
+  }
+  
+  // Method to take away health when an enemy is hit
+  void hit() {
+    setLives(getLives() - 1);
+  }
+  
+  // Method to check if the enemy is dead
+  boolean isDead() {
+    if (getLives() == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  // Method to return the index of the bullet that kills the player
+  int bulletHit(ArrayList<Bullet> bullets) {
+    for (int i=0; i<bullets.size(); i++) {
+      if (intersect(bullets.get(i))) {
+        return i; // Sending index of the bullet that hit
+      }
+    }
+    return -1; // If no bullet hit, sends -1 back
   }
 
   // Show method that shows the player on the screen, takes in a PImage as a parameter and displays that TO BE USED ONCE PLAYER SPRITE IS MADE
