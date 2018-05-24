@@ -42,3 +42,6 @@ Bottom right of grid: 1400, 1400
 ### General
 * Simplify calculations 
 * Pixel text: https://www.dafont.com/pix-riddim.font
+
+## Polishing 
+* Bullet detection bug https://gyazo.com/06350ba9a297d28a5f691b16cc6fac1b
