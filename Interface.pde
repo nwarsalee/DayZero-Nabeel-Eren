@@ -1,12 +1,15 @@
 /* 
  ICS4U
- 2018/05/25 v1
+ 2018/05/25 v2
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 class Interface {
+  int currentTime;
+  int minutes;
+  int seconds;
 
   // Constructor which displays the game borders
   Interface() {
@@ -72,12 +75,21 @@ class Interface {
     fill(255);
     textAlign(CENTER);
     textSize(width/20);
-    text("00:00:00", width/2, 125);
+    // Displays the time 
+    currentTime = millis() - startTime;
+    seconds = currentTime / 1000;
+    if (seconds == 59) {
+    startTime = millis();
+    minutes ++;
+    }
+    text(minutes + ":" + seconds, width/2, 125);
+    // Displays the waves
     text("Waves: " + "99", width/2, height - 75);
     textSize(width/40);
     strokeWeight(10);
     stroke(255);
     text("P1", 1500, height/2 - 575);
+    // Displays the points
     text("Points", 100, height/2 - 320);
     text("0001" + " XP", 100, height/2 - 225);
     line(1475, height/2 - 555, 1525, height/2 - 555); // Line under player 1 health
