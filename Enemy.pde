@@ -8,13 +8,14 @@
 
 class Enemy extends Person {
   // PImage playerBody = loadImage(/* enter name of file */);
-  private float x, y; // Float values for the enemy's x and y location
-
+  private float x, y, coolDown, c = 50; // Float values for the enemy's x and y location and for it's cool down time
+  
   // Default constructor that sets the values to zero
   Enemy() {
     super();
     x = 0;
     y = 0;
+    coolDown = 0;
   }
 
   // Constructor that initializes the Enemy, sets the life to 1
@@ -22,6 +23,7 @@ class Enemy extends Person {
     super(1, xStart, yStart); // Automatically sets the lives to 1
     x = xStart;
     y = yStart;
+    coolDown = c;
   }
 
   // Constructor that initializes the Enemy, sets the life to whatever the user wants 
@@ -29,6 +31,7 @@ class Enemy extends Person {
     super(lives, xStart, yStart);
     x = xStart;
     y = yStart;
+    coolDown = c;
   }
 
   // Method to have the enemy move towards the player
@@ -54,6 +57,21 @@ class Enemy extends Person {
       setPos(getX(), y);
     }
     updatePos();
+  }
+  
+  // Method to check if the zombie is on top of the player and lets them attack
+  boolean attacking(Player p1) {
+    println("Cooldown : " + coolDown);
+    if (this.intersect(p1) && coolDown == c) {
+      println("Hitting player...");
+      coolDown = 0;
+      return true;
+    } else {
+      if (coolDown < c) {
+        coolDown++;
+      }
+      return false;
+    }
   }
 
   // Method to check if the enemy is hit
