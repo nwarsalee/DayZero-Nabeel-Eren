@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/19 v0.3
+2018/05/25 v1
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -46,6 +46,20 @@ class Person extends Rectangle {
       setPos(getX() - v, getBottom());
     }
     updatePos(); // Updating the coordinates of the right, top and middle
+  }
+  
+  // Method to take away health when a person is hit
+  void hit() {
+    this.lives--;
+  }
+  
+  // Method to check if the person is dead
+  boolean isDead() {
+    if (this.lives == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
   
   // Series of getter and setter methods.
