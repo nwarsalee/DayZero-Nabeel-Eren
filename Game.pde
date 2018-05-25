@@ -8,6 +8,8 @@
 Player[] player;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
+PImage imgHeart1;
+PImage imgHeart2;
 int players = 0;
 int state = 1;
 Interface gui;
@@ -27,6 +29,9 @@ void newState(int state1) {
 
 void setup() {
   size(1600, 1600);
+  // Loads the assets
+  imgHeart1 = loadImage("heart1.png");
+  imgHeart2 = loadImage("heart2.png");
   // Initializes the objects
   player = new Player[2];
   player[0] = new Player(width/2 - 100, height/2);
