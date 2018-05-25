@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/22
+ 2018/05/25 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -65,20 +65,6 @@ class Enemy extends Person {
       }
     }
     return false;
-  }
-  
-  // Method to take away health when an enemy is hit
-  void hit() {
-    setLives(getLives() - 1);
-  }
-  
-  // Method to check if the enemy is dead
-  boolean isDead() {
-    if (getLives() == 0) {
-      return true;
-    } else {
-      return false;
-    }
   }
   
   // Method to return the index of the bullet that kills the player
