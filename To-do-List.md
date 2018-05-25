@@ -21,6 +21,7 @@
 * Make sure user's can't move and/or obstruct gameplay when dead
 
 *Side note - Have zombies fade in on the border of the screen???*
+*Idea for recursive spawning: t(n) = t(n-1) x (3/2), where n is the number of the wave and t(n) is how many enemies spawn...*
 
 *More to be done*
 
