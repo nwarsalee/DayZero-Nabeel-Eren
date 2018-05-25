@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/25 v1.1
+ 2018/05/25 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -12,6 +12,7 @@ PImage imgHeart1;
 PImage imgHeart2;
 int players = 0;
 int state = 1;
+int startTime;;
 Interface gui;
 
 void reset() {
@@ -23,6 +24,8 @@ void reset() {
   zombies.add(newZombie);
   // Game begins 
   state = 0; 
+  // Resets clock
+  startTime = millis();
   setup();
 }
 
