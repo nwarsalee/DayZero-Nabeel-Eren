@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/25 v1
+ 2018/05/25 v1.1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -18,6 +18,9 @@ void reset() {
   // Resets the score
   // Resets the objects
   player[0] = new Player(width/2, height/2);
+  // Adding enemies
+  Enemy newZombie = new Enemy(200, 200);
+  zombies.add(newZombie);
   // Game begins 
   state = 0; 
   setup();
@@ -36,9 +39,6 @@ void setup() {
   player = new Player[2];
   player[0] = new Player(width/2 - 100, height/2);
   player[1] = new Player(width/2, height/2);
-  // Adding enemies
-  Enemy newZombie = new Enemy(200, 200);
-  zombies.add(newZombie);
   // Outline
   gui = new Interface();
 }
