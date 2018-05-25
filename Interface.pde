@@ -53,11 +53,11 @@ class Interface {
     showBorder();
     stroke(255);
     fill(0);
-    // Y axis 
+    // Y axis grid
     for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
       line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
     }
-    // X axis
+    // X axis grid
     for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / 24) {
       line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
     }
@@ -68,6 +68,45 @@ class Interface {
     rect(width/8 - width/160, width - width/8 + width/140 - width/160, width - 2 * width/8 + width/140, width/160);
     rect(width/8 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/140);
     rect(width - width/8 + width/140 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/75);
+    // In-game GUI
+    fill(255);
+    textAlign(CENTER);
+    textSize(width/20);
+    text("00:00:00", width/2, 125);
+    text("Waves: " + "99", width/2, height - 75);
+    textSize(width/40);
+    strokeWeight(10);
+    stroke(255);
+    text("P1", 1500, height/2 - 575);
+    text("Points", 100, height/2 - 320);
+    text("0001" + " XP", 100, height/2 - 225);
+    line(1475, height/2 - 555, 1525, height/2 - 555); // Line under player 1 health
+    line(25, height/2 - 300, 175, height/2 - 300); // Line under the points tab
+    if (players == 2) {
+      // Adds player 2 health if the game is multiplayer  
+      text("P2", 1500, height/2);
+      text("P2", 1500, height/2);
+      line(1475, height/2 + 20, 1525, height/2 + 20); // Line under player 2 health 
+      // Displays the hearts for player 2
+      for (int i = 0; i < player[0].getLives(); i ++) {
+        if (i > 2) { // User has extra health that will be dispalyed as gold 
+          show(imgHeart2, 1500, height/2 + 90 + 100 * i);
+        } else { // Normal health will be displayed red
+          show(imgHeart1, 1500, height/2 + 90 + 100 * i);
+        }
+      }
+    }
+    imageMode(CENTER);
+    // Displays the hearts for player 1
+    for (int i = 0; i < player[0].getLives(); i ++) {
+      if (i > 2) { // User has extra health that will be displayed as gold 
+      show(imgHeart2, 1500, height/2 - 490 + 100 * i);
+      } else { // Normal health will be displayed red
+      show(imgHeart1, 1500, height/2 - 490 + 100 * i);
+      }
+    }
+    strokeWeight(1);
+    textAlign(CORNER);
   }
 
   // Instance method that displays the game over screen
@@ -119,9 +158,9 @@ class Interface {
     rectMode(CORNER);
     // Each text is 100 px beneath the last 
     text("MOVEMENT CONTROLS", width/2, height/3 - 100);
-    text("Player1 : W, A, S, D | Player2: ARROW KEYS", width/2, height/3);
+    text("Player 1 : W, A, S, D | Player 2: ARROW KEYS", width/2, height/3);
     text("FIRE GUN", width/2, height/3 + 100);
-    text("Player1: SPACE | Player2: SHIFT", width/2, height/3 + 200);
+    text("Player 1: SPACE | Player 2: SHIFT", width/2, height/3 + 200);
     text("RULES", width/2, height/3 + 300);
     textAlign(LEFT);
     text("-  Each player has 3 hearts", width/16, height/3 + 400);
@@ -140,5 +179,10 @@ class Interface {
     fill(255, 0, 0);
     text("LEADERBOARD", width/2, height/6);
     returnToMenu();
+  }
+
+  // Instance method that displays an image
+  void show(PImage img, int x, int y) {
+    image(img, x, y, 75, 75);
   }
 }
