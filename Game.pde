@@ -8,11 +8,9 @@
 Player[] player;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
-PImage imgHeart1;
-PImage imgHeart2;
+PImage imgHeart1, imgHeart2;
 int players = 0;
 int state = 1;
-int startTime;;
 Interface gui;
 
 void reset() {
@@ -24,8 +22,6 @@ void reset() {
   zombies.add(newZombie);
   // Game begins 
   state = 0; 
-  // Resets clock
-  startTime = millis();
   setup();
 }
 
@@ -220,7 +216,10 @@ void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
     println("Number of zombies: " + zombies.size());
     zombies.get(i).show();
-    zombies.get(i).move(player[0]);
+    zombies.get(i).move(player[0]); // Moving towards player 1 (Add functionality to move towards second player if P1 isn't alive)
+    if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
+      player[0].hit(); // Has the player get hit and lose one heart...
+    }
     // Checking if the zombie is hit
     if (zombies.get(i).isHit(bullets)) {
       zombies.get(i).hit(); // Having the zombie take damage
