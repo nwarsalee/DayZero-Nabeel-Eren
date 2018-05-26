@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v2
+ 2018/05/26 v3
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -10,7 +10,8 @@ class Interface {
   int currentTime;
   int minutes;
   int seconds;
-
+  int deaths;
+  
   // Constructor which displays the game borders
   Interface() {
     showBorder();
@@ -93,7 +94,7 @@ class Interface {
     text("P1", 1500, height/2 - 575);
     // Displays the points
     text("Points", 100, height/2 - 320);
-    text("0001" + " XP", 100, height/2 - 225);
+    text(score + " XP", 100, height/2 - 225);
     // Displays thet amounts of zombies
     text("Zombies", 100, height/2 + 300);
     text(zombies.size(), 100, height/2 + 400);
@@ -130,20 +131,21 @@ class Interface {
   // Instance method that displays the game over screen
   void gameOver() {
     showBorder();
+    deaths = (score - 100 * (waves - 1)) / 10;
     textAlign(CENTER);
     textSize(width/10);
     fill(255, 0, 0);
     text("GAME OVER", width/2, height/5);
     fill(255);
     textSize(width/30);
-    text("Score: " + "1337" + " XP | Waves Survived: " + (waves - 1), width/2, height/2 - 300);
+    text("Score: " + score + " XP | Waves Survived: " + (waves - 1), width/2, height/2 - 300);
     if (minutes >= 1) {
       text("Time elapsed: " + minutes + "m " + seconds + "s", width/2, height/2 - 100);
     } else {
       text("Time elapsed: " + seconds + "s", width/2, height/2 - 100);
     }
-    text("Zombies Slain: " + "60", width/2, height/2 + 100);
-    text("Bullets Shot: " + "420" + " | Weapon Accuracy: " + "99.9" + "%", width/2, height/2 + 300);
+    text("Zombies Slain: " + deaths, width/2, height/2 + 100);
+    text("Bullets Shot: " + shots + " | Weapon Accuracy: " + Math.round(((double)deaths / (double)shots) * 1000.0) / 10.0 + "%", width/2, height/2 + 300);
     returnToMenu();
     text("Leaderboard", width/2, 7 * height/8 - 100);
     rectMode(CENTER);
