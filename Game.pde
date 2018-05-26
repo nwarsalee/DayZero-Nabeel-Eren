@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v1
+ 2018/05/26 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -90,7 +90,7 @@ void gameIsOver() {
       state = 2;
     }
   } else {
-    if (player[0].getLives() + player[1].getLives() == 0) {
+    if (player[0].getLives() == 0 && player[1].getLives() == 0) {
       state = 2;
     }
   }
