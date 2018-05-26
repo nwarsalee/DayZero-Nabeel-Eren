@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v5
+ 2018/05/26 v6
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -55,6 +55,11 @@ void draw() {
   if (state == 0) {
     // Game in progress
     gui.gamePlay();
+    // Checks if the waves is over
+    if (nextWave()) {
+      // Sets the next wave 
+      setWave();
+    }
     player[0].show();
     zombieMoves(); // Method to show the moves of the zombies
     bulletMoves(); // Method to show and move the bullets
@@ -63,15 +68,10 @@ void draw() {
     }
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
-      for (int i=0; i<zombies.size(); i++) { // Traversing the zombie arrayList to remove all the zombies.
-        zombies.remove(i);
-      }
+      zombies.clear(); // Clearing zombie array
+      bullets.clear(); // Clearing bullet array
+      println("Zombies array size: " + zombies.size());
       newState(2);
-    }
-    // Checks if the waves is over
-    if (nextWave()) {
-      // Sets the next wave 
-      setWave();
     }
   } else if (state == 1) {
     // Main menu
@@ -123,6 +123,7 @@ void setWave() {
   }
   score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
+  println("Wave: " + waves + "   Last Size: " + lastSize);
 }
 
 // Keeps track of user key inputs  
@@ -261,7 +262,6 @@ void bulletMoves() {
 // Method to show the zombies and their moves
 void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
-    println("Number of zombies: " + zombies.size());
     zombies.get(i).show();
     if (!player[0].isDead()) {
       zombies.get(i).move(player[0]); // Moving towards player 1 (Add functionality to move towards second player if P1 isn't alive)
@@ -278,7 +278,6 @@ void zombieMoves() {
       zombies.get(i).hit(); // Having the zombie take damage
       bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
       if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
-        println("Zombie " + (i+1) + " has died... Lives at " + zombies.get(i).getLives());
         zombies.remove(i); // Removing the zombie from the arrayList/game
         score += 10; // Adds 10 points to the score for killing a zombie
       }
