@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v2
+ 2018/05/26 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -62,7 +62,9 @@ void draw() {
       player[1].show();
     }
     // Checks if the player(s) is/are dead
-    gameIsOver();
+    if (gameIsOver()) {
+      newState(2);
+    }
     // Checks if the waves is over
     if (nextWave()) {
       // Sets the next wave 
@@ -83,15 +85,19 @@ void draw() {
   }
 }
 
-void gameIsOver() {
+boolean gameIsOver() {
   // Checks if the players are out of health points then sets the state to main menu
   if (players == 1) {
     if (player[0].getLives() == 0) {
-      state = 2;
+      return true;
+    } else {
+      return false;
     }
   } else {
     if (player[0].getLives() == 0 && player[1].getLives() == 0) {
-      state = 2;
+      return true;
+    } else {
+      return false;
     }
   }
 }
@@ -107,7 +113,7 @@ boolean nextWave() {
 
 // Sets up a new wave
 void setWave() {
-  lastSize = ceil(lastSize + 0.5 * lastSize);
+  lastSize = lastSize + ceil(0.5 * lastSize);
   for (int i = 1; i < lastSize; i ++) {
     Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
     zombies.add(newZombie);
