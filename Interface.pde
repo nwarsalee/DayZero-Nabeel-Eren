@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/25 v2
+ 2018/05/26 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -77,14 +77,16 @@ class Interface {
     textSize(width/20);
     // Displays the time 
     currentTime = millis() - startTime;
+    // Converts the milliseconds into seconds
     seconds = currentTime / 1000;
+    // Once the second timer reaches 59, the minute timer resets and minutes increases
     if (seconds == 59) {
-    startTime = millis();
-    minutes ++;
+      startTime = millis();
+      minutes ++;
     }
     text(minutes + ":" + seconds, width/2, 125);
     // Displays the waves
-    text("Waves: " + "99", width/2, height - 75);
+    text("Wave: " + waves, width/2, height - 75);
     textSize(width/40);
     strokeWeight(10);
     stroke(255);
@@ -112,9 +114,9 @@ class Interface {
     // Displays the hearts for player 1
     for (int i = 0; i < player[0].getLives(); i ++) {
       if (i > 2) { // User has extra health that will be displayed as gold 
-      show(imgHeart2, 1500, height/2 - 490 + 100 * i);
+        show(imgHeart2, 1500, height/2 - 490 + 100 * i);
       } else { // Normal health will be displayed red
-      show(imgHeart1, 1500, height/2 - 490 + 100 * i);
+        show(imgHeart1, 1500, height/2 - 490 + 100 * i);
       }
     }
     strokeWeight(1);
@@ -123,14 +125,19 @@ class Interface {
 
   // Instance method that displays the game over screen
   void gameOver() {
+    showBorder();
     textAlign(CENTER);
     textSize(width/10);
     fill(255, 0, 0);
     text("GAME OVER", width/2, height/5);
     fill(255);
     textSize(width/30);
-    text("Score: " + "1337" + " XP | Waves Survived: " + "9001", width/2, height/2 - 300);
-    text("Time elapsed: " + "00:25:12", width/2, height/2 - 100);
+    text("Score: " + "1337" + " XP | Waves Survived: " + (waves - 1), width/2, height/2 - 300);
+    if (minutes >= 1) {
+      text("Time elapsed: " + minutes + "m " + seconds + "s", width/2, height/2 - 100);
+    } else {
+      text("Time elapsed: " + seconds + "s", width/2, height/2 - 100);
+    }
     text("Zombies Slain: " + "60", width/2, height/2 + 100);
     text("Bullets Shot: " + "420" + " | Weapon Accuracy: " + "99.9" + "%", width/2, height/2 + 300);
     returnToMenu();
