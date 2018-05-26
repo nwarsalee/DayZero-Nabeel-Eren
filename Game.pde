@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/25 v2
+ 2018/05/26 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -12,6 +12,8 @@ PImage imgHeart1, imgHeart2;
 int players = 0;
 int state = 1;
 int startTime;
+int lastSize = 1;
+int waves = 1;
 Interface gui;
 
 void reset() {
@@ -21,8 +23,12 @@ void reset() {
   // Adding enemies
   Enemy newZombie = new Enemy(200, 200);
   zombies.add(newZombie);
+  // Resets the zombie multiplier
+  lastSize = 1;
   // Game begins 
   state = 0; 
+  // Resets the wave counter
+  waves = 1;
   // Resets clock
   startTime = millis();
   setup();
@@ -55,6 +61,13 @@ void draw() {
     if (players == 2) {
       player[1].show();
     }
+    // Checks if the player(s) is/are dead
+    gameIsOver();
+    // Checks if the waves is over
+    if (nextWave()) {
+      // Sets the next wave 
+      setWave();
+    }
   } else if (state == 1) {
     // Main menu
     gui.menu();
@@ -74,13 +87,32 @@ void gameIsOver() {
   // Checks if the players are out of health points then sets the state to main menu
   if (players == 1) {
     if (player[0].getLives() == 0) {
-      state = 1;
+      state = 2;
     }
   } else {
     if (player[0].getLives() + player[1].getLives() == 0) {
-      state = 1;
+      state = 2;
     }
   }
+}
+
+// Checks if the wave is over
+boolean nextWave() {
+  if (zombies.size() == 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Sets up a new wave
+void setWave() {
+  lastSize = ceil(lastSize + 0.5 * lastSize);
+  for (int i = 1; i < lastSize; i ++) {
+    Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
+    zombies.add(newZombie);
+  }
+  waves ++;
 }
 
 // Keeps track of user key inputs  
