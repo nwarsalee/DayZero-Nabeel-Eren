@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v4
+ 2018/05/26 v5
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -63,6 +63,9 @@ void draw() {
     }
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
+      for (int i=0; i<zombies.size(); i++) { // Traversing the zombie arrayList to remove all the zombies.
+        zombies.remove(i);
+      }
       newState(2);
     }
     // Checks if the waves is over
@@ -260,9 +263,15 @@ void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
     println("Number of zombies: " + zombies.size());
     zombies.get(i).show();
-    zombies.get(i).move(player[0]); // Moving towards player 1 (Add functionality to move towards second player if P1 isn't alive)
+    if (!player[0].isDead()) {
+      zombies.get(i).move(player[0]); // Moving towards player 1 (Add functionality to move towards second player if P1 isn't alive)
+    } else {
+      zombies.get(i).move(player[1]);
+    }
     if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
       player[0].hit(); // Has the player get hit and lose one heart...
+    } else if (zombies.get(i).attacking(player[1])) {
+      player[1].hit(); // Has the second player get hit
     }
     // Checking if the zombie is hit
     if (zombies.get(i).isHit(bullets)) {
@@ -274,5 +283,15 @@ void zombieMoves() {
         score += 10; // Adds 10 points to the score for killing a zombie
       }
     }
+  }
+}
+
+// Method to show the players and their moves
+void playerMoves() {
+  // Loop to go through all the players
+  if (!player[0].isDead()) {
+    player[0].show();
+  } else {
+    
   }
 }
