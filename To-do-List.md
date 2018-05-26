@@ -35,9 +35,10 @@ Bottom right of grid: 1400, 1400
 * Add leaderboard
 * Add credits
 ### In-game
-* Added user interface for lives, waves etc
+* ~Add user interface for lives, waves etc~
 ### End game
-* Return to main menu and leaderboard
+* ~Return to main menu and leaderboard~
+* Display all the stats
 ### Instructions
 * ~Add lines to emphasize the controls and rules~
 ### General
