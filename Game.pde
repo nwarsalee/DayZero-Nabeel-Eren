@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v6
+ 2018/05/26 v7
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -61,6 +61,7 @@ void draw() {
       setWave();
     }
     player[0].show();
+    println("P1 health: " + player[0].getLives());
     zombieMoves(); // Method to show the moves of the zombies
     bulletMoves(); // Method to show and move the bullets
     if (players == 2) {
@@ -68,9 +69,8 @@ void draw() {
     }
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
-      zombies.clear(); // Clearing zombie array
-      bullets.clear(); // Clearing bullet array
-      println("Zombies array size: " + zombies.size());
+      zombies.clear(); // Clearing the zombies array
+      bullets.clear(); // Clearing the bullets array
       newState(2);
     }
   } else if (state == 1) {
@@ -98,6 +98,7 @@ boolean gameIsOver() {
     }
   } else {
     if (player[0].getLives() == 0 && player[1].getLives() == 0) {
+      println("COOP Game Over...");
       return true;
     } else {
       return false;
@@ -263,8 +264,9 @@ void bulletMoves() {
 void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
     zombies.get(i).show();
-    if (!player[0].isDead()) {
-      zombies.get(i).move(player[0]); // Moving towards player 1 (Add functionality to move towards second player if P1 isn't alive)
+    if (!(player[0].isDead())) {
+      zombies.get(i).move(player[0]); // Moving towards player 1
+      println("Player 1 dead? " + player[0].isDead());
     } else {
       zombies.get(i).move(player[1]);
     }
