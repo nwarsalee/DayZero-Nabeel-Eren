@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v3
+ 2018/05/26 v4
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -14,6 +14,8 @@ int state = 1;
 int startTime;
 int lastSize = 1;
 int waves = 1;
+int score = 0;
+int shots = 0;
 Interface gui;
 
 void reset() {
@@ -23,14 +25,12 @@ void reset() {
   // Adding enemies
   Enemy newZombie = new Enemy(200, 200);
   zombies.add(newZombie);
-  // Resets the zombie multiplier
-  lastSize = 1;
-  // Game begins 
-  state = 0; 
-  // Resets the wave counter
-  waves = 1;
-  // Resets clock
-  startTime = millis();
+  lastSize = 1; // Resets the zombie multiplier
+  state = 0; // Game begins
+  waves = 1; // Resets the wave counter
+  startTime = millis(); // Resets clock
+  score = 0; // Resets the score
+  shots = 0; // Resets the bullet count
   setup();
 }
 
@@ -118,6 +118,7 @@ void setWave() {
     Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
     zombies.add(newZombie);
   }
+  score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
 }
 
@@ -137,6 +138,7 @@ void keyPressed() {
     } else if (keyCode == ' ') {
       Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
       bullets.add(bullet); // Addin new bullet
+      shots ++; // Adds a bullet shot 
     } 
     // Player 2
     if (players == 2) {
@@ -151,6 +153,7 @@ void keyPressed() {
       } else if (keyCode == 16) {
         Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
         bullets.add(bullet); // Adding new bullet
+        shots ++; // Adds a bullet shot
       }
     }
   } else if (state == 3) { // How to play menu
@@ -268,7 +271,7 @@ void zombieMoves() {
       if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
         println("Zombie " + (i+1) + " has died... Lives at " + zombies.get(i).getLives());
         zombies.remove(i); // Removing the zombie from the arrayList/game
-        // ADD AMOUNT ONTO SCORE
+        score += 10; // Adds 10 points to the score for killing a zombie
       }
     }
   }
