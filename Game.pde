@@ -11,6 +11,7 @@ ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 PImage imgHeart1, imgHeart2;
 int players = 0;
 int state = 1;
+int startTime;
 Interface gui;
 
 void reset() {
@@ -22,6 +23,8 @@ void reset() {
   zombies.add(newZombie);
   // Game begins 
   state = 0; 
+  // Resets clock
+  startTime = millis();
   setup();
 }
 
