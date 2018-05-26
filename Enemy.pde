@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/25 v1
+ 2018/05/26 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -8,7 +8,7 @@
 
 class Enemy extends Person {
   // PImage playerBody = loadImage(/* enter name of file */);
-  private float x, y, coolDown, c = 50; // Float values for the enemy's x and y location and for it's cool down time
+  private float x, y, coolDown, c = 100; // Float values for the enemy's x and y location and for it's cool down time
   
   // Default constructor that sets the values to zero
   Enemy() {
@@ -61,9 +61,7 @@ class Enemy extends Person {
   
   // Method to check if the zombie is on top of the player and lets them attack
   boolean attacking(Player p1) {
-    println("Cooldown : " + coolDown);
     if (this.intersect(p1) && coolDown == c) {
-      println("Hitting player...");
       coolDown = 0;
       return true;
     } else {
