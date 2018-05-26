@@ -36,9 +36,11 @@ Bottom right of grid: 1400, 1400
 * Add credits
 ### In-game
 * ~Add user interface for lives, waves etc~
+* Do all visuals
+* Make user/zombie images face the way they are going
 ### End game
 * ~Return to main menu and leaderboard~
-* Display all the stats
+* ~Display all the stats~
 ### Instructions
 * ~Add lines to emphasize the controls and rules~
 ### General
