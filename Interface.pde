@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v1
+ 2018/05/26 v2
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -94,15 +94,19 @@ class Interface {
     // Displays the points
     text("Points", 100, height/2 - 320);
     text("0001" + " XP", 100, height/2 - 225);
+    // Displays thet amounts of zombies
+    text("Zombies", 100, height/2 + 300);
+    text(zombies.size(), 100, height/2 + 400);
     line(1475, height/2 - 555, 1525, height/2 - 555); // Line under player 1 health
     line(25, height/2 - 300, 175, height/2 - 300); // Line under the points tab
+    line(25, height/2 + 320, 175, height/2 + 320); // Line under the zombies tab
     if (players == 2) {
       // Adds player 2 health if the game is multiplayer  
       text("P2", 1500, height/2);
       text("P2", 1500, height/2);
       line(1475, height/2 + 20, 1525, height/2 + 20); // Line under player 2 health 
       // Displays the hearts for player 2
-      for (int i = 0; i < player[0].getLives(); i ++) {
+      for (int i = 0; i < player[1].getLives(); i ++) {
         if (i > 2) { // User has extra health that will be dispalyed as gold 
           show(imgHeart2, 1500, height/2 + 90 + 100 * i);
         } else { // Normal health will be displayed red
