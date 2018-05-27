@@ -266,10 +266,10 @@ void zombieMoves() {
     println("Number of zombies: " + zombies.size());
     zombies.get(i).show();
     if (!(player[0].isDead())) {
-      zombies.get(i).move(player[0]); // Moving towards player 1
+      zombies.get(i).moveStep(player[0]); // Moving towards player 1
       println("Player 1 dead? " + player[0].isDead());
     } else {
-      zombies.get(i).move(player[1]);
+      zombies.get(i).moveStep(player[1]);
     }
     if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
       player[0].hit(); // Has the player get hit and lose one heart...
