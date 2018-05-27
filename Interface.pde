@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v3
+ 2018/05/26 v4
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -11,7 +11,7 @@ class Interface {
   int minutes;
   int seconds;
   int deaths;
-  
+
   // Constructor which displays the game borders
   Interface() {
     showBorder();
@@ -19,7 +19,8 @@ class Interface {
 
   // Instance which displays the borders when they are erased
   void showBorder() {
-    background(0);
+    imageMode(CENTER);
+    show(imgBackground, width/2, height/2, 1600, 1600);
     fill(255, 0, 0);
     noStroke();
     rect(0, 0, width, width/160); 
@@ -55,6 +56,7 @@ class Interface {
   void gamePlay() {
     // Game grid
     showBorder();
+    show(imgMap, width/2, height/2, 1200, 1200);
     stroke(255);
     fill(0);
     // Y axis grid
@@ -109,19 +111,18 @@ class Interface {
       // Displays the hearts for player 2
       for (int i = 0; i < player[1].getLives(); i ++) {
         if (i > 2) { // User has extra health that will be dispalyed as gold 
-          show(imgHeart2, 1500, height/2 + 90 + 100 * i);
+          show(imgHeart2, 1500, height/2 + 90 + 100 * i, 75, 75);
         } else { // Normal health will be displayed red
-          show(imgHeart1, 1500, height/2 + 90 + 100 * i);
+          show(imgHeart1, 1500, height/2 + 90 + 100 * i, 75, 75);
         }
       }
     }
-    imageMode(CENTER);
     // Displays the hearts for player 1
     for (int i = 0; i < player[0].getLives(); i ++) {
       if (i > 2) { // User has extra health that will be displayed as gold 
-        show(imgHeart2, 1500, height/2 - 490 + 100 * i);
+        show(imgHeart2, 1500, height/2 - 490 + 100 * i, 75, 75);
       } else { // Normal health will be displayed red
-        show(imgHeart1, 1500, height/2 - 490 + 100 * i);
+        show(imgHeart1, 1500, height/2 - 490 + 100 * i, 75, 75);
       }
     }
     strokeWeight(1);
@@ -207,7 +208,7 @@ class Interface {
   }
 
   // Instance method that displays an image
-  void show(PImage img, int x, int y) {
-    image(img, x, y, 75, 75);
+  void show(PImage img, int x, int y, int w, int h) {
+    image(img, x, y, w, h);
   }
 }
