@@ -36,39 +36,25 @@ class Enemy extends Person {
 
   // Method to have the enemy move towards the player
   void moveStep(Player p1) {
-    boolean xMovePos = true, yMovePos = true; // Boolean for whether or not the x and y movement is in the positive directions, will help with identifying what direction they're facing
     // Changing the x pos numbers depending on where the player is
     if (p1.getX() > x) { // If the enemy has to move to the right
       x++;
-      xMovePos = true;
     } else if (p1.getX() <= x) { // If the enemy has to move to the left
       x--;
-      xMovePos = false;
     }
     // Changing the y pos numbers depending on where the player is
     if (p1.getBottom() > y) { // If the enemy has to move downwards
       y++;
-      yMovePos = false;
     } else if (p1.getBottom() <= y) { // If the enemy has to move upwards
       y--;
-      yMovePos = true;
     }
 
     // Determining whether or not the enemy can move a full block space
     if (x%50 == 0) {
-      if (xMovePos) {
-        this.move('r'); // Moves right
-      } else {
-        this.move('l'); // Moves left
-      }
+      setPos(x, getBottom());
     }
     if (y%50 == 0) {
       setPos(getX(), y);
-      if (xMovePos) {
-        this.move('u'); // Moves up
-      } else {
-        this.move('d'); // Moves down
-      }
     }
     updatePos();
   }
