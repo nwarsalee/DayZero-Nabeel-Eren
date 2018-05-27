@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v9
+ 2018/05/26 v11
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -8,7 +8,7 @@
 Player[] player;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
-PImage imgHeart1, imgHeart2, imgMap, imgZombie, imgBackground;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground;
 int players = 0;
 int state = 1;
 int startTime;
@@ -44,7 +44,10 @@ void setup() {
   imgHeart1 = loadImage("heart1.png");
   imgHeart2 = loadImage("heart2.png");
   imgMap = loadImage("MAP1.PNG");
-  imgZombie = loadImage("zombie.png");
+  imgZombieUp = loadImage("Zombie-up.png");
+  imgZombieDown = loadImage("Zombie-down.png");
+  imgZombieLeft = loadImage("Zombie-left.png");
+  imgZombieRight = loadImage("Zombie-right.png");
   imgBackground = loadImage("background.png");
   // Initializes the objects
   player = new Player[2];
