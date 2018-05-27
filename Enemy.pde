@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v2
+ 2018/05/26 v3
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -109,9 +109,8 @@ class Enemy extends Person {
 
   // Show method that shows the player on the screen, takes in a PImage as a parameter and displays that TO BE USED ONCE PLAYER SPRITE IS MADE
   void show() {
-    fill(0, 255, 0);
-    noStroke();
-    rect(getX(), getBottom(), getWidth(), getHeight()); // Shows player as a rectangle on screen.
+    imageMode(CORNER);
+    image(imgZombie, getX(), getBottom(), getWidth(), getHeight());
   }
 
   // Method to print the information of the object.
