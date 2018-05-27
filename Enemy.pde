@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v5
+ 2018/05/26 v3
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -114,7 +114,13 @@ class Enemy extends Person {
   void show() {
     imageMode(CORNER);
     if (getDir() == 'r') { // If it's facing right show the right img
-      image(imgZombie, getX(), getBottom(), getWidth(), getHeight());
+      image(imgZombieRight, getX(), getBottom(), getWidth(), getHeight());
+    } else if (getDir() == 'l') { // If it's facing right show the right img
+      image(imgZombieLeft, getX(), getBottom(), getWidth(), getHeight());
+    } else if (getDir() == 'u') { // If it's facing right show the right img
+      image(imgZombieUp, getX(), getBottom(), getWidth(), getHeight());
+    } else if (getDir() == 'd') { // If it's facing right show the right img
+      image(imgZombieDown, getX(), getBottom(), getWidth(), getHeight());
     }
   }
 
