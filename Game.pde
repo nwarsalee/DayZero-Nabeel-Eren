@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v7
+ 2018/05/26 v8
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -8,7 +8,7 @@
 Player[] player;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
-PImage imgHeart1, imgHeart2;
+PImage imgHeart1, imgHeart2, imgMap, imgZombie, imgBackground;
 int players = 0;
 int state = 1;
 int startTime;
@@ -20,6 +20,7 @@ Interface gui;
 
 void reset() {
   // Resets the score
+  score = 0;
   // Resets the objects
   player[0] = new Player(width/2, height/2);
   // Adding enemies
@@ -29,7 +30,6 @@ void reset() {
   state = 0; // Game begins
   waves = 1; // Resets the wave counter
   startTime = millis(); // Resets clock
-  score = 0; // Resets the score
   shots = 0; // Resets the bullet count
   setup();
 }
@@ -43,6 +43,9 @@ void setup() {
   // Loads the assets
   imgHeart1 = loadImage("heart1.png");
   imgHeart2 = loadImage("heart2.png");
+  imgMap = loadImage("MAP1.PNG");
+  imgZombie = loadImage("zombie.png");
+  imgBackground = loadImage("background.png");
   // Initializes the objects
   player = new Player[2];
   player[0] = new Player(width/2 - 100, height/2);
@@ -54,24 +57,21 @@ void setup() {
 void draw() {
   if (state == 0) {
     // Game in progress
-    gui.gamePlay();
-    // Checks if the waves is over
-    if (nextWave()) {
-      // Sets the next wave 
-      setWave();
+    // Checks if the player(s) is/are dead
+    if (gameIsOver()) {
+      newState(2);
     }
+    gui.gamePlay();
     player[0].show();
-    println("P1 health: " + player[0].getLives());
     zombieMoves(); // Method to show the moves of the zombies
     bulletMoves(); // Method to show and move the bullets
     if (players == 2) {
       player[1].show();
     }
-    // Checks if the player(s) is/are dead
-    if (gameIsOver()) {
-      zombies.clear(); // Clearing the zombies array
-      bullets.clear(); // Clearing the bullets array
-      newState(2);
+    // Checks if the waves is over
+    if (nextWave()) {
+      // Sets the next wave 
+      setWave();
     }
   } else if (state == 1) {
     // Main menu
@@ -98,7 +98,6 @@ boolean gameIsOver() {
     }
   } else {
     if (player[0].getLives() == 0 && player[1].getLives() == 0) {
-      println("COOP Game Over...");
       return true;
     } else {
       return false;
@@ -124,7 +123,6 @@ void setWave() {
   }
   score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
-  println("Wave: " + waves + "   Last Size: " + lastSize);
 }
 
 // Keeps track of user key inputs  
@@ -143,7 +141,7 @@ void keyPressed() {
     } else if (keyCode == ' ') {
       Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
       bullets.add(bullet); // Addin new bullet
-      shots ++; // Adds a bullet shot 
+      shots ++; // Adds a bullet shot
     } 
     // Player 2
     if (players == 2) {
@@ -263,6 +261,7 @@ void bulletMoves() {
 // Method to show the zombies and their moves
 void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
+    println("Number of zombies: " + zombies.size());
     zombies.get(i).show();
     if (!(player[0].isDead())) {
       zombies.get(i).move(player[0]); // Moving towards player 1
@@ -280,6 +279,7 @@ void zombieMoves() {
       zombies.get(i).hit(); // Having the zombie take damage
       bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
       if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
+        println("Zombie " + (i+1) + " has died... Lives at " + zombies.get(i).getLives());
         zombies.remove(i); // Removing the zombie from the arrayList/game
         score += 10; // Adds 10 points to the score for killing a zombie
       }
@@ -293,6 +293,5 @@ void playerMoves() {
   if (!player[0].isDead()) {
     player[0].show();
   } else {
-    
   }
 }
