@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v3
+ 2018/05/26 v5
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
