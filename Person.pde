@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/26 v1
+2018/05/26 v2
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -36,13 +36,13 @@ class Person extends Rectangle {
     float v = 50; // Float for how many pixels it moves per move
     dir = direction; // Changing facing direction
     // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move
-    if (direction == 'u' && inBounds(getX(), getBottom() - v)) { // For moving up
+    if (dir == 'u' && inBounds(getX(), getBottom() - v)) { // For moving up
       setPos(getX(), getBottom() - v); // Will substract to move it up screen
-    } else if (direction == 'd' && inBounds(getX(), getBottom() + v)) { // For moving down
+    } else if (dir == 'd' && inBounds(getX(), getBottom() + v)) { // For moving down
       setPos(getX(), getBottom() + v);
-    } else if (direction == 'r' && inBounds(getX() + v, getBottom())) { // For moving right
+    } else if (dir == 'r' && inBounds(getX() + v, getBottom())) { // For moving right
       setPos(getX() + v, getBottom());
-    } else if (direction == 'l' && inBounds(getX() - v, getBottom())) { // For moving left
+    } else if (dir == 'l' && inBounds(getX() - v, getBottom())) { // For moving left
       setPos(getX() - v, getBottom());
     }
     updatePos(); // Updating the coordinates of the right, top and middle
@@ -79,6 +79,11 @@ class Person extends Rectangle {
   // Getter for the direction
   char getDir() {
     return this.dir;
+  }
+  
+  // Getter for the direction
+  void setDir(char direction) {
+    this.dir = direction;
   }
 
 }
