@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v8
+ 2018/05/26 v9
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -59,6 +59,8 @@ void draw() {
     // Game in progress
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
+      zombies.clear(); // Clears the zombie array
+      bullets.clear(); // Cleans the bullets array
       newState(2);
     }
     gui.gamePlay();
