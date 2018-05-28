@@ -1,8 +1,8 @@
 /* 
 ICS4U
-2018/05/19
+2018/05/28 v1
 Game Summative
-Player class
+Bullet class
 Made by Eren Sulutas and Nabeel Warsalee
 */
 
@@ -16,7 +16,7 @@ class Bullet extends Rectangle {
   
   // Constructor for the Bullet class, sets up the position of the bullet
   Bullet(float xPos, float yPos, char lastPress) {
-    super(xPos+25, yPos+25, 10, 10);
+    super(xPos+20, yPos+20, 5, 5);
     this.lastKey = lastPress;
   }
   
@@ -37,6 +37,8 @@ class Bullet extends Rectangle {
   
   // Method for showing the bullet
   void show() {
+    fill(200);
+    noStroke();
     if (inBounds(getX(), getBottom())) { // Checking to see if the bullet is in Bounds
       rect(getX(), getBottom(), getWidth(), getHeight());
     }
