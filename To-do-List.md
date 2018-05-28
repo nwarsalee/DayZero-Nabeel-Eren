@@ -30,6 +30,9 @@ Top left of grid: 200, 200
 Bottom right of grid: 1400, 1400
 
 ## UI To do list
+### Leaderboard
+* Check if user has a high score
+* Make user enter data if they have new hight score and print data onto the file
 ### Main menu
 * ~Add instructions~
 * Add leaderboard
