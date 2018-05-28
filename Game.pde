@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v11
+ 2018/05/28 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -60,6 +60,11 @@ void setup() {
 void draw() {
   if (state == 0) {
     // Game in progress
+    // Checks if the wave is over
+    if (nextWave()) {
+      // Sets the next wave 
+      setWave();
+    }
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
       zombies.clear(); // Clears the zombie array
@@ -72,11 +77,6 @@ void draw() {
     bulletMoves(); // Method to show and move the bullets
     if (players == 2) {
       player[1].show();
-    }
-    // Checks if the waves is over
-    if (nextWave()) {
-      // Sets the next wave 
-      setWave();
     }
   } else if (state == 1) {
     // Main menu
