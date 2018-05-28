@@ -66,28 +66,6 @@ class Enemy extends Person {
     }
     updatePos();
   }
-
-    // Determining whether or not the enemy can move a full block space
-    if (x%50 == 0) {
-      setPos(x, getBottom());
-      // Setting its face direction
-      if (moveX) {
-        setDir('r');
-      } else {
-        setDir('l');
-      }
-    }
-    if (y%50 == 0) {
-      setPos(getX(), y);
-      // Setting its face direction
-      if (moveY) {
-        setDir('u');
-      } else {
-        setDir('d');
-      }
-    }
-    updatePos();
-  }
   
   // Method to check if the zombie is on top of the player and lets them attack
   boolean attacking(Player p1) {
@@ -128,11 +106,11 @@ class Enemy extends Person {
     imageMode(CORNER);
     if (getDir() == 'r') { // If it's facing right show the right img
       image(imgZombieRight, getX(), getBottom(), getWidth(), getHeight());
-    } else if (getDir() == 'l') { // If it's facing right show the right img
+    } else if (getDir() == 'l') { // If it's facing left show the left img
       image(imgZombieLeft, getX(), getBottom(), getWidth(), getHeight());
-    } else if (getDir() == 'u') { // If it's facing right show the right img
+    } else if (getDir() == 'u') { // If it's facing up show the up img
       image(imgZombieUp, getX(), getBottom(), getWidth(), getHeight());
-    } else if (getDir() == 'd') { // If it's facing right show the right img
+    } else { // If it's facing down (none of the above) show the down img
       image(imgZombieDown, getX(), getBottom(), getWidth(), getHeight());
     }
   }
