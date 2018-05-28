@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v3
+ 2018/05/28 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -36,23 +36,36 @@ class Enemy extends Person {
 
   // Method to have the enemy move towards the player
   void moveStep(Player p1) {
-    boolean moveX = true, moveY = true; // Boolean vars for if the enemy is moving in the positive of the y and x
     // Changing the x pos numbers depending on where the player is
-    if (p1.getX() > x) { // If the enemy has to move to the right
+    if (p1.getX() > getX()) { // If the enemy has to move to the right
       x++;
-      moveX = true;
-    } else if (p1.getX() <= x) { // If the enemy has to move to the left
+      if (x % 50 == 0) {
+        println("X - Player pos: " + p1.getX() + " Enemy pos: " + getX());
+        move('r');
+      }
+    } else if (p1.getX() < getX()) { // If the enemy has to move to the left
       x--;
-      moveX = false;
+      if (x % 50 == 0) {
+        println("X - Player pos: " + p1.getX() + " Enemy pos: " + getX());
+        move('l');
+      }
     }
     // Changing the y pos numbers depending on where the player is
-    if (p1.getBottom() > y) { // If the enemy has to move downwards
+    if (p1.getBottom() > getBottom()) { // If the enemy has to move downwards
       y++;
-      moveY = false;
-    } else if (p1.getBottom() <= y) { // If the enemy has to move upwards
+      if (y % 50 == 0) {
+        println("Y - Player pos: " + p1.getX() + " Enemy pos: " + getBottom());
+        move('d');
+      }
+    } else if (p1.getBottom() < getBottom()) { // If the enemy has to move upwards
       y--;
-      moveY = true;
+      if (y % 50 == 0) {
+        println("Y - Player pos: " + p1.getX() + " Enemy pos: " + getBottom());
+        move('u');
+      }
     }
+    updatePos();
+  }
 
     // Determining whether or not the enemy can move a full block space
     if (x%50 == 0) {
