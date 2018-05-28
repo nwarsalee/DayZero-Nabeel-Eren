@@ -3,6 +3,8 @@
 * ~Get Tom's Planner done~
 * ~Get Mindomo done~
 * ~Get files onto Processing~
+* Finish adding graphical components.
+* Start adding audio to the game.
 
 ## Mechanics To do list
 * ~Work on Game class~       
@@ -16,9 +18,12 @@
 * ~Get the enemy class to spawn and define its special properties~
 * ~Be able to make the enemy class die to bullets~
 * ~Have the enemy class move to the player block by block at a fixed speed~
-* Have the enemy attack when it's close
-* Establish a RECURSIVE spawning of the zombies around the screen
-* Make sure user's can't move and/or obstruct gameplay when dead
+* ~Have the enemy attack when it's close~
+* ~Establish a RECURSIVE spawning of the zombies around the screen~
+* ~Make sure user's can't move and/or obstruct gameplay when dead~
+* Have zombie img change directions when moving.
+* Do the same for the player img
+* Start creating the box/defense crate class.
 
 *Side note - Have zombies fade in on the border of the screen???*
 *Idea for recursive spawning: t(n) = t(n-1) x (3/2), where n is the number of the wave and t(n) is how many enemies spawn...*
