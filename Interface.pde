@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v4
+ 2018/05/28 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -58,7 +58,7 @@ class Interface {
     showBorder();
     show(imgMap, width/2, height/2, 1200, 1200);
     stroke(255);
-    fill(0);
+    fill(0);/*
     // Y axis grid
     for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
       line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
@@ -66,7 +66,7 @@ class Interface {
     // X axis grid
     for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / 24) {
       line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
-    }
+    }*/
     fill(255, 0, 0);
     noStroke();
     // Game box
@@ -199,11 +199,14 @@ class Interface {
 
   // Instance method that displays the leaderboard to the user 
   void leaderboard() {
+    // 1185 pixels for entire leaderboard
+    // 590 pixels available for each leaderboard
     showBorder();
     textAlign(CENTER);
     textSize(width/10);
     fill(255, 0, 0);
     text("LEADERBOARD", width/2, height/6);
+    leaderboard.read();
     returnToMenu();
   }
 
