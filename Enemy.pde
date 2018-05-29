@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/26 v3
+ 2018/05/28 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -36,41 +36,32 @@ class Enemy extends Person {
 
   // Method to have the enemy move towards the player
   void moveStep(Player p1) {
-    boolean moveX = true, moveY = true; // Boolean vars for if the enemy is moving in the positive of the y and x
     // Changing the x pos numbers depending on where the player is
-    if (p1.getX() > x) { // If the enemy has to move to the right
+    if (p1.getX() > getX()) { // If the enemy has to move to the right
       x++;
-      moveX = true;
-    } else if (p1.getX() <= x) { // If the enemy has to move to the left
+      if (x % 50 == 0) {
+        println("X - Player pos: " + p1.getX() + " Enemy pos: " + getX());
+        move('r');
+      }
+    } else if (p1.getX() < getX()) { // If the enemy has to move to the left
       x--;
-      moveX = false;
-    }
-    // Changing the y pos numbers depending on where the player is
-    if (p1.getBottom() > y) { // If the enemy has to move downwards
-      y++;
-      moveY = false;
-    } else if (p1.getBottom() <= y) { // If the enemy has to move upwards
-      y--;
-      moveY = true;
-    }
-
-    // Determining whether or not the enemy can move a full block space
-    if (x%50 == 0) {
-      setPos(x, getBottom());
-      // Setting its face direction
-      if (moveX) {
-        setDir('r');
-      } else {
-        setDir('l');
+      if (x % 50 == 0) {
+        println("X - Player pos: " + p1.getX() + " Enemy pos: " + getX());
+        move('l');
       }
     }
-    if (y%50 == 0) {
-      setPos(getX(), y);
-      // Setting its face direction
-      if (moveY) {
-        setDir('u');
-      } else {
-        setDir('d');
+    // Changing the y pos numbers depending on where the player is
+    if (p1.getBottom() > getBottom()) { // If the enemy has to move downwards
+      y++;
+      if (y % 50 == 0) {
+        println("Y - Player pos: " + p1.getX() + " Enemy pos: " + getBottom());
+        move('d');
+      }
+    } else if (p1.getBottom() < getBottom()) { // If the enemy has to move upwards
+      y--;
+      if (y % 50 == 0) {
+        println("Y - Player pos: " + p1.getX() + " Enemy pos: " + getBottom());
+        move('u');
       }
     }
     updatePos();
@@ -115,11 +106,11 @@ class Enemy extends Person {
     imageMode(CORNER);
     if (getDir() == 'r') { // If it's facing right show the right img
       image(imgZombieRight, getX(), getBottom(), getWidth(), getHeight());
-    } else if (getDir() == 'l') { // If it's facing right show the right img
+    } else if (getDir() == 'l') { // If it's facing left show the left img
       image(imgZombieLeft, getX(), getBottom(), getWidth(), getHeight());
-    } else if (getDir() == 'u') { // If it's facing right show the right img
+    } else if (getDir() == 'u') { // If it's facing up show the up img
       image(imgZombieUp, getX(), getBottom(), getWidth(), getHeight());
-    } else if (getDir() == 'd') { // If it's facing right show the right img
+    } else { // If it's facing down (none of the above) show the down img
       image(imgZombieDown, getX(), getBottom(), getWidth(), getHeight());
     }
   }
