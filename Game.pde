@@ -1,11 +1,13 @@
 /* 
  ICS4U
- 2018/05/28 v1
+ 2018/05/30 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 Player[] player;
+Crate crate;
+ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground;
@@ -23,9 +25,10 @@ void reset() {
   score = 0;
   // Resets the objects
   player[0] = new Player(width/2, height/2);
+  crate = new Crate(500, 500);
   // Adding enemies
-  Enemy newZombie = new Enemy(200, 200);
-  zombies.add(newZombie);
+  //Enemy newZombie = new Enemy(200, 200);
+  //zombies.add(newZombie);
   lastSize = 1; // Resets the zombie multiplier
   state = 0; // Game begins
   waves = 1; // Resets the wave counter
@@ -64,20 +67,25 @@ void draw() {
     if (nextWave()) {
       // Sets the next wave 
       setWave();
+      // Sets the loot for the next wave
+      setLoot();
     }
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
+      loot.clear(); // Clearing all the loot
       zombies.clear(); // Clears the zombie array
       bullets.clear(); // Cleans the bullets array
       newState(2);
     }
     gui.gamePlay();
+    lootMoves();
+    bulletMoves(); // Method to show the bullets' moves
     player[0].show();
-    zombieMoves(); // Method to show the moves of the zombies
-    bulletMoves(); // Method to show and move the bullets
-    if (players == 2) {
+    if (players == 2) { // If the gamemode it 2-player, show the second player
       player[1].show();
     }
+    crate.show();
+    zombieMoves(); // Method to show the moves of the zombies
   } else if (state == 1) {
     // Main menu
     gui.menu();
@@ -128,6 +136,19 @@ void setWave() {
   }
   score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
+}
+
+// Sets up a new wave
+void setLoot() {
+  int random;
+  for (int i=0; i < 2; i++) { // Loops twice to see if either of the two lootboxes will be added
+    random = (int)random(1,5);
+    if (random == 1 && loot.size() < 2) { // 20% chance of a lootbox dropping
+      Loot health = new Loot((int)random(4, 28) * 50, (int)random(4, 28) * 50);
+      loot.add(health);
+      println("LootBox added!");
+    }
+  }
 }
 
 // Keeps track of user key inputs  
@@ -256,9 +277,7 @@ void bulletMoves() {
     bullets.get(i).show();
     bullets.get(i).move();
     if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
-      println("Removed bullet at index " + i);
       bullets.remove(i);
-      println("Number of bullets: " + bullets.size()); // Println statement can be DELETED later
     }
   }
 }
@@ -266,11 +285,9 @@ void bulletMoves() {
 // Method to show the zombies and their moves
 void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
-    println("Number of zombies: " + zombies.size());
     zombies.get(i).show();
     if (!(player[0].isDead())) {
       zombies.get(i).moveStep(player[0]); // Moving towards player 1
-      println("Player 1 dead? " + player[0].isDead());
     } else {
       zombies.get(i).moveStep(player[1]);
     }
@@ -287,6 +304,24 @@ void zombieMoves() {
         println("Zombie " + (i+1) + " has died... Lives at " + zombies.get(i).getLives());
         zombies.remove(i); // Removing the zombie from the arrayList/game
         score += 10; // Adds 10 points to the score for killing a zombie
+      }
+    }
+  }
+}
+
+// Method to run the processes for the loot
+void lootMoves() {
+  for (int i=0; i<loot.size(); i++) {
+    loot.get(i).show(); // Showing the lootbox
+    // Statements to check whether or not the player has picked a loot box up.
+    if (loot.get(i).intersect(player[0])) {
+      player[0].lifePoint(); // For now, the loot box gives them a life point
+      loot.remove(i);
+    }
+    if (players == 2) { // Checks if it's in two player mod
+      if (loot.get(i).intersect(player[1])) {
+        player[1].lifePoint();
+        loot.remove(i);
       }
     }
   }
