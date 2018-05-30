@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/26 v2
+2018/05/30 v1
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -9,6 +9,8 @@ Made by Eren Sulutas and Nabeel Warsalee
 class Person extends Rectangle {
    private int lives; // Private integer variable for the number of lives.
    private char dir = 'u'; // Variable for the direction the person is facing, automatically set to up
+   private float stamina = 0, s = 100; // Floats for the player's stamina and the stamina limit
+  
   // Default constructor for the Person class
   Person() {
     super();
@@ -34,8 +36,7 @@ class Person extends Rectangle {
   // Move method to move the person on screen
   void move(char direction) {
     float v = 50; // Float for how many pixels it moves per move
-    dir = direction; // Changing facing direction
-    // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move
+    dir = direction; // Changing facing directionn    // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move
     if (dir == 'u' && inBounds(getX(), getBottom() - v)) { // For moving up
       setPos(getX(), getBottom() - v); // Will substract to move it up screen
     } else if (dir == 'd' && inBounds(getX(), getBottom() + v)) { // For moving down
@@ -55,6 +56,13 @@ class Person extends Rectangle {
     }
   }
   
+  // Method to give a health point to the person (primarily used for the Player class)
+  void lifePoint() {
+    if (this.lives < 5) {
+      this.lives++;
+    }
+  }
+  
   // Method to check if the person is dead
   boolean isDead() {
     if (this.lives == 0) {
@@ -62,6 +70,11 @@ class Person extends Rectangle {
     } else {
       return false;
     }
+  }
+  
+  // Method to see if whether or not the person can move towards a block (checks for crates)
+  boolean canMove(ArrayList<Crate> crates) {
+    return true;
   }
   
   // Series of getter and setter methods.
