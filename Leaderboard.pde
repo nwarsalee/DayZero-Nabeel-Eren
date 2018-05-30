@@ -1,20 +1,22 @@
 /* 
  ICS4U
- 2018/05/29 v1
+ 2018/05/30 v1 [TEST BUILD]
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 class Leaderboard {
-  PrintWriter output;
+  PrintWriter pw;
   BufferedReader br;
   String[] lineTotal = new String[14]; // String that stores the information on every line in the file
   ArrayList<Integer> data = new ArrayList<Integer>(); // Arraylist that stores the point data
   int y = 350;
+  boolean loop = false;
 
   // Instance method that reads the file 
-  void read() {
+  //void read() {
+  Leaderboard() {
     br = createReader("leaderboard.txt");
     int lineNum = 0;
 
@@ -37,11 +39,11 @@ class Leaderboard {
     catch (IOException e) {
       print("Error: File not found.");
     }
-    display();
   }
 
   // Instance method that displays the text onto the screen
   void display() {
+    //read();
     textSize(width/22);
     textAlign(CORNER);
     fill(255);
@@ -53,6 +55,7 @@ class Leaderboard {
   // Instance method that returns the lowest score on the leaderboard
   // Used to check if the user has a new high score
   int lowestScore(int mode) {
+    //read(); // Reads the file to set the arraylist
     if (mode == 1) { // Solo
       // Returns the lowest point value 
       return data.get(4);
@@ -68,16 +71,16 @@ class Leaderboard {
     int i;
 
     if (mode == 1) { // Solos
-      i = 0;
+      i = 4;
     } else { // Duos
-      i = 5;
+      i = 9;
     }
 
     // Sorts through the scores to determine where the users score stands 
     do {
       if (userScore > data.get(i)) {
         isLargerThan = true;
-        i ++;
+        i --;
       } else {
         isLargerThan = false;
       }
@@ -89,10 +92,6 @@ class Leaderboard {
 
   // Instance method that writes in the file the updated high score list
   void write(int newLine, int newScore, int newWave, String name, int mode) {
-    output = createWriter("leaderboard.txt");
-
-    // Determines the line the user's score belongs
-    newLine = replaceScore(newScore, mode);
 
     // Adjusts the line to match with the file 
     int multiplier = 0;
@@ -101,22 +100,25 @@ class Leaderboard {
     } else { // Duos
       multiplier = 9;
     }
-    //i = (4+2) = 6; i > (3+2) = 5
+
     // Loops over the lines of the leaderboard including/below the line of the new high score
     for (int i = 4 + multiplier; i > newLine + multiplier; i --) {
       // Stores the information into the lineTotal array which holds the data for the file 
-      if (i == (newLine + multiplier)) { // New score is added here
-        lineTotal[i] = "" + (i - 2) + "............" + newScore + "......." + newWave + "........." + name;
+      if (i == (4 + multiplier)) { // New score is added here
+        lineTotal[i] = "" + (i - 1) + "............" + newScore + "......." + newWave + "........." + name;
       } else { // Current score takes info from the next highest score
         lineTotal[i] = lineTotal[i-1];
       }
     }
-
-    // Loops through the data stored in each line of the file and prints it to the file
+    
+    pw = createWriter("leaderboard.txt");
     for (int i = 0; i < lineTotal.length; i ++) {
-      output.println(lineTotal[i]);
+      // Loops through the data stored in each line of the file and prints it to the file
+      pw.println(lineTotal[i]);
     }
-
-    output.close(); // Finishes the file writing
+    pw.flush(); // Flushes the stream of text
+ 
   }
+  
 }
+
