@@ -21,14 +21,19 @@
 * ~Have the enemy attack when it's close~
 * ~Establish a RECURSIVE spawning of the zombies around the screen~
 * ~Make sure user's can't move and/or obstruct gameplay when dead~
-* Have zombie img change directions when moving.
+* ~Have zombie img change directions when moving.~
+* Add player imgs to the game and on the player
 * Do the same for the player img
-* Start creating the box/defense crate class.
+* ~Start creating the box/defense crate class.~
+* ~Have the crate class working in obstructing zombies and players~
+* Start changing how the zombies spawn
+* Create a recursive method to find get the number of zombies to spawn
 
-*Side note - Have zombies fade in on the border of the screen???*
-*Idea for recursive spawning: t(n) = t(n-1) x (3/2), where n is the number of the wave and t(n) is how many enemies spawn...*
 
-*More to be done*
+### Ideas
+* Have zombies fade in when spawning
+* Introduce a reload mechanism to stop player from continuously shooting
+* Use invisible crates to block off buildings in the map
 
 Note: 
 Top left of grid: 200, 200
