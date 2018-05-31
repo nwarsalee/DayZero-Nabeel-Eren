@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/19 v0.3
+2018/05/31
 Game Summative
 Rectangle class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -103,8 +103,30 @@ class Rectangle {
       return false;
     }
   }
+  
+  // Intersection method to see if the two rectangle objects collide
+  public Boolean intersect(float x, float y, Rectangle b) {
+    Rectangle left, other; // Creating new object for the rectangle that is the most left
+    Rectangle next = new Rectangle(x, y); // Creting a new rectangle that has the impending coordinates of the other (the future rectangle)
+    // Determines which rectangle is the furthest left
+    if (next.l <= b.l) {
+      left = next;
+      other = b;
+    } else {
+      left = b;
+      other = next;
+    }
 
-  //
+    // Checks to see if the top left coord is inside the rectangle of the left rectangle
+    if (other.mx >= left.l && other.mx <= left.r && other.my >= left.b && other.my <= left.t) {
+      println("Forsight Intersection");
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // Check's if one rectangle is contained inside another
   public boolean contains(Rectangle other) {
     if (other.l >= this.l && other.b >= this.b && other.r <= this.r && other.t <= this.t) {
       return true;
