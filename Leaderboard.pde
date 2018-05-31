@@ -36,7 +36,10 @@ class Leaderboard {
       br.close();
     } 
     catch (IOException e) {
-      print("Error: File not found.");
+      println("Error: File not found.");
+    }
+    catch (NullPointerException e) {
+      println("No file called leaderboard.txt found...");
     }
   }
 
