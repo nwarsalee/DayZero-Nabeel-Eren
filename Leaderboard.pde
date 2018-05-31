@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/30 v1 [TEST BUILD]
+ 2018/05/31 v1 [TEST BUILD]
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -15,7 +15,6 @@ class Leaderboard {
   boolean loop = false;
 
   // Instance method that reads the file 
-  //void read() {
   Leaderboard() {
     br = createReader("leaderboard.txt");
     int lineNum = 0;
@@ -43,7 +42,6 @@ class Leaderboard {
 
   // Instance method that displays the text onto the screen
   void display() {
-    //read();
     textSize(width/22);
     textAlign(CORNER);
     fill(255);
@@ -55,7 +53,6 @@ class Leaderboard {
   // Instance method that returns the lowest score on the leaderboard
   // Used to check if the user has a new high score
   int lowestScore(int mode) {
-    //read(); // Reads the file to set the arraylist
     if (mode == 1) { // Solo
       // Returns the lowest point value 
       return data.get(4);
@@ -92,33 +89,39 @@ class Leaderboard {
 
   // Instance method that writes in the file the updated high score list
   void write(int newLine, int newScore, int newWave, String name, int mode) {
-
     // Adjusts the line to match with the file 
     int multiplier = 0;
-    if (mode == 1) { // Soloes
+    if (mode == 1) { // Solos
       multiplier = 2;
     } else { // Duos
+      newLine -= 5;
       multiplier = 9;
     }
-
+    
+    println("newline = " + newLine); //should be 9
+    println("start at line: " +(4 + multiplier) + " end before: " + (newLine + multiplier));
     // Loops over the lines of the leaderboard including/below the line of the new high score
     for (int i = 4 + multiplier; i > newLine + multiplier; i --) {
+      println("Currently on line: " + i);
       // Stores the information into the lineTotal array which holds the data for the file 
-      if (i == (4 + multiplier)) { // New score is added here
+      if (i == (newLine + multiplier + 1)) { // New score is added here
+      println("New score printed");
         lineTotal[i] = "" + (i - 1) + "............" + newScore + "......." + newWave + "........." + name;
       } else { // Current score takes info from the next highest score
+      println(lineTotal[i] + " is now " + lineTotal[i-1]);
         lineTotal[i] = lineTotal[i-1];
       }
     }
-    
+
     pw = createWriter("leaderboard.txt");
     for (int i = 0; i < lineTotal.length; i ++) {
       // Loops through the data stored in each line of the file and prints it to the file
+      println(lineTotal[i]);
       pw.println(lineTotal[i]);
     }
     pw.flush(); // Flushes the stream of text
+    
  
   }
   
 }
-
