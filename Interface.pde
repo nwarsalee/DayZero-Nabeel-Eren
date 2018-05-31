@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/28 v1
+ 2018/05/31 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -11,6 +11,8 @@ class Interface {
   int minutes;
   int seconds;
   int deaths;
+  Leaderboard leaderboard = new Leaderboard();
+  boolean callLeaderboard = true;
 
   // Constructor which displays the game borders
   Interface() {
@@ -60,13 +62,13 @@ class Interface {
     stroke(255);
     fill(0);/*
     // Y axis grid
-    for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
-      line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
-    }
-    // X axis grid
-    for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / 24) {
-      line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
-    }*/
+     for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
+     line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
+     }
+     // X axis grid
+     for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / 24) {
+     line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
+     }*/
     fill(255, 0, 0);
     noStroke();
     // Game box
@@ -131,6 +133,9 @@ class Interface {
 
   // Instance method that displays the game over screen
   void gameOver() {
+    if (newHighscore()) { // Checks if the user has a new high score
+      state = 5;
+    }
     showBorder();
     deaths = (score - 100 * (waves - 1)) / 10;
     textAlign(CENTER);
@@ -199,19 +204,50 @@ class Interface {
 
   // Instance method that displays the leaderboard to the user 
   void leaderboard() {
-    // 1185 pixels for entire leaderboard
-    // 590 pixels available for each leaderboard
     showBorder();
     textAlign(CENTER);
     textSize(width/10);
     fill(255, 0, 0);
     text("LEADERBOARD", width/2, height/6);
-    leaderboard.read();
+    leaderboard.display();
     returnToMenu();
+  }
+
+  // Instance method that lets the user enter a new high score entry 
+  void highscore() {
+    showBorder();
+    String name;
+    textAlign(CENTER);
+    textSize(width/10);
+    fill(252, 229, 10);
+    text("HIGH SCORE!", width/2, height/4);
+    textSize(width/20);
+    fill(255);
+    text("Score: " + score + " XP", width/2, height/4 + 100);
+    // User name entry 
+    name = "BOB";
+    if (callLeaderboard) {
+      leaderboard.write(leaderboard.replaceScore(score, players), score, waves, name, players);
+      callLeaderboard = false;
+    }
+    returnToMenu();
+    text("Leaderboard", width/2, 7 * height/8 - 100);
+    rectMode(CENTER);
+    rect(width/2, 7 * height/8 - 123, width/3, height/15);
+    rectMode(CORNER);
   }
 
   // Instance method that displays an image
   void show(PImage img, int x, int y, int w, int h) {
     image(img, x, y, w, h);
+  }
+
+  // Instance method that checks if the user has a new high score
+  boolean newHighscore() {
+    if (score > leaderboard.lowestScore(players)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
