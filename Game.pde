@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/31 v1
+ 2018/05/31 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -97,6 +97,9 @@ void draw() {
   } else if (state == 4) {
     // Leaderboard;
     gui.leaderboard();
+  } else if (state == 5) {
+    // New high score
+    gui.highscore();
   }
 }
 
