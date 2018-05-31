@@ -28,11 +28,12 @@
 * ~Have the crate class working in obstructing zombies and players~
 * Start changing how the zombies spawn
 * Create a recursive method to find get the number of zombies to spawn
+* Move the canShoot() method and stamina variables to the player class
 
 
 ### Ideas
 * Have zombies fade in when spawning
-* Introduce a reload mechanism to stop player from continuously shooting
+* Introduce a reload mechanism to stop player from continuously shooting for a certain period of time
 * Use invisible crates to block off buildings in the map
 
 Note: 
