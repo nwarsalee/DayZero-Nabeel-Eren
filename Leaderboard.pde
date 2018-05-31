@@ -97,19 +97,20 @@ class Leaderboard {
       newLine -= 5;
       multiplier = 9;
     }
-    
-    println("newline = " + newLine); //should be 9
-    println("start at line: " +(4 + multiplier) + " end before: " + (newLine + multiplier));
+
     // Loops over the lines of the leaderboard including/below the line of the new high score
     for (int i = 4 + multiplier; i > newLine + multiplier; i --) {
-      println("Currently on line: " + i);
       // Stores the information into the lineTotal array which holds the data for the file 
       if (i == (newLine + multiplier + 1)) { // New score is added here
-      println("New score printed");
         lineTotal[i] = "" + (i - 1) + "............" + newScore + "......." + newWave + "........." + name;
       } else { // Current score takes info from the next highest score
-      println(lineTotal[i] + " is now " + lineTotal[i-1]);
         lineTotal[i] = lineTotal[i-1];
+        // Edits the first part showing the place on the leaderboard 
+        if (i == (4 + multiplier)) { // Last place 
+          lineTotal[i] = lineTotal[i].replace(lineTotal[i].charAt(0), '5');
+        } else {
+          lineTotal[i] = lineTotal[i].replace(lineTotal[i].charAt(0), lineTotal[i+1].charAt(0));
+        }
       }
     }
 
@@ -120,8 +121,5 @@ class Leaderboard {
       pw.println(lineTotal[i]);
     }
     pw.flush(); // Flushes the stream of text
-    
- 
   }
-  
 }
