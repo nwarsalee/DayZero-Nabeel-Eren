@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/31 v1
+ 2018/05/31 v2
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
