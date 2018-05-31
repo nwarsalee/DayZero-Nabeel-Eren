@@ -45,6 +45,7 @@ Bottom right of grid: 1400, 1400
 * ~Check if user has a high score~
 * Make user enter name if they have new high score 
 * Use a search to make the algorithim more efficient 
+* Encryption 
 * ~Print data onto the file~
 ### Main menu
 * ~Add instructions~
