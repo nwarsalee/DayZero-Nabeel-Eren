@@ -1,12 +1,12 @@
 /* 
  ICS4U
- 2018/05/30 v1
+ 2018/05/31 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 Player[] player;
-Crate crate;
+ArrayList<Crate> defenses = new ArrayList<Crate>();
 ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
@@ -25,7 +25,8 @@ void reset() {
   score = 0;
   // Resets the objects
   player[0] = new Player(width/2, height/2);
-  crate = new Crate(500, 500);
+  Crate crate = new Crate(500, 500);
+  defenses.add(crate);
   // Adding enemies
   //Enemy newZombie = new Enemy(200, 200);
   //zombies.add(newZombie);
@@ -75,16 +76,14 @@ void draw() {
       loot.clear(); // Clearing all the loot
       zombies.clear(); // Clears the zombie array
       bullets.clear(); // Cleans the bullets array
+      defenses.clear();
       newState(2);
     }
     gui.gamePlay();
     lootMoves();
     bulletMoves(); // Method to show the bullets' moves
-    player[0].show();
-    if (players == 2) { // If the gamemode it 2-player, show the second player
-      player[1].show();
-    }
-    crate.show();
+    playerMoves();
+    defenses.get(0).show(); // Showing the crate
     zombieMoves(); // Method to show the moves of the zombies
   } else if (state == 1) {
     // Main menu
@@ -142,7 +141,7 @@ void setWave() {
 void setLoot() {
   int random;
   for (int i=0; i < 2; i++) { // Loops twice to see if either of the two lootboxes will be added
-    random = (int)random(1,5);
+    random = (int)random(1, 10);
     if (random == 1 && loot.size() < 2) { // 20% chance of a lootbox dropping
       Loot health = new Loot((int)random(4, 28) * 50, (int)random(4, 28) * 50);
       loot.add(health);
@@ -164,7 +163,7 @@ void keyPressed() {
       player[0].move('l');
     } else if (keyCode == 'D') {
       player[0].move('r');
-    } else if (keyCode == ' ') {
+    } else if (keyCode == ' ' && player[0].canShoot()) {
       Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
       bullets.add(bullet); // Addin new bullet
       shots ++; // Adds a bullet shot
@@ -179,7 +178,7 @@ void keyPressed() {
         player[1].move('l');
       } else if (keyCode == RIGHT) {
         player[1].move('r');
-      } else if (keyCode == 16) {
+      } else if (keyCode == 16 && player[1].canShoot()) {
         Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
         bullets.add(bullet); // Adding new bullet
         shots ++; // Adds a bullet shot
@@ -276,8 +275,14 @@ void bulletMoves() {
   for (int i=0; i<bullets.size(); i++) {
     bullets.get(i).show();
     bullets.get(i).move();
-    if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
+    if (bullets.get(i).inBounds() == false ) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
       bullets.remove(i);
+    }
+    // Checking if the bullet hits any crates, removes it if it does
+    for (Crate crate : defenses) {
+      if (bullets.get(i).intersect(crate)) {
+        bullets.remove(i);
+      }
     }
   }
 }
@@ -329,9 +334,11 @@ void lootMoves() {
 
 // Method to show the players and their moves
 void playerMoves() {
-  // Loop to go through all the players
-  if (!player[0].isDead()) {
-    player[0].show();
-  } else {
+  // Showing and updating the player's stats
+  player[0].show();
+  player[0].update();
+  if (players == 2) { // If the gamemode it 2-player, show the second player
+    player[1].show();
+    player[1].update();
   }
 }
