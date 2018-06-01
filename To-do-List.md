@@ -43,6 +43,7 @@ Bottom right of grid: 1400, 1400
 ## UI To do list
 ### Leaderboard
 * ~Check if user has a high score~
+* Use private variables
 * Make user enter name if they have new high score 
 * Use a search to make the algorithim more efficient 
 * Encryption 
