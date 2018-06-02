@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/02 v1
+ 2018/06/02 v2
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -78,9 +78,9 @@ class Leaderboard {
 
     // Sorts through the scores to determine where the users score stands 
     do {
-      if (userScore > data.get(i)) {
-        isLargerThan = true;
-        if (i != 0) {
+      if (i >= 0) {
+        if ( userScore > data.get(i)) {
+          isLargerThan = true;
           i --;
         } else {
           isLargerThan = false;
@@ -91,36 +91,43 @@ class Leaderboard {
     } while (isLargerThan);
 
     // Returns the line the new score is supposed to be in
-    return (i-1);
+    return i;
   }
 
   // Instance method that writes in the file the updated high score list
   void write(int newLine, int newScore, int newWave, String name, int mode) {
+    int prev;
+    final int RADIX = 10;
     // Adjusts the line to match with the file 
     int multiplier = 0;
     if (mode == 1) { // Solos
       multiplier = 2;
     } else { // Duos
-      newLine -= 5;
       multiplier = 9;
     }
-
+    
     // Loops over the lines of the leaderboard including/below the line of the new high score
     for (int i = 4 + multiplier; i > newLine + multiplier; i --) {
       // Stores the information into the lineTotal array which holds the data for the file 
       if (i == (newLine + multiplier + 1)) { // New score is added here
-        lineTotal[i] = "" + (i - 1) + "............" + newScore + "......." + newWave + "........." + name;
+        int place = i - 1;
+        if (mode == 2) {// Duos
+          place -= 7;
+        }
+        lineTotal[i] = "" + place + "............" + newScore + "......." + newWave + "........." + name;
       } else { // Current score takes info from the next highest score
+        prev = i - 1;
+        if (mode == 2) { // Duos
+          prev -= 7;
+        }
         lineTotal[i] = lineTotal[i-1];
         // Edits the first part showing the place on the leaderboard 
-        if (i == (4 + multiplier)) { // Last place 
-          lineTotal[i] = lineTotal[i].replace(lineTotal[i].charAt(0), '5');
-        } else {
-          lineTotal[i] = lineTotal[i].replace(lineTotal[i].charAt(0), lineTotal[i+1].charAt(0));
-        }
+        lineTotal[i] = replaceChar(lineTotal[i], Character.forDigit(prev, RADIX));
       }
     }
-
+    for (int i = 0; i <  lineTotal.length; i ++) {
+      println(lineTotal[i]);
+    }
     pw = createWriter("leaderboard.txt");
 
     for (int i = 0; i < lineTotal.length; i ++) {
@@ -131,10 +138,10 @@ class Leaderboard {
     pw.flush(); // Flushes the stream of text
   }
 
-  /*
-  To do list:
-   - Initialize the leaderboard in the Game class
-   - This will help with optimization since it won't be initialized everytime the Interface class is called
-   - Send leaderboard variable to the gameOver() and highscore() methods in the interface class
-   */
+  // Replaces place on scoreboard
+  String replaceChar(String s, char c) {
+    StringBuilder sb = new StringBuilder(s);
+    sb.setCharAt(0, c);
+    return sb.toString();
+  }
 }
