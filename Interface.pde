@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/31 v2
+ 2018/06/02 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -11,7 +11,6 @@ class Interface {
   int minutes;
   int seconds;
   int deaths;
-  Leaderboard leaderboard = new Leaderboard();
   boolean callLeaderboard = true;
 
   // Constructor which displays the game borders
