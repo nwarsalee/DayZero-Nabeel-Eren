@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/02 v3
+ 2018/06/02 v4
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -26,8 +26,9 @@ void reset() {
   // Resets the score
   score = 0;
   // Resets the objects
-  Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-  zombies.add(newZombie);
+  //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
+  //zombies.add(newZombie);
+  setZombies();
   player[0] = new Player(width/2, height/2);
   Crate crate = new Crate(500, 500);
   defenses.add(crate);
@@ -127,8 +128,9 @@ boolean nextWave() {
 // Sets up a new wave
 void setWave() {
   for (int i = 0; i < spawning(waves); i ++) {
-    Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-    zombies.add(newZombie);
+    //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
+    //zombies.add(newZombie);
+    setZombies();
   }
   score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
@@ -363,6 +365,31 @@ void defenseMoves() {
   }
 }
 
+// Method to set the zombies
+void setZombies() {
+  float x, y;
+  if (random(100) > 50) { // 50 % chance of spawning on the top or bottom
+    x = random(4, 28);
+    if (x < 16) { // Spawn on top
+      x = 4;
+    } else { // Spawn on bottom
+      x = 27;
+    }
+    y = (int)random(4, 28);
+  } else { // 50 % chance of spawning on the sides
+    y = random(4, 28);
+    if (y < 16) { // Spawn on top
+      y = 4;
+    } else { // Spawn on bottom
+      y = 27;
+    }
+    x = (int)random(4, 28);
+  }
+  println("x:" + x + " y:" + y);
+  Enemy newZombie = new Enemy((int)x * 50, (int)y * 50);
+  zombies.add(newZombie);
+}
+
 // Method to setup the images
 void setImages() {
   // Getting the heart imgs
@@ -391,4 +418,3 @@ void setImages() {
   imgP2Up = loadImage("Player2-up.png");
   imgP2Down = loadImage("Player2-down.png");
 }
-
