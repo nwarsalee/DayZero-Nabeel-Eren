@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/31 v1 [TEST BUILD]
+ 2018/06/02 v1
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -9,9 +9,9 @@
 class Leaderboard {
   PrintWriter pw;
   BufferedReader br;
-  String[] lineTotal = new String[14]; // String that stores the information on every line in the file
-  ArrayList<Integer> data = new ArrayList<Integer>(); // Arraylist that stores the point data
-  int y = 350;
+  private String[] lineTotal = new String[14]; // String that stores the information on every line in the file
+  private ArrayList<Integer> data = new ArrayList<Integer>(); // Arraylist that stores the point data
+  private int y = 350;
   boolean loop = false;
 
   // Instance method that reads the file 
@@ -37,9 +37,9 @@ class Leaderboard {
     } 
     catch (IOException e) {
       println("Error: File not found.");
-    }
+    } 
     catch (NullPointerException e) {
-      println("No file called leaderboard.txt found...");
+      println("Error: File not found.");
     }
   }
 
@@ -67,7 +67,7 @@ class Leaderboard {
 
   // Instance method that returns in which line of the leaderboard the new score is to be added in
   int replaceScore(int userScore, int mode) {
-    boolean isLargerThan = false;
+    boolean isLargerThan = true;
     int i;
 
     if (mode == 1) { // Solos
@@ -80,14 +80,18 @@ class Leaderboard {
     do {
       if (userScore > data.get(i)) {
         isLargerThan = true;
-        i --;
+        if (i != 0) {
+          i --;
+        } else {
+          isLargerThan = false;
+        }
       } else {
         isLargerThan = false;
       }
     } while (isLargerThan);
 
     // Returns the line the new score is supposed to be in
-    return i;
+    return (i-1);
   }
 
   // Instance method that writes in the file the updated high score list
@@ -118,11 +122,19 @@ class Leaderboard {
     }
 
     pw = createWriter("leaderboard.txt");
+
     for (int i = 0; i < lineTotal.length; i ++) {
       // Loops through the data stored in each line of the file and prints it to the file
-      println(lineTotal[i]);
       pw.println(lineTotal[i]);
     }
+
     pw.flush(); // Flushes the stream of text
   }
+
+  /*
+  To do list:
+   - Initialize the leaderboard in the Game class
+   - This will help with optimization since it won't be initialized everytime the Interface class is called
+   - Send leaderboard variable to the gameOver() and highscore() methods in the interface class
+   */
 }
