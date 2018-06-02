@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/02 v2
+ 2018/06/02 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -10,6 +10,7 @@ ArrayList<Crate> defenses = new ArrayList<Crate>();
 ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
+Leaderboard leaderboard;
 PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth;
 PImage imgP1Right, imgP1Left, imgP1Up, imgP1Down, imgP2Right, imgP2Left, imgP2Up, imgP2Down;
 int players = 0;
@@ -44,6 +45,7 @@ void newState(int state1) {
 
 void setup() {
   size(1600, 1600);
+  leaderboard = new Leaderboard();
   // Loads the assets
   setImages();
   // Initializes the objects
@@ -389,5 +391,4 @@ void setImages() {
   imgP2Up = loadImage("Player2-up.png");
   imgP2Down = loadImage("Player2-down.png");
 }
-
 
