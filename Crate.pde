@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/30 v1
+2018/06/02 v1
 Game Summative
 Crate class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -20,11 +20,8 @@ class Crate extends Rectangle {
   
   // Show method to show the crate object
   void show() {
-    fill(124, 77, 1);
-    rect(getX(), getBottom(), getWidth(), getHeight()); // Shows player as a rectangle on screen.
+    imageMode(CORNER);
+    image(imgCrate, getX(), getBottom(), getWidth(), getHeight());
   }
-
-
-
 
 }
