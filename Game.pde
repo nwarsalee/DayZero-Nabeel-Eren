@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/02 v1
+ 2018/06/02 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -25,12 +25,11 @@ void reset() {
   // Resets the score
   score = 0;
   // Resets the objects
+  Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
+  zombies.add(newZombie);
   player[0] = new Player(width/2, height/2);
   Crate crate = new Crate(500, 500);
   defenses.add(crate);
-  // Adding enemies
-  //Enemy newZombie = new Enemy(200, 200);
-  //zombies.add(newZombie);
   lastSize = 1; // Resets the zombie multiplier
   state = 0; // Game begins
   waves = 1; // Resets the wave counter
@@ -58,13 +57,6 @@ void setup() {
 void draw() {
   if (state == 0) {
     // Game in progress
-    // Checks if the wave is over
-    if (nextWave()) {
-      // Sets the next wave 
-      setWave();
-      // Sets the loot for the next wave
-      setLoot();
-    }
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
       loot.clear(); // Clearing all the loot
@@ -79,6 +71,13 @@ void draw() {
     playerMoves();
     defenseMoves();
     zombieMoves(); // Method to show the moves of the zombies
+    // Checks if the wave is over
+    if (nextWave()) {
+      // Sets the next wave 
+      setWave();
+      // Sets the loot for the next wave
+      setLoot();
+    }
   } else if (state == 1) {
     // Main menu
     gui.menu();
@@ -125,7 +124,7 @@ boolean nextWave() {
 
 // Sets up a new wave
 void setWave() {
-  for (int i = 1; i < spawning(waves); i ++) {
+  for (int i = 0; i < spawning(waves); i ++) {
     Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
     zombies.add(newZombie);
   }
@@ -135,7 +134,7 @@ void setWave() {
 
 // Recursive method to set the size of the waves
 int spawning(int wave) {
-  if (lastSize < 1) {
+  if (wave < 1) {
     throw new  RuntimeException("Invalid wave number...");
   } else if (wave == 1) {
     return 1;
@@ -292,7 +291,8 @@ void bulletMoves() {
           bullets.remove(i);
         }
       }
-    } catch (Exception ArrayOutOfBoundsException) {
+    } 
+    catch (Exception ArrayOutOfBoundsException) {
       println("Out of bounds...");
     }
   }
@@ -389,7 +389,5 @@ void setImages() {
   imgP2Up = loadImage("Player2-up.png");
   imgP2Down = loadImage("Player2-down.png");
 }
-
-
 
 
