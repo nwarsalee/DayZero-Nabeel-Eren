@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/31 v2
+ 2018/06/02 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -10,7 +10,8 @@ ArrayList<Crate> defenses = new ArrayList<Crate>();
 ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth;
+PImage imgP1Right, imgP1Left, imgP1Up, imgP1Down, imgP2Right, imgP2Left, imgP2Up, imgP2Down;
 int players = 0;
 int state = 1;
 int startTime;
@@ -45,14 +46,7 @@ void newState(int state1) {
 void setup() {
   size(1600, 1600);
   // Loads the assets
-  imgHeart1 = loadImage("heart1.png");
-  imgHeart2 = loadImage("heart2.png");
-  imgMap = loadImage("MAP1.PNG");
-  imgZombieUp = loadImage("Zombie-up.png");
-  imgZombieDown = loadImage("Zombie-down.png");
-  imgZombieLeft = loadImage("Zombie-left.png");
-  imgZombieRight = loadImage("Zombie-right.png");
-  imgBackground = loadImage("background.png");
+  setImages();
   // Initializes the objects
   player = new Player[2];
   player[0] = new Player(width/2 - 100, height/2);
@@ -83,7 +77,7 @@ void draw() {
     lootMoves();
     bulletMoves(); // Method to show the bullets' moves
     playerMoves();
-    defenses.get(0).show(); // Showing the crate
+    defenseMoves();
     zombieMoves(); // Method to show the moves of the zombies
   } else if (state == 1) {
     // Main menu
@@ -131,13 +125,23 @@ boolean nextWave() {
 
 // Sets up a new wave
 void setWave() {
-  lastSize = lastSize + ceil(0.5 * lastSize);
-  for (int i = 1; i < lastSize; i ++) {
+  for (int i = 1; i < spawning(waves); i ++) {
     Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
     zombies.add(newZombie);
   }
   score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
+}
+
+// Recursive method to set the size of the waves
+int spawning(int wave) {
+  if (lastSize < 1) {
+    throw new  RuntimeException("Invalid wave number...");
+  } else if (wave == 1) {
+    return 1;
+  } else {
+    return ceil(spawning(wave-1) * 1.5);
+  }
 }
 
 // Sets up a new wave
@@ -276,16 +280,20 @@ boolean backToMenu() {
 void bulletMoves() {
   // Loop to go through the bullets
   for (int i=0; i<bullets.size(); i++) {
-    bullets.get(i).show();
-    bullets.get(i).move();
-    if (bullets.get(i).inBounds() == false ) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
-      bullets.remove(i);
-    }
-    // Checking if the bullet hits any crates, removes it if it does
-    for (Crate crate : defenses) {
-      if (bullets.get(i).intersect(crate)) {
+    try {
+      bullets.get(i).show();
+      bullets.get(i).move();
+      if (bullets.get(i).inBounds() == false ) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
         bullets.remove(i);
       }
+      // Checking if the bullet hits any crates, removes it if it does
+      for (Crate crate : defenses) {
+        if (bullets.get(i).intersect(crate)) {
+          bullets.remove(i);
+        }
+      }
+    } catch (Exception ArrayOutOfBoundsException) {
+      println("Out of bounds...");
     }
   }
 }
@@ -338,10 +346,50 @@ void lootMoves() {
 // Method to show the players and their moves
 void playerMoves() {
   // Showing and updating the player's stats
-  player[0].show();
+  player[0].show(1);
   player[0].update();
   if (players == 2) { // If the gamemode it 2-player, show the second player
-    player[1].show();
+    player[1].show(2);
     player[1].update();
   }
 }
+
+// Method to show the defense crates and their moves
+void defenseMoves() {
+  for (int i=0; i < defenses.size(); i++) {
+    defenses.get(i).show();
+  }
+}
+
+// Method to setup the images
+void setImages() {
+  // Getting the heart imgs
+  imgHeart1 = loadImage("heart1.png");
+  imgHeart2 = loadImage("heart2.png");
+  // Crate and health crate imgs
+  imgCrate = loadImage("Crate-img.png");
+  imgHealth = loadImage("Health-img.png");
+  // Map imgs
+  imgMap = loadImage("MAP1.PNG");
+  // Zombie imgs
+  imgZombieUp = loadImage("Zombie-up.png");
+  imgZombieDown = loadImage("Zombie-down.png");
+  imgZombieLeft = loadImage("Zombie-left.png");
+  imgZombieRight = loadImage("Zombie-right.png");
+  // Background imgs
+  imgBackground = loadImage("background.png");
+  // P1 imgs
+  imgP1Right = loadImage("Player-right.png");
+  imgP1Left = loadImage("Player-left.png");
+  imgP1Up = loadImage("Player-up.png");
+  imgP1Down = loadImage("Player-down.png");
+  // P2 imgs
+  imgP2Right = loadImage("Player2-right.png");
+  imgP2Left = loadImage("Player2-left.png");
+  imgP2Up = loadImage("Player2-up.png");
+  imgP2Down = loadImage("Player2-down.png");
+}
+
+
+
+
