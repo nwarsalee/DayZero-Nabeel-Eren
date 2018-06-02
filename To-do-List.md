@@ -43,19 +43,19 @@ Bottom right of grid: 1400, 1400
 ## UI To do list
 ### Leaderboard
 * ~Check if user has a high score~
-* Use private variables
+* ~Use private variables~
 * Make user enter name if they have new high score 
 * Use a search to make the algorithim more efficient 
 * Encryption 
 * ~Print data onto the file~
 ### Main menu
 * ~Add instructions~
-* Add leaderboard
+* ~Add leaderboard~
 * Add credits
 ### In-game
 * ~Add user interface for lives, waves etc~
 * Do all visuals
-* Make user/zombie images face the way they are going
+* ~Make user/zombie images face the way they are going~
 ### End game
 * ~Return to main menu and leaderboard~
 * ~Display all the stats~
