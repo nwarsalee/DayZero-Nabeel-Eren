@@ -1,6 +1,6 @@
 /*
 ICS4U
-2018/05/29
+2018/06/02 v1
 Game Summative
 Loot Class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -23,10 +23,8 @@ class Loot extends Rectangle {
   
   // Method to show the loot icon
   void show() {
-    fill(0,255,0); // Green color
-    noStroke();
-    rect(getX(), getBottom(), getWidth(), getHeight());
-    // ADD PIMAGE LATER WITH WHAT THE LOOT DOES
+    imageMode(CORNER);
+    image(imgHealth, getX(), getBottom(), getWidth(), getHeight());
   }
   
   // Method to show whether or not the loot has been picked up
