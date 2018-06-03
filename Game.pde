@@ -1,420 +1,252 @@
 /* 
  ICS4U
- 2018/06/02 v4
+ 2018/06/03 v1
  Game Summative
+ Interface class
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
-Player[] player;
-ArrayList<Crate> defenses = new ArrayList<Crate>();
-ArrayList<Loot> loot = new ArrayList<Loot>();
-ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-ArrayList<Enemy> zombies = new ArrayList<Enemy>();
-Leaderboard leaderboard;
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth;
-PImage imgP1Right, imgP1Left, imgP1Up, imgP1Down, imgP2Right, imgP2Left, imgP2Up, imgP2Down;
-int players = 0;
-int state = 1;
-int startTime;
-int lastSize = 1;
-int waves = 1;
-int score = 0;
-int shots = 0;
-Interface gui;
+class Interface {
+  int currentTime;
+  int minutes;
+  int seconds;
+  int deaths;
+  
+  // Constructor which displays the game borders
+  Interface() {
+    showBorder();
+  }
 
-void reset() {
-  // Resets the score
-  score = 0;
-  // Resets the objects
-  //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-  //zombies.add(newZombie);
-  setZombies();
-  player[0] = new Player(width/2, height/2);
-  Crate crate = new Crate(500, 500);
-  defenses.add(crate);
-  lastSize = 1; // Resets the zombie multiplier
-  state = 0; // Game begins
-  waves = 1; // Resets the wave counter
-  startTime = millis(); // Resets clock
-  shots = 0; // Resets the bullet count
-  setup();
-}
+  // Instance which displays the borders when they are erased
+  void showBorder() {
+    imageMode(CENTER);
+    show(imgBackground, width/2, height/2, 1600, 1600);
+    fill(255, 0, 0);
+    noStroke();
+    rect(0, 0, width, width/160); 
+    rect(width - width/160, 0, width/160, height); 
+    rect(0, height-height/160, width, width/160); 
+    rect(0, 0, height/160, height);
+  }
 
-void newState(int state1) {
-  state = state1;
-}
+  // Instance method that displays the main menu
+  void menu() { 
+    // Title screen
+    showBorder();
+    textAlign(CENTER);
+    textSize(width/10);
+    fill(255);
+    text("ZOMBIE SURVIVAL", width/2, height/4);
+    textSize(width/20);
+    text("Singleplayer", width/2, height/2);
+    text("2 Players", width/2, 5 * height/8);
+    text("How to play", width/2, 3 * height/4);
+    text("Leaderboard", width/2, 7 * height/8);
+    noFill();
+    stroke(255, 0, 0);
+    rectMode(CENTER);
+    rect(width/2, height/2.06, width/3, height/15);
+    rect(width/2, 5 * height/8 - 23, width/3, height/15);
+    rect(width/2, 3 * height/4 - 23, width/3, height/15);
+    rect(width/2, 7 * height/8 - 23, width/3, height/15);
+    rectMode(CORNER);
+  }
 
-void setup() {
-  size(1600, 1600);
-  leaderboard = new Leaderboard();
-  // Loads the assets
-  setImages();
-  // Initializes the objects
-  player = new Player[2];
-  player[0] = new Player(width/2 - 100, height/2);
-  player[1] = new Player(width/2, height/2);
-  // Outline
-  gui = new Interface();
-}
-
-void draw() {
-  if (state == 0) {
-    // Game in progress
-    // Checks if the player(s) is/are dead
-    if (gameIsOver()) {
-      loot.clear(); // Clearing all the loot
-      zombies.clear(); // Clears the zombie array
-      bullets.clear(); // Cleans the bullets array
-      defenses.clear();
-      newState(2);
+  // Instance method that displays the proper interface for gameplay 
+  void gamePlay() {
+    // Game grid
+    showBorder();
+    show(imgMap, width/2, height/2, 1200, 1200);
+    stroke(255);
+    fill(0);/*
+    // Y axis grid
+     for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
+     line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
+     }
+     // X axis grid
+     for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / 24) {
+     line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
+     }*/
+    fill(255, 0, 0);
+    noStroke();
+    // Game box
+    rect(width/8 - width/160, width/8 - width/160, width - 2 * width/8 + width/140, width/160);
+    rect(width/8 - width/160, width - width/8 + width/140 - width/160, width - 2 * width/8 + width/140, width/160);
+    rect(width/8 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/140);
+    rect(width - width/8 + width/140 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/75);
+    // In-game GUI
+    fill(255);
+    textAlign(CENTER);
+    textSize(width/20);
+    // Displays the time 
+    currentTime = millis() - startTime;
+    // Converts the milliseconds into seconds
+    seconds = currentTime / 1000;
+    // Once the second timer reaches 59, the minute timer resets and minutes increases
+    if (seconds == 59) {
+      startTime = millis();
+      minutes ++;
     }
-    gui.gamePlay();
-    lootMoves();
-    bulletMoves(); // Method to show the bullets' moves
-    playerMoves();
-    defenseMoves();
-    zombieMoves(); // Method to show the moves of the zombies
-    // Checks if the wave is over
-    if (nextWave()) {
-      // Sets the next wave 
-      setWave();
-      // Sets the loot for the next wave
-      setLoot();
-    }
-  } else if (state == 1) {
-    // Main menu
-    gui.menu();
-  } else if (state == 2) {
-    // Game over
-    gui.gameOver();
-  } else if (state == 3) {
-    // How to play
-    gui.instructions();
-  } else if (state == 4) {
-    // Leaderboard;
-    gui.leaderboard();
-  } else if (state == 5) {
-    // New high score
-    gui.highscore();
-  }
-}
-
-boolean gameIsOver() {
-  // Checks if the players are out of health points then sets the state to main menu
-  if (players == 1) {
-    if (player[0].getLives() == 0) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    if (player[0].getLives() == 0 && player[1].getLives() == 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-
-// Checks if the wave is over
-boolean nextWave() {
-  if (zombies.size() == 0) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-// Sets up a new wave
-void setWave() {
-  for (int i = 0; i < spawning(waves); i ++) {
-    //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-    //zombies.add(newZombie);
-    setZombies();
-  }
-  score += 100; // Adds 100 points to the score for surviving a wave
-  waves ++;
-}
-
-// Recursive method to set the size of the waves
-int spawning(int wave) {
-  if (wave < 1) {
-    throw new  RuntimeException("Invalid wave number...");
-  } else if (wave == 1) {
-    return 1;
-  } else {
-    return ceil(spawning(wave-1) * 1.5);
-  }
-}
-
-// Sets up a new wave
-void setLoot() {
-  int random;
-  for (int i=0; i < 2; i++) { // Loops twice to see if either of the two lootboxes will be added
-    random = (int)random(1, 10);
-    if (random == 1 && loot.size() < 2) { // 20% chance of a lootbox dropping
-      Loot health = new Loot((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-      loot.add(health);
-      println("LootBox added!");
-    }
-  }
-}
-
-// Keeps track of user key inputs  
-void keyPressed() {
-  // Checks if the game is in progress
-  if (state == 0) { 
-    // Player 1 controls 
-    if (keyCode == 'W') {
-      player[0].move('u');
-    } else if (keyCode == 'S') {
-      player[0].move('d');
-    } else if (keyCode == 'A') {
-      player[0].move('l');
-    } else if (keyCode == 'D') {
-      player[0].move('r');
-    } else if (keyCode == ' ' && player[0].canShoot()) {
-      Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
-      bullets.add(bullet); // Addin new bullet
-      shots ++; // Adds a bullet shot
-    } 
-    // Player 2
+    text(minutes + ":" + seconds, width/2, 125);
+    // Displays the waves
+    text("Wave: " + waves, width/2, height - 75);
+    textSize(width/40);
+    strokeWeight(10);
+    stroke(255);
+    text("P1", 1500, height/2 - 575);
+    // Displays the points
+    text("Points", 100, height/2 - 320);
+    text(score + " XP", 100, height/2 - 225);
+    // Displays thet amounts of zombies
+    text("Zombies", 100, height/2 + 300);
+    text(zombies.size(), 100, height/2 + 400);
+    line(1475, height/2 - 555, 1525, height/2 - 555); // Line under player 1 health
+    line(25, height/2 - 300, 175, height/2 - 300); // Line under the points tab
+    line(25, height/2 + 320, 175, height/2 + 320); // Line under the zombies tab
     if (players == 2) {
-      if (keyCode == UP) {
-        player[1].move('u');
-      } else if (keyCode == DOWN) {
-        player[1].move('d');
-      } else if (keyCode == LEFT) {
-        player[1].move('l');
-      } else if (keyCode == RIGHT) {
-        player[1].move('r');
-      } else if (keyCode == 16 && player[1].canShoot()) {
-        Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
-        bullets.add(bullet); // Adding new bullet
-        shots ++; // Adds a bullet shot
-      }
-    }
-  } else if (state == 3) { // How to play menu
-    gui.instructions();
-  } else if (state == 4) { // Leaderboard 
-    gui.leaderboard();
-  }
-}
-
-// Method which keeps track of mouse clicks 
-void mousePressed() {
-  if (state == 1) { // Menu
-    if (singleplayer()) { // Singleplayer option is chosen
-      players = 1;
-      reset();
-    } else if (multiplayer()) { // Multiplayer option is chosen
-      players = 2;
-      reset();
-    } else if (instructions()) { // How to play screen 
-      newState(3);
-    } else if (leaderboard()) { // Leaderboard screen
-      newState(4);
-    }
-  } else if (state != 0 && state != 1) { // Leaderboard or instructions page 
-    if (backToMenu()) { // Returns to main menu
-      newState(1);
-    } 
-    if (leaderboard2()) { // View leaderboard from end-game screen
-      newState(4);
-    }
-  }
-}
-
-// Instance method that checks if the user's mouse is on the singleplayer option
-boolean singleplayer() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= width/2.06 - width/30 && mouseY <= 853 * width / 1545 - width/30) {
-    return true;
-  } else { 
-    return false;
-  }
-}
-
-// Instance method that checks if the user's mouse is on the multipayer option
-boolean multiplayer() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= height/2 + height/8 - 23 - width/30 && mouseY <= 3251 / 3 - width/30) {
-    return true;
-  } else { 
-    return false;
-  }
-}
-
-// Instance method that checks if the user's mouse is on the instructions option
-boolean instructions() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= height/2 + height/4 - 23 - height/30 && mouseY <= 3851 / 3 - height/30) {
-    return true;
-  } else { 
-    return false;
-  }
-}
-
-// Instance method that checks if the user's mouse is on the leaderboad option
-boolean leaderboard() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= 7 * height/8 - 23 - height/30 && mouseY <= 4451/3 - height/30) {
-    return true;
-  } else { 
-    return false;
-  }
-}
-
-// Instance method that checks if the user's mouse is on the leaderboad option when in end game screen
-boolean leaderboard2() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= 7 * height/8 - 123 - height/30 && mouseY <= 4451/3 - height/30  - 123) {
-    return true;
-  } else { 
-    return false;
-  }
-}
-
-// Instance method that checks if the user's mouse is on the back to menu option
-boolean backToMenu() {
-  if (mouseX >= width/2 - 0.5 * width/2.2 && mouseX <= 21 * width / 22 - 0.5 * width/2.2 && mouseY >= height - 115 - width/30 && mouseY <= 16  * height / 15 - 115 - width/30) {
-    return true;
-  } else { 
-    return false;
-  }
-}
-
-// Method to show the bullets
-void bulletMoves() {
-  // Loop to go through the bullets
-  for (int i=0; i<bullets.size(); i++) {
-    try {
-      bullets.get(i).show();
-      bullets.get(i).move();
-      if (bullets.get(i).inBounds() == false ) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
-        bullets.remove(i);
-      }
-      // Checking if the bullet hits any crates, removes it if it does
-      for (Crate crate : defenses) {
-        if (bullets.get(i).intersect(crate)) {
-          bullets.remove(i);
+      // Adds player 2 health if the game is multiplayer  
+      text("P2", 1500, height/2);
+      text("P2", 1500, height/2);
+      line(1475, height/2 + 20, 1525, height/2 + 20); // Line under player 2 health 
+      // Displays the hearts for player 2
+      for (int i = 0; i < player[1].getLives(); i ++) {
+        if (i > 2) { // User has extra health that will be dispalyed as gold 
+          show(imgHeart2, 1500, height/2 + 90 + 100 * i, 75, 75);
+        } else { // Normal health will be displayed red
+          show(imgHeart1, 1500, height/2 + 90 + 100 * i, 75, 75);
         }
       }
-    } 
-    catch (Exception ArrayOutOfBoundsException) {
-      println("Out of bounds...");
     }
+    // Displays the hearts for player 1
+    for (int i = 0; i < player[0].getLives(); i ++) {
+      if (i > 2) { // User has extra health that will be displayed as gold 
+        show(imgHeart2, 1500, height/2 - 490 + 100 * i, 75, 75);
+      } else { // Normal health will be displayed red
+        show(imgHeart1, 1500, height/2 - 490 + 100 * i, 75, 75);
+      }
+    }
+    strokeWeight(1);
+    textAlign(CORNER);
   }
-}
 
-// Method to show the zombies and their moves
-void zombieMoves() {
-  for (int i=0; i<zombies.size(); i++) {
-    zombies.get(i).show();
-    if (!(player[0].isDead())) {
-      zombies.get(i).moveStep(player[0]); // Moving towards player 1
+  // Instance method that displays the game over screen
+  void gameOver() {
+    if (newHighscore() && callLeaderboard) { // Checks if the user has a new high score
+      newState(5);
+    }
+    showBorder();
+    deaths = (score - 100 * (waves - 1)) / 10;
+    textAlign(CENTER);
+    textSize(width/10);
+    fill(255, 0, 0);
+    text("GAME OVER", width/2, height/5);
+    fill(255);
+    textSize(width/30);
+    text("Score: " + score + " XP | Waves Survived: " + (waves - 1), width/2, height/2 - 300);
+    if (minutes >= 1) {
+      text("Time elapsed: " + minutes + "m " + seconds + "s", width/2, height/2 - 100);
     } else {
-      zombies.get(i).moveStep(player[1]);
+      text("Time elapsed: " + seconds + "s", width/2, height/2 - 100);
     }
-    if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
-      player[0].hit(); // Has the player get hit and lose one heart...
-    } else if (zombies.get(i).attacking(player[1])) {
-      player[1].hit(); // Has the second player get hit
-    }
-    // Checking if the zombie is hit
-    if (zombies.get(i).isHit(bullets)) {
-      zombies.get(i).hit(); // Having the zombie take damage
-      bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
-      if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
-        println("Zombie " + (i+1) + " has died... Lives at " + zombies.get(i).getLives());
-        zombies.remove(i); // Removing the zombie from the arrayList/game
-        score += 10; // Adds 10 points to the score for killing a zombie
+    text("Zombies Slain: " + deaths, width/2, height/2 + 100);
+    text("Bullets Shot: " + shots + " | Weapon Accuracy: " + Math.round(((double)deaths / (double)shots) * 1000.0) / 10.0 + "%", width/2, height/2 + 300);
+    returnToMenu();
+    text("Leaderboard", width/2, 7 * height/8 - 100);
+    rectMode(CENTER);
+    rect(width/2, 7 * height/8 - 123, width/3, height/15);
+    rectMode(CORNER);
+  }
+
+  // Instance method which returns to the main menu when needed
+  void returnToMenu() {
+    textAlign(CENTER);
+    textSize(width/30);
+    fill(255);
+    text("<-- Return to Main Menu", width/2, height - 100);
+    noFill();
+    stroke(255, 0, 0);
+    rectMode(CENTER);
+    rect(width/2, height - 115, width/2.2, height/15);
+    rectMode(CORNER);
+  }
+
+  // Instance method that displays the game instructions
+  void instructions() {
+    showBorder();
+    textAlign(CENTER);
+    textSize(width/10);
+    fill(255, 0, 0);
+    text("HOW TO PLAY", width/2, height/6);
+    fill(255);
+    textSize(width/30);
+    textAlign(CENTER);
+    rectMode(CENTER);
+    rect(width/2, height/3 - 70, 650, 10);
+    rect(width/2, height/2 - 150, 250, 10);
+    rect(width/2, height/2 + 50, 170, 10);
+    rectMode(CORNER);
+    // Each text is 100 px beneath the last 
+    text("MOVEMENT CONTROLS", width/2, height/3 - 100);
+    text("Player 1 : W, A, S, D | Player 2: ARROW KEYS", width/2, height/3);
+    text("FIRE GUN", width/2, height/3 + 100);
+    text("Player 1: SPACE | Player 2: SHIFT", width/2, height/3 + 200);
+    text("RULES", width/2, height/3 + 300);
+    textAlign(LEFT);
+    text("-  Each player has 3 hearts", width/16, height/3 + 400);
+    text("-  Zombies come in endless waves", width/16, height/3 + 500);
+    text("-  Golden hearts are armour and serve as extra health", width/16, height/3 + 600);
+    text("-  Game is over when both players have no more hearts", width/16, height/3 + 700);
+    text("-  Your objective is to survive as long as possible", width/16, height/3 + 800);
+    returnToMenu();
+  }
+
+  // Instance method that displays the leaderboard to the user 
+  void leaderboard() {
+    showBorder();
+    textAlign(CENTER);
+    textSize(width/10);
+    fill(255, 0, 0);
+    text("LEADERBOARD", width/2, height/6);
+    leaderboard.display();
+    returnToMenu();
+  }
+
+  // Instance method that lets the user enter a new high score entry 
+  void highscore() {
+    showBorder();
+    textAlign(CENTER);
+    textSize(width/10);
+    fill(252, 229, 10);
+    text("HIGH SCORE!", width/2, height/4);
+    textSize(width/20);
+    fill(255);
+    text("Score: " + score + " XP", width/2, height/4 + 100);
+    text("Name: " + input, width/2, height/2);
+    textSize(width/30);
+    text("Enter Name to Claim High Score:", width/2, height/2 - 100);
+    if (input.length() == 3) {
+      text("Press Enter to Continue", width/2, height/2 + 100);
+      if (inputComplete) {
+        if (callLeaderboard) {
+          // Replaces the score
+          leaderboard.write(leaderboard.replaceScore(score, players), score, waves, input, players);
+          callLeaderboard = false;
+        }
       }
     }
   }
-}
 
-// Method to run the processes for the loot
-void lootMoves() {
-  for (int i=0; i<loot.size(); i++) {
-    loot.get(i).show(); // Showing the lootbox
-    // Statements to check whether or not the player has picked a loot box up.
-    if (loot.get(i).intersect(player[0])) {
-      player[0].lifePoint(); // For now, the loot box gives them a life point
-      loot.remove(i);
-    }
-    if (players == 2) { // Checks if it's in two player mod
-      if (loot.get(i).intersect(player[1])) {
-        player[1].lifePoint();
-        loot.remove(i);
-      }
+  // Instance method that displays an image
+  void show(PImage img, int x, int y, int w, int h) {
+    image(img, x, y, w, h);
+  }
+
+  // Instance method that checks if the user has a new high score
+  boolean newHighscore() {
+    if (score > leaderboard.lowestScore(players)) {
+      return true;
+    } else {
+      return false;
     }
   }
-}
-
-// Method to show the players and their moves
-void playerMoves() {
-  // Showing and updating the player's stats
-  player[0].show(1);
-  player[0].update();
-  if (players == 2) { // If the gamemode it 2-player, show the second player
-    player[1].show(2);
-    player[1].update();
-  }
-}
-
-// Method to show the defense crates and their moves
-void defenseMoves() {
-  for (int i=0; i < defenses.size(); i++) {
-    defenses.get(i).show();
-  }
-}
-
-// Method to set the zombies
-void setZombies() {
-  float x, y;
-  if (random(100) > 50) { // 50 % chance of spawning on the top or bottom
-    x = random(4, 28);
-    if (x < 16) { // Spawn on top
-      x = 4;
-    } else { // Spawn on bottom
-      x = 27;
-    }
-    y = (int)random(4, 28);
-  } else { // 50 % chance of spawning on the sides
-    y = random(4, 28);
-    if (y < 16) { // Spawn on top
-      y = 4;
-    } else { // Spawn on bottom
-      y = 27;
-    }
-    x = (int)random(4, 28);
-  }
-  println("x:" + x + " y:" + y);
-  Enemy newZombie = new Enemy((int)x * 50, (int)y * 50);
-  zombies.add(newZombie);
-}
-
-// Method to setup the images
-void setImages() {
-  // Getting the heart imgs
-  imgHeart1 = loadImage("heart1.png");
-  imgHeart2 = loadImage("heart2.png");
-  // Crate and health crate imgs
-  imgCrate = loadImage("Crate-img.png");
-  imgHealth = loadImage("Health-img.png");
-  // Map imgs
-  imgMap = loadImage("MAP1.PNG");
-  // Zombie imgs
-  imgZombieUp = loadImage("Zombie-up.png");
-  imgZombieDown = loadImage("Zombie-down.png");
-  imgZombieLeft = loadImage("Zombie-left.png");
-  imgZombieRight = loadImage("Zombie-right.png");
-  // Background imgs
-  imgBackground = loadImage("background.png");
-  // P1 imgs
-  imgP1Right = loadImage("Player-right.png");
-  imgP1Left = loadImage("Player-left.png");
-  imgP1Up = loadImage("Player-up.png");
-  imgP1Down = loadImage("Player-down.png");
-  // P2 imgs
-  imgP2Right = loadImage("Player2-right.png");
-  imgP2Left = loadImage("Player2-left.png");
-  imgP2Up = loadImage("Player2-up.png");
-  imgP2Down = loadImage("Player2-down.png");
 }
