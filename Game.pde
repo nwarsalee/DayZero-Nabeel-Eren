@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/03 v2
+ 2018/06/03 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -163,7 +163,7 @@ void setLoot() {
   int random;
   for (int i=0; i < 2; i++) { // Loops twice to see if either of the two lootboxes will be added
     random = (int)random(1, 10);
-    if (random == 1 && loot.size() < 2) { // 20% chance of a lootbox dropping
+    if (random == 1 && loot.size() < 2) { // 10% chance of a lootbox dropping
       Loot health = new Loot((int)random(4, 28) * 50, (int)random(4, 28) * 50);
       loot.add(health);
       println("LootBox added!");
@@ -390,25 +390,30 @@ void defenseMoves() {
 // Method to set the zombies
 void setZombies() {
   float x, y;
+  char dir;
   if (random(100) > 50) { // 50 % chance of spawning on the top or bottom
     x = random(4, 28);
-    if (x < 16) { // Spawn on top
+    if (x < 16) { // Spawn on left
       x = 4;
-    } else { // Spawn on bottom
+      dir = 'r';
+    } else { // Spawn on right
       x = 27;
+      dir = 'l';
     }
     y = (int)random(4, 28);
   } else { // 50 % chance of spawning on the sides
     y = random(4, 28);
     if (y < 16) { // Spawn on top
       y = 4;
+      dir = 'd';
     } else { // Spawn on bottom
       y = 27;
+      dir = 'u';
     }
     x = (int)random(4, 28);
   }
   println("x:" + x + " y:" + y);
-  Enemy newZombie = new Enemy((int)x * 50, (int)y * 50);
+  Enemy newZombie = new Enemy(dir, (int)x * 50, (int)y * 50);
   zombies.add(newZombie);
 }
 
