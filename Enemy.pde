@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/05/28 v1
+ 2018/06/03 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -18,9 +18,17 @@ class Enemy extends Person {
     coolDown = 0;
   }
 
-  // Constructor that initializes the Enemy, sets the life to 1
+  // Constructor that initializes the Enemy, sets the life to 1 and sends the direction
   Enemy(float xStart, float yStart) {
     super(1, xStart, yStart); // Automatically sets the lives to 1
+    x = xStart;
+    y = yStart;
+    coolDown = c;
+  }
+  
+  // Constructor that initializes the Enemy, sets the life to 1
+  Enemy(char dir, float xStart, float yStart) {
+    super(1, xStart, yStart, dir); // Automatically sets the lives to 1
     x = xStart;
     y = yStart;
     coolDown = c;
@@ -40,13 +48,11 @@ class Enemy extends Person {
     if (p1.getX() > getX()) { // If the enemy has to move to the right
       x++;
       if (x % 50 == 0) {
-        println("X - Player pos: " + p1.getX() + " Enemy pos: " + getX());
         move('r');
       }
     } else if (p1.getX() < getX()) { // If the enemy has to move to the left
       x--;
       if (x % 50 == 0) {
-        println("X - Player pos: " + p1.getX() + " Enemy pos: " + getX());
         move('l');
       }
     }
@@ -54,13 +60,11 @@ class Enemy extends Person {
     if (p1.getBottom() > getBottom()) { // If the enemy has to move downwards
       y++;
       if (y % 50 == 0) {
-        println("Y - Player pos: " + p1.getX() + " Enemy pos: " + getBottom());
         move('d');
       }
     } else if (p1.getBottom() < getBottom()) { // If the enemy has to move upwards
       y--;
       if (y % 50 == 0) {
-        println("Y - Player pos: " + p1.getX() + " Enemy pos: " + getBottom());
         move('u');
       }
     }
@@ -110,7 +114,7 @@ class Enemy extends Person {
       image(imgZombieLeft, getX(), getBottom(), getWidth(), getHeight());
     } else if (getDir() == 'u') { // If it's facing up show the up img
       image(imgZombieUp, getX(), getBottom(), getWidth(), getHeight());
-    } else { // If it's facing down (none of the above) show the down img
+    } else { // If it's facing down (aka none of the above) show the down img
       image(imgZombieDown, getX(), getBottom(), getWidth(), getHeight());
     }
   }
