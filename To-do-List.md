@@ -40,6 +40,7 @@
 * Introduce a reload mechanism to stop player from continuously shooting for a certain period of time
 * Use invisible crates to block off buildings in the map
 * Have the bullet location match with where the gun is on the player model
+* **FOR 2-D ARRAYS, MAKE ONE FOR THE PLAYER IMGS, WHERE ROW 1 IS FOR P1 AND ROW 2 IS FOR P2**
 
 Note: 
 Top left of grid: 200, 200
