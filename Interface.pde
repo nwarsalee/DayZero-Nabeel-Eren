@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/02 v1
+ 2018/06/03 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -11,8 +11,7 @@ class Interface {
   int minutes;
   int seconds;
   int deaths;
-  boolean callLeaderboard = true;
-
+  
   // Constructor which displays the game borders
   Interface() {
     showBorder();
@@ -132,8 +131,8 @@ class Interface {
 
   // Instance method that displays the game over screen
   void gameOver() {
-    if (newHighscore()) { // Checks if the user has a new high score
-      state = 5;
+    if (newHighscore() && callLeaderboard) { // Checks if the user has a new high score
+      newState(5);
     }
     showBorder();
     deaths = (score - 100 * (waves - 1)) / 10;
@@ -215,7 +214,6 @@ class Interface {
   // Instance method that lets the user enter a new high score entry 
   void highscore() {
     showBorder();
-    String name;
     textAlign(CENTER);
     textSize(width/10);
     fill(252, 229, 10);
@@ -223,17 +221,19 @@ class Interface {
     textSize(width/20);
     fill(255);
     text("Score: " + score + " XP", width/2, height/4 + 100);
-    // User name entry 
-    name = "BOB";
-    if (callLeaderboard) {
-      leaderboard.write(leaderboard.replaceScore(score, players), score, waves, name, players);
-      callLeaderboard = false;
+    text("Name: " + input, width/2, height/2);
+    textSize(width/30);
+    text("Enter Name to Claim High Score:", width/2, height/2 - 100);
+    if (input.length() == 3) {
+      text("Press Enter to Continue", width/2, height/2 + 100);
+      if (inputComplete) {
+        if (callLeaderboard) {
+          // Replaces the score
+          leaderboard.write(leaderboard.replaceScore(score, players), score, waves, input, players);
+          callLeaderboard = false;
+        }
+      }
     }
-    returnToMenu();
-    text("Leaderboard", width/2, 7 * height/8 - 100);
-    rectMode(CENTER);
-    rect(width/2, 7 * height/8 - 123, width/3, height/15);
-    rectMode(CORNER);
   }
 
   // Instance method that displays an image
