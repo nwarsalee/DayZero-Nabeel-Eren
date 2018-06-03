@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/03 v1
+ 2018/06/03 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -12,7 +12,7 @@ ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
 PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth;
-PImage imgP1Right, imgP1Left, imgP1Up, imgP1Down, imgP2Right, imgP2Left, imgP2Up, imgP2Down;
+PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 int players = 0;
 int state = 1;
 int startTime;
@@ -356,12 +356,12 @@ void lootMoves() {
   for (int i=0; i<loot.size(); i++) {
     loot.get(i).show(); // Showing the lootbox
     // Statements to check whether or not the player has picked a loot box up.
-    if (loot.get(i).intersect(player[0])) {
+    if (loot.get(i).intersect(player[0]) && player[0].getLives() < 5) {
       player[0].lifePoint(); // For now, the loot box gives them a life point
       loot.remove(i);
     }
     if (players == 2) { // Checks if it's in two player mod
-      if (loot.get(i).intersect(player[1])) {
+      if (loot.get(i).intersect(player[1]) && player[1].getLives() < 5) {
         player[1].lifePoint();
         loot.remove(i);
       }
@@ -430,13 +430,13 @@ void setImages() {
   // Background imgs
   imgBackground = loadImage("background.png");
   // P1 imgs
-  imgP1Right = loadImage("Player-right.png");
-  imgP1Left = loadImage("Player-left.png");
-  imgP1Up = loadImage("Player-up.png");
-  imgP1Down = loadImage("Player-down.png");
+  playerImg[0][0] = loadImage("Player-right.png");
+  playerImg[0][1] = loadImage("Player-left.png");
+  playerImg[0][2] = loadImage("Player-up.png");
+  playerImg[0][3] = loadImage("Player-down.png");
   // P2 imgs
-  imgP2Right = loadImage("Player2-right.png");
-  imgP2Left = loadImage("Player2-left.png");
-  imgP2Up = loadImage("Player2-up.png");
-  imgP2Down = loadImage("Player2-down.png");
+  playerImg[1][0] = loadImage("Player2-right.png");
+  playerImg[1][1] = loadImage("Player2-left.png");
+  playerImg[1][2] = loadImage("Player2-up.png");
+  playerImg[1][3] = loadImage("Player2-down.png");
 }
