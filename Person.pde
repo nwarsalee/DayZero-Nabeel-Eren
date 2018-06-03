@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/31 v1
+2018/06/03 v1
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -9,27 +9,24 @@ Made by Eren Sulutas and Nabeel Warsalee
 class Person extends Rectangle {
    private int lives; // Private integer variable for the number of lives.
    private char dir = 'u'; // Variable for the direction the person is facing, automatically set to up
-   private float stamina, s = 5; // Floats for the player's stamina and the stamina limit
   
   // Default constructor for the Person class
   Person() {
     super();
     lives = 0;
-    stamina = 0;
   }
   
   // Constructor that takes in parameters for lives, xPos and yPos
   Person(int health, float x, float y) {
     super(x, y);
     this.lives = health;
-    stamina = s;
   }
   
-  // Update method to update the players state..
-  void update() {
-    if (stamina < s) {
-      stamina++;
-    }
+  // Constructor that takes in parameters for lives, xPos and yPos
+  Person(int health, float x, float y, char direction) {
+    super(x, y);
+    this.lives = health;
+    this.dir = direction;
   }
   
   // Show method to show the player object
@@ -61,13 +58,6 @@ class Person extends Rectangle {
     }
   }
   
-  // Method to give a health point to the person (primarily used for the Player class)
-  void lifePoint() {
-    if (this.lives < 5) {
-      this.lives++;
-    }
-  }
-  
   // Method to check if the person is dead
   boolean isDead() {
     if (this.lives == 0) {
@@ -87,16 +77,6 @@ class Person extends Rectangle {
       }
     }
     return true; // Default return
-  }
-  
-  // Method to check whether or not the player can shoot
-  boolean canShoot() {
-    if (stamina == s) {
-      stamina = 0;
-      return true;
-    } else {
-      return false;
-    }
   }
   
   // Series of getter and setter methods.
