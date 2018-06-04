@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/04 v2
+ 2018/06/04 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -181,21 +181,23 @@ void keyPressed() {
   // Checks if the game is in progress
   if (state == 0) { 
     // Player 1 controls 
-    if (keyCode == 'W') {
-      player[0].move('u');
-    } else if (keyCode == 'S') {
-      player[0].move('d');
-    } else if (keyCode == 'A') {
-      player[0].move('l');
-    } else if (keyCode == 'D') {
-      player[0].move('r');
-    } else if (keyCode == ' ' && player[0].canShoot()) {
-      Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
-      bullets.add(bullet); // Addin new bullet
-      shots ++; // Adds a bullet shot
-    } 
+    if (!player[0].isDead()) {
+      if (keyCode == 'W') {
+        player[0].move('u');
+      } else if (keyCode == 'S') {
+        player[0].move('d');
+      } else if (keyCode == 'A') {
+        player[0].move('l');
+      } else if (keyCode == 'D') {
+        player[0].move('r');
+      } else if (keyCode == ' ' && player[0].canShoot()) {
+        Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
+        bullets.add(bullet); // Addin new bullet
+        shots ++; // Adds a bullet shot
+      }
+    }
     // Player 2
-    if (players == 2) {
+    if (players == 2 && !player[1].isDead()) {
       if (keyCode == UP) {
         player[1].move('u');
       } else if (keyCode == DOWN) {
@@ -341,12 +343,12 @@ void zombieMoves() {
     if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
       player[0].hit(); // Has the player get hit and lose one heart...
       if (player[0].isDead()) {
-        player[0].setPos(0,0); // Sets its position outisde of the player area
+        player[0].setPos(0, 0); // Sets its position outisde of the player area
       }
     } else if (zombies.get(i).attacking(player[1])) {
       player[1].hit(); // Has the second player get hit
       if (player[1].isDead()) {
-        player[1].setPos(0,0); // Sets its position outisde of the player area
+        player[1].setPos(0, 0); // Sets its position outisde of the player area
       }
     }
     // Checking if the zombie is hit
