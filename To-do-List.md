@@ -84,6 +84,6 @@ Bottom right of grid: 1400, 1400
 * Sorting ✅
 * ArrayLists ✅
 * 1-D arrays ✅
-* 2-D arrays ❗ **NOT DONE**
+* 2-D arrays ✅
 * Search ✏️ *(in the works)*
 
