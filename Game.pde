@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/03 v3
+ 2018/06/04 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -27,6 +27,11 @@ PFont font;
 Interface gui;
 
 void reset() {
+  // Clears all the game assets from previous rounds
+  loot.clear(); // Clearing all the loot
+  zombies.clear(); // Clears the zombie array
+  bullets.clear(); // Cleans the bullets array
+  defenses.clear();
   // Resets the score
   score = 0;
   // Resets the objects
@@ -70,10 +75,10 @@ void draw() {
     // Game in progress
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
-      loot.clear(); // Clearing all the loot
-      zombies.clear(); // Clears the zombie array
-      bullets.clear(); // Cleans the bullets array
-      defenses.clear();
+      //loot.clear(); // Clearing all the loot
+      //zombies.clear(); // Clears the zombie array
+      //bullets.clear(); // Cleans the bullets array
+      //defenses.clear();
       newState(2);
     }
     gui.gamePlay();
