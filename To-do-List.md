@@ -28,7 +28,8 @@
 * ~Have the crate class working in obstructing zombies and players~
 * ~Start changing how the zombies spawn~
 * ~Create a recursive method to find get the number of zombies to spawn~
-* Move the canShoot() method and stamina variables to the player class
+* ~Move the canShoot() method and stamina variables to the player class~
+* Start adding audio to the game
 * Add a reload mechanism to the player class.
 
 ### Concerns
