@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/04 v1
+ 2018/06/04 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -340,15 +340,20 @@ void zombieMoves() {
     }
     if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
       player[0].hit(); // Has the player get hit and lose one heart...
+      if (player[0].isDead()) {
+        player[0].setPos(0,0); // Sets its position outisde of the player area
+      }
     } else if (zombies.get(i).attacking(player[1])) {
       player[1].hit(); // Has the second player get hit
+      if (player[1].isDead()) {
+        player[1].setPos(0,0); // Sets its position outisde of the player area
+      }
     }
     // Checking if the zombie is hit
     if (zombies.get(i).isHit(bullets)) {
       zombies.get(i).hit(); // Having the zombie take damage
       bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
       if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
-        println("Zombie " + (i+1) + " has died... Lives at " + zombies.get(i).getLives());
         zombies.remove(i); // Removing the zombie from the arrayList/game
         score += 10; // Adds 10 points to the score for killing a zombie
       }
@@ -377,9 +382,11 @@ void lootMoves() {
 // Method to show the players and their moves
 void playerMoves() {
   // Showing and updating the player's stats
-  player[0].show(1);
-  player[0].update();
-  if (players == 2) { // If the gamemode it 2-player, show the second player
+  if (!player[0].isDead()) {
+    player[0].show(1);
+    player[0].update();
+  }
+  if (players == 2 && !player[1].isDead()) { // If the gamemode it 2-player, show the second player
     player[1].show(2);
     player[1].update();
   }
