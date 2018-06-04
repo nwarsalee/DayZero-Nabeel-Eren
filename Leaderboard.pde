@@ -1,18 +1,17 @@
 /* 
  ICS4U
- 2018/06/02 v2
+ 2018/06/04 v1
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 class Leaderboard {
-  PrintWriter pw;
-  BufferedReader br;
+  //PrintWriter pw;
+  //BufferedReader br;
   private String[] lineTotal = new String[14]; // String that stores the information on every line in the file
   private ArrayList<Integer> data = new ArrayList<Integer>(); // Arraylist that stores the point data
   private int y = 350;
-  boolean loop = false;
 
   // Instance method that reads the file 
   Leaderboard() {
@@ -66,6 +65,7 @@ class Leaderboard {
   }
 
   // Instance method that returns in which line of the leaderboard the new score is to be added in
+  // This method is a step to the insertion sort that is used in the write method
   int replaceScore(int userScore, int mode) {
     boolean isLargerThan = true;
     int i;
@@ -78,8 +78,8 @@ class Leaderboard {
 
     // Sorts through the scores to determine where the users score stands 
     do {
-      if (i >= 0) {
-        if ( userScore > data.get(i)) {
+      if (i > 0) {
+        if (userScore > data.get(i)) {
           isLargerThan = true;
           i --;
         } else {
@@ -94,7 +94,7 @@ class Leaderboard {
     return i;
   }
 
-  // Instance method that writes in the file the updated high score list
+  // Instance method that writes in the file the updated high score list and uses insertion sort to sort the file
   void write(int newLine, int newScore, int newWave, String name, int mode) {
     int prev;
     final int RADIX = 10;
@@ -105,11 +105,10 @@ class Leaderboard {
     } else { // Duos
       multiplier = 9;
     }
-    
     // Loops over the lines of the leaderboard including/below the line of the new high score
-    for (int i = 4 + multiplier; i > newLine + multiplier; i --) {
+    for (int i = 4 + multiplier; i >= newLine + multiplier; i --) {
       // Stores the information into the lineTotal array which holds the data for the file 
-      if (i == (newLine + multiplier + 1)) { // New score is added here
+      if (i == (newLine + multiplier)) { // New score is added here
         int place = i - 1;
         if (mode == 2) {// Duos
           place -= 7;
@@ -120,14 +119,13 @@ class Leaderboard {
         if (mode == 2) { // Duos
           prev -= 7;
         }
+        // Shifts the larger items down by one using an insertion sort technique 
         lineTotal[i] = lineTotal[i-1];
         // Edits the first part showing the place on the leaderboard 
         lineTotal[i] = replaceChar(lineTotal[i], Character.forDigit(prev, RADIX));
       }
     }
-    for (int i = 0; i <  lineTotal.length; i ++) {
-      println(lineTotal[i]);
-    }
+
     pw = createWriter("leaderboard.txt");
 
     for (int i = 0; i < lineTotal.length; i ++) {
