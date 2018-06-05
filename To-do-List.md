@@ -52,7 +52,7 @@ Bottom right of grid: 1400, 1400
 * ~Check if user has a high score~
 * ~Use private variables~
 * ~Make user enter name if they have new high score~
-* Use a search to make the algorithm more efficient 
+* ~Use a sort to make the algorithm more efficient~
 * Encryption 
 * ~Print data onto the file~
 ### Main menu
@@ -86,5 +86,5 @@ Bottom right of grid: 1400, 1400
 * ArrayLists ✅
 * 1-D arrays ✅
 * 2-D arrays ✅
-* Search ✏️ *(in the works)*
+* Search ✅ (Sort in the leaderboard classes uses a search before sorting)
 
