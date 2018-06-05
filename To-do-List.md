@@ -4,7 +4,9 @@
 * ~Get Mindomo done~
 * ~Get files onto Processing~
 * ~Finish adding graphical components.~
-* Start adding audio to the game.
+* ~Start adding audio to the game.~
+* Refine the game and test it for bugs
+* Write down a *'report'* of how our game meets the ICS4U expecations
 
 ## Mechanics To do list
 * ~Work on Game class~       
@@ -29,7 +31,7 @@
 * ~Start changing how the zombies spawn~
 * ~Create a recursive method to find get the number of zombies to spawn~
 * ~Move the canShoot() method and stamina variables to the player class~
-* Start adding audio to the game
+* ~Start adding audio to the game~
 * Add a reload mechanism to the player class.
 
 ### Concerns
@@ -55,6 +57,7 @@ Bottom right of grid: 1400, 1400
 * ~Use a sort to make the algorithm more efficient~
 * Encryption 
 * ~Print data onto the file~
+* Use a search we used in class *(Binary maybe?)*
 ### Main menu
 * ~Add instructions~
 * ~Add leaderboard~
