@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/04 v3
+ 2018/06/05 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -13,6 +13,8 @@ ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
 PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
+PrintWriter pw;
+BufferedReader br;
 int players = 0;
 int state = 1;
 int startTime;
