@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/05 v2
+ 2018/06/05 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -393,17 +393,22 @@ void zombieMoves() {
 // Method to run the processes for the loot
 void lootMoves() {
   for (int i=0; i<loot.size(); i++) {
-    loot.get(i).show(); // Showing the lootbox
-    // Statements to check whether or not the player has picked a loot box up.
-    if (loot.get(i).intersect(player[0]) && player[0].getLives() < 5) {
-      player[0].lifePoint(); // For now, the loot box gives them a life point
-      loot.remove(i);
-    }
-    if (players == 2) { // Checks if it's in two player mod
-      if (loot.get(i).intersect(player[1]) && player[1].getLives() < 5) {
-        player[1].lifePoint();
+    try {
+      loot.get(i).show(); // Showing the lootbox
+      // Statements to check whether or not the player has picked a loot box up.
+      if (loot.get(i).intersect(player[0]) && player[0].getLives() < 5) {
+        player[0].lifePoint(); // For now, the loot box gives them a life point
         loot.remove(i);
       }
+      if (players == 2) { // Checks if it's in two player mod
+        if (loot.get(i).intersect(player[1]) && player[1].getLives() < 5) {
+          player[1].lifePoint();
+          loot.remove(i);
+        }
+      }
+    } 
+    catch (IndexOutOfBoundsException e) {
+      println("There is not loot box present...");
     }
   }
 }
