@@ -1,7 +1,7 @@
 # ICS-Summative
 Starting Summative Files
 
-Deatils of the summative can be found inside the Mindomo project plan.
+Details of the summative can be found inside the Mindomo project plan.
 
 Ask for your copy of the Mindomo project plan:  Place the URL here:  https://www.mindomo.com/mindmap/a81eec1dde108d6a2f591d0315af0dd9  PWD: NabErenW2018
 
@@ -18,3 +18,5 @@ Flow chart could go into more detail if there are more screens that follow.
 
 Level 4++
 
+### Note:
+* Sound 1.4.0 processing library is necessary in order to hear the sounds.
