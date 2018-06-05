@@ -1,9 +1,12 @@
 /* 
  ICS4U
- 2018/06/05 v1
+ 2018/06/05 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
+ 
+import processing.sound.*; // Importing minim libraries for sound output
+SoundFile menu, game, zombie, shoot, hit, scream;
 
 Player[] player;
 ArrayList<Crate> defenses = new ArrayList<Crate>();
@@ -25,6 +28,7 @@ int shots = 0;
 String input = "";
 boolean inputComplete = false;
 boolean callLeaderboard = true;
+boolean soundPlayed;
 PFont font;
 Interface gui;
 
@@ -51,6 +55,8 @@ void reset() {
   input = "";
   callLeaderboard = true; // Sets the leaderboard caller 
   inputComplete = false;
+  soundPlayed = false;
+  menu.stop();
   setup();
 }
 
@@ -63,6 +69,7 @@ void setup() {
   leaderboard = new Leaderboard();
   // Loads the assets
   setImages();
+  setAudio();
   // Initializes the objects
   player = new Player[2];
   player[0] = new Player(width/2 - 100, height/2);
@@ -81,6 +88,8 @@ void draw() {
       //zombies.clear(); // Clears the zombie array
       //bullets.clear(); // Cleans the bullets array
       //defenses.clear();
+      game.stop(); // Stops the in-game music
+      scream.play();
       newState(2);
     }
     gui.gamePlay();
@@ -99,6 +108,10 @@ void draw() {
   } else if (state == 1) {
     // Main menu
     gui.menu();
+    if (!soundPlayed) { // If hte sound hasn't played yet, plays the music
+      menu.play();
+      soundPlayed = true;
+    }
   } else if (state == 2) {
     // Game over
     gui.gameOver();
@@ -196,6 +209,8 @@ void keyPressed() {
         Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
         bullets.add(bullet); // Addin new bullet
         shots ++; // Adds a bullet shot
+        shoot.play(); // Playing the bullet sound
+        shoot.amp(0.5);
       }
     }
     // Player 2
@@ -212,6 +227,8 @@ void keyPressed() {
         Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
         bullets.add(bullet); // Adding new bullet
         shots ++; // Adds a bullet shot
+        shoot.play(); // Playing the bullet sound
+        shoot.amp(0.5);
       }
     }
   } else if (state == 3) { // How to play menu
@@ -238,9 +255,11 @@ void mousePressed() {
     if (singleplayer()) { // Singleplayer option is chosen
       players = 1;
       reset();
+      game.play(); // Playing the in-game music
     } else if (multiplayer()) { // Multiplayer option is chosen
       players = 2;
       reset();
+      game.play(); // Playing the in-game music
     } else if (instructions()) { // How to play screen 
       newState(3);
     } else if (leaderboard()) { // Leaderboard screen
@@ -344,11 +363,13 @@ void zombieMoves() {
     }
     if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
       player[0].hit(); // Has the player get hit and lose one heart...
+      hit.play(); // Playing hit sound effect
       if (player[0].isDead()) {
         player[0].setPos(0, 0); // Sets its position outisde of the player area
       }
     } else if (zombies.get(i).attacking(player[1])) {
       player[1].hit(); // Has the second player get hit
+      hit.play(); // Playing hit sound effect
       if (player[1].isDead()) {
         player[1].setPos(0, 0); // Sets its position outisde of the player area
       }
@@ -362,6 +383,10 @@ void zombieMoves() {
         score += 10; // Adds 10 points to the score for killing a zombie
       }
     }
+  }
+  if ((int)random(200) == 1) { // Has a 20% chance of playing a zombie sound
+    zombie.play();
+    zombie.amp(0.5);
   }
 }
 
@@ -460,4 +485,14 @@ void setImages() {
   playerImg[1][1] = loadImage("Player2-left.png");
   playerImg[1][2] = loadImage("Player2-up.png");
   playerImg[1][3] = loadImage("Player2-down.png");
+}
+
+// Method to set up the audio files
+void setAudio() {
+  menu = new SoundFile(this, "menu-music.mp3");
+  game = new SoundFile(this, "in-game-music.mp3");
+  zombie = new SoundFile(this, "zombie-moan.wav");
+  shoot = new SoundFile(this, "gun-fire.wav");
+  hit = new SoundFile(this, "hit-sound.wav");
+  scream = new SoundFile(this, "scream-sound.wav");
 }
