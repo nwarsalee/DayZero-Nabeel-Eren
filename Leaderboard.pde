@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/04 v1
+ 2018/06/05 v1
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -69,26 +69,34 @@ class Leaderboard {
   int replaceScore(int userScore, int mode) {
     boolean isLargerThan = true;
     int i;
+    int low;
 
     if (mode == 1) { // Solos
       i = 4;
+      low = 0;
     } else { // Duos
       i = 9;
+      low = 5;
     }
 
     // Sorts through the scores to determine where the users score stands 
     do {
-      if (i > 0) {
+      if (i >= low) {
+        println(userScore + " > " + data.get(i));
         if (userScore > data.get(i)) {
           isLargerThan = true;
-          i --;
+          i--;
         } else {
           isLargerThan = false;
+          i ++;
         }
       } else {
         isLargerThan = false;
+        i ++;
       }
     } while (isLargerThan);
+
+    i -= low; // Adjusts the line depending on the individual leaderboard
 
     // Returns the line the new score is supposed to be in
     return i;
@@ -105,6 +113,7 @@ class Leaderboard {
     } else { // Duos
       multiplier = 9;
     }
+    
     // Loops over the lines of the leaderboard including/below the line of the new high score
     for (int i = 4 + multiplier; i >= newLine + multiplier; i --) {
       // Stores the information into the lineTotal array which holds the data for the file 
@@ -142,4 +151,6 @@ class Leaderboard {
     sb.setCharAt(0, c);
     return sb.toString();
   }
+  
+  
 }
