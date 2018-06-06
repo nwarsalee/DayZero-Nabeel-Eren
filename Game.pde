@@ -164,8 +164,6 @@ boolean nextWave() {
 // Sets up a new wave
 void setWave() {
   for (int i = 0; i < spawning(waves); i ++) {
-    //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-    //zombies.add(newZombie);
     setZombies();
   }
   score += 100; // Adds 100 points to the score for surviving a wave
@@ -210,6 +208,8 @@ void keyPressed() {
         player[0].move('l');
       } else if (keyCode == 'D') {
         player[0].move('r');
+      } else if (keyCode == 'R') {
+        player[0].reload(); // Has the player reload
       } else if (keyCode == ' ' && player[0].canShoot()) {
         Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
         bullets.add(bullet); // Addin new bullet
@@ -223,14 +223,16 @@ void keyPressed() {
     }
     // Player 2
     if (players == 2 && !player[1].isDead()) {
-      if (keyCode == UP) {
+      if (keyCode == 'I') {
         player[1].move('u');
-      } else if (keyCode == DOWN) {
+      } else if (keyCode == 'K') {
         player[1].move('d');
-      } else if (keyCode == LEFT) {
+      } else if (keyCode == 'J') {
         player[1].move('l');
-      } else if (keyCode == RIGHT) {
+      } else if (keyCode == 'L') {
         player[1].move('r');
+      } else if (keyCode == 'P') {
+        player[1].reload();
       } else if (keyCode == 16 && player[1].canShoot()) {
         Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
         bullets.add(bullet); // Adding new bullet
