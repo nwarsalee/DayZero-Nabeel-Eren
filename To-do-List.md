@@ -33,7 +33,8 @@
 * ~Move the canShoot() method and stamina variables to the player class~
 * ~Start adding audio to the game~
 * ~Add a reload mechanism to the player class.~
-* Adjust location of where bullets spawn according to where the player's gun is.
+* ~Adjust location of where bullets spawn according to where the player's gun is.~
+* ~Add a reload button for both players~
 * Adjust spawning of zombies so hey spaw gradually.
 
 ### Concerns
