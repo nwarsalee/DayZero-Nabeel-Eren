@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/03 v1
+ 2018/06/06 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -9,20 +9,23 @@
 class Enemy extends Person {
   // PImage playerBody = loadImage(/* enter name of file */);
   private float x, y, coolDown, c = 100; // Float values for the enemy's x and y location and for it's cool down time
+  private int player; // Int for the player that the zombie is following
   
   // Default constructor that sets the values to zero
   Enemy() {
     super();
     x = 0;
     y = 0;
+    player = 0;
     coolDown = 0;
   }
 
-  // Constructor that initializes the Enemy, sets the life to 1 and sends the direction
+  // Constructor that initializes the Enemy, sets the life to 1
   Enemy(float xStart, float yStart) {
     super(1, xStart, yStart); // Automatically sets the lives to 1
     x = xStart;
     y = yStart;
+    player = 1;
     coolDown = c;
   }
   
@@ -31,6 +34,15 @@ class Enemy extends Person {
     super(1, xStart, yStart, dir); // Automatically sets the lives to 1
     x = xStart;
     y = yStart;
+    coolDown = c;
+  }
+  
+  // Constructor that initializes the Enemy, sets the life to 1 and takes in a player parameter
+  Enemy(char dir, float xStart, float yStart, int p) {
+    super(1, xStart, yStart, dir); // Automatically sets the lives to 1
+    x = xStart;
+    y = yStart;
+    player = p;
     coolDown = c;
   }
 
@@ -117,6 +129,16 @@ class Enemy extends Person {
     } else { // If it's facing down (aka none of the above) show the down img
       image(imgZombieDown, getX(), getBottom(), getWidth(), getHeight());
     }
+  }
+  
+  // Method to get the player that it's following
+  int getPlayer() {
+    return player;
+  }
+  
+  // Method to set the player it's following
+  void setPlayer(int p) {
+    player = p;
   }
 
   // Method to print the information of the object.
