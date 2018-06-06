@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/03 v1
+ 2018/06/06 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -11,7 +11,7 @@ class Interface {
   int minutes;
   int seconds;
   int deaths;
-  
+
   // Constructor which displays the game borders
   Interface() {
     showBorder();
@@ -20,7 +20,13 @@ class Interface {
   // Instance which displays the borders when they are erased
   void showBorder() {
     imageMode(CENTER);
-    show(imgBackground, width/2, height/2, 1600, 1600);
+    show(imgBackground, width/2, height/2, 1600, 1600); // Background image
+    // Mute/Unmute image
+    if (!mute) { 
+      show(imgVol1, 100, 1500, 100, 100);
+    } else {
+      show(imgVol2, 100, 1500, 100, 100);
+    }
     fill(255, 0, 0);
     noStroke();
     rect(0, 0, width, width/160); 
