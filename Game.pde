@@ -1,12 +1,12 @@
 /* 
  ICS4U
- 2018/06/06 v1
+ 2018/06/06 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
-import processing.sound.*; // Importing Sound libraries for sound output
-SoundFile menu, game, zombie, shoot, hit, scream; // Different sound files.
+import processing.sound.*; // Importing sound libraries for sound output
+SoundFile menu, game, zombie, shoot, hit, scream; // Different sound files
 
 Player[] player;
 ArrayList<Crate> defenses = new ArrayList<Crate>();
@@ -14,7 +14,7 @@ ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 PrintWriter pw;
 BufferedReader br;
@@ -28,6 +28,7 @@ int shots = 0;
 String input = "";
 boolean inputComplete = false;
 boolean callLeaderboard = true;
+boolean mute = false;
 boolean soundPlayed;
 PFont font;
 Interface gui;
@@ -89,7 +90,9 @@ void draw() {
       //bullets.clear(); // Cleans the bullets array
       //defenses.clear();
       game.stop(); // Stops the in-game music
-      scream.play();
+      if (!mute) {
+        scream.play();
+      }
       newState(2);
     }
     gui.gamePlay();
@@ -108,9 +111,11 @@ void draw() {
   } else if (state == 1) {
     // Main menu
     gui.menu();
-    if (!soundPlayed) { // If hte sound hasn't played yet, plays the music
-      menu.play();
-      soundPlayed = true;
+    if (!mute) {
+      if (!soundPlayed) { // If the sound hasn't played yet, plays the music
+        menu.play();
+        soundPlayed = true;
+      }
     }
   } else if (state == 2) {
     // Game over
@@ -209,8 +214,10 @@ void keyPressed() {
         Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
         bullets.add(bullet); // Addin new bullet
         shots ++; // Adds a bullet shot
-        shoot.play(); // Playing the bullet sound
-        shoot.amp(0.5);
+        if (!mute) {
+          shoot.play(); // Playing the bullet sound
+          shoot.amp(0.5);
+        }
       }
     }
     // Player 2
@@ -227,8 +234,10 @@ void keyPressed() {
         Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
         bullets.add(bullet); // Adding new bullet
         shots ++; // Adds a bullet shot
-        shoot.play(); // Playing the bullet sound
-        shoot.amp(0.5);
+        if (!mute) {
+          shoot.play(); // Playing the bullet sound
+          shoot.amp(0.5);
+        }
       }
     }
   } else if (state == 3) { // How to play menu
@@ -255,11 +264,15 @@ void mousePressed() {
     if (singleplayer()) { // Singleplayer option is chosen
       players = 1;
       reset();
-      game.play(); // Playing the in-game music
+      if (!mute) {
+        game.play(); // Playing the in-game music
+      }
     } else if (multiplayer()) { // Multiplayer option is chosen
       players = 2;
       reset();
-      game.play(); // Playing the in-game music
+      if (!mute) {
+        game.play(); // Playing the in-game music
+      }
     } else if (instructions()) { // How to play screen 
       newState(3);
     } else if (leaderboard()) { // Leaderboard screen
@@ -271,6 +284,20 @@ void mousePressed() {
     }
     if (leaderboard2()) { // View leaderboard from end-game screen
       newState(4);
+    }
+  }
+  if (muteVolume()) { // Checks if the user muted the volume 
+    if (mute) {
+      if (state == 0) { // Game in progress
+        game.play();
+      } else {
+        menu.play();
+      }
+      mute = false;
+    } else {
+      menu.stop();
+      game.stop();
+      mute = true;
     }
   }
 }
@@ -329,6 +356,16 @@ boolean backToMenu() {
   }
 }
 
+// Instance method that checks if the user's mouse is on the mute/unmute button
+boolean muteVolume() { 
+  //100, 1500, 100, 100)
+  if (mouseX >= 50 && mouseX <= 150 && mouseY >= 1450 && mouseY <= 1550) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 // Method to show the bullets
 void bulletMoves() {
   // Loop to go through the bullets
@@ -352,7 +389,6 @@ void bulletMoves() {
   }
 }
 
-// Method to show the zombies and their moves
 void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
     zombies.get(i).show();
@@ -373,7 +409,9 @@ void zombieMoves() {
     }
     if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
       player[0].hit(); // Has the player get hit and lose one heart...
-      hit.play(); // Playing hit sound effect
+      if (!mute) {
+        hit.play(); // Playing hit sound effect
+      }
       if (player[0].isDead()) {
         player[0].setPos(0, 0); // Sets its position outisde of the player area
       }
@@ -395,7 +433,8 @@ void zombieMoves() {
     }
   }
   if ((int)random(200) == 1) { // Has a 20% chance of playing a zombie sound
-    zombie.play();
+    if (!mute)
+      zombie.play();
     zombie.amp(0.5);
   }
 }
@@ -470,7 +509,7 @@ void setZombies() {
     x = (int)random(4, 28);
   }
   if (players == 2) {
-    player = (int)random(1,3);
+    player = (int)random(1, 3);
     println("Player set to " + player);
   } else {
     player = 1;
@@ -506,6 +545,9 @@ void setImages() {
   playerImg[1][1] = loadImage("Player2-left.png");
   playerImg[1][2] = loadImage("Player2-up.png");
   playerImg[1][3] = loadImage("Player2-down.png");
+  // Menu images
+  imgVol1 = loadImage("volumeWhite1.png");
+  imgVol2 = loadImage("volumeWhite2.png");
 }
 
 // Method to set up the audio files
