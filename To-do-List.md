@@ -55,9 +55,7 @@ Bottom right of grid: 1400, 1400
 * ~Use private variables~
 * ~Make user enter name if they have new high score~
 * ~Use a sort to make the algorithm more efficient~
-* Encryption 
 * ~Print data onto the file~
-* Use a search we used in class *(Binary maybe?)*
 ### Main menu
 * ~Add instructions~
 * ~Add leaderboard~
@@ -71,9 +69,6 @@ Bottom right of grid: 1400, 1400
 * ~Display all the stats~
 ### Instructions
 * ~Add lines to emphasize the controls and rules~
-### General
-* Simplify calculations 
-* Pixel text: https://www.dafont.com/pix-riddim.font
 
 ## Final Check
 * Make sure method line up with Mindomo   
