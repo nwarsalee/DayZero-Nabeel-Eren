@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v1
+ 2018/06/06 v2
  Game Summative
  Player class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -87,6 +87,16 @@ class Player extends Person {
   // Method to take away a bullet
   void shoot() {
     bullets--;
+  }
+  
+  // Method that returns the reload value 
+  int getProgress() {
+    return reload;
+  }
+  
+  // Method that returns the bullets in the user's magazine
+  int getBullets() {
+    return bullets;
   }
 
   // Method to print the information of the object.
