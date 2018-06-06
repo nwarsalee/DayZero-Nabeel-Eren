@@ -32,7 +32,9 @@
 * ~Create a recursive method to find get the number of zombies to spawn~
 * ~Move the canShoot() method and stamina variables to the player class~
 * ~Start adding audio to the game~
-* Add a reload mechanism to the player class.
+* ~Add a reload mechanism to the player class.~
+* Adjust location of where bullets spawn according to where the player's gun is.
+* Adjust spawning of zombies so hey spaw gradually.
 
 ### Concerns
 * Make sure that when a lot of zombies spawn, they don't spawn on top of each other. They spawn in "mini-waves".
@@ -40,10 +42,10 @@
 
 ### Ideas
 * Have zombies fade in when spawning
-* Introduce a reload mechanism to stop player from continuously shooting for a certain period of time
+* ~Introduce a reload mechanism to stop player from continuously shooting for a certain period of time~
 * Use invisible crates to block off buildings in the map
 * Have the bullet location match with where the gun is on the player model
-* **FOR 2-D ARRAYS, MAKE ONE FOR THE PLAYER IMGS, WHERE ROW 1 IS FOR P1 AND ROW 2 IS FOR P2**
+* ~**FOR 2-D ARRAYS, MAKE ONE FOR THE PLAYER IMGS, WHERE ROW 1 IS FOR P1 AND ROW 2 IS FOR P2**~
 
 Note: 
 Top left of grid: 200, 200
