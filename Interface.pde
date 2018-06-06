@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v1
+ 2018/06/06 v2
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -129,6 +129,29 @@ class Interface {
         show(imgHeart2, 1500, height/2 - 490 + 100 * i, 75, 75);
       } else { // Normal health will be displayed red
         show(imgHeart1, 1500, height/2 - 490 + 100 * i, 75, 75);
+      }
+    }
+
+    // Displays the bullets for the players
+    for (int i = 0; i < players; i ++) {
+      if (player[i].getBullets() != 0) {
+        text("P" + (i+1) + ": " + player[i].getBullets()  + "/7", 400 + (i*menuMultiplier), 1500);
+      } else {
+        if (player[i].getProgress() >= 0 && player[i].getProgress() <= 20) {
+          text("P" + (i+1) + ":  .", 400 + (i*menuMultiplier), 1500);
+        } else if (player[i].getProgress() > 20 && player[i].getProgress() <= 40) {
+          text("P" + (i+1) + ":  ..", 400 + (i*menuMultiplier), 1500);
+        } else {
+          text("P" + (i+1) + ":  ...", 400 + (i*menuMultiplier), 1500);
+        }
+      }
+
+      if (player[i].getBullets() <= 1) {
+        show(imgBullet3, 520 + (i*menuMultiplier), 1485, 50, 50);
+      } else if (player[i].getBullets() >= 2 && player[i].getBullets() <= 4) {
+        show(imgBullet2, 520 + (i*menuMultiplier), 1485, 50, 50);
+      } else {
+        show(imgBullet1, 520 + (i*menuMultiplier), 1485, 50, 50);
       }
     }
     strokeWeight(1);
