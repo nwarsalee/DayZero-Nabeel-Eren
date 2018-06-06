@@ -211,7 +211,7 @@ void keyPressed() {
         player[0].move('l');
       } else if (keyCode == 'D') {
         player[0].move('r');
-      } else if (keyCode == "R") {
+      } else if (keyCode == 'R') {
         player[0].reload(); // Reload
       } else if (keyCode == ' ' && player[0].canShoot()) {
         Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
