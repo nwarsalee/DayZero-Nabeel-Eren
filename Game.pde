@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v3
+ 2018/06/06 v5
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -14,7 +14,7 @@ ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 PrintWriter pw;
 BufferedReader br;
@@ -25,6 +25,7 @@ int lastSize = 1;
 int waves = 1;
 int score = 0;
 int shots = 0;
+int menuMultiplier = 800;
 String input = "";
 boolean inputComplete = false;
 boolean callLeaderboard = true;
@@ -164,6 +165,8 @@ boolean nextWave() {
 // Sets up a new wave
 void setWave() {
   for (int i = 0; i < spawning(waves); i ++) {
+    //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
+    //zombies.add(newZombie);
     setZombies();
   }
   score += 100; // Adds 100 points to the score for surviving a wave
@@ -208,8 +211,8 @@ void keyPressed() {
         player[0].move('l');
       } else if (keyCode == 'D') {
         player[0].move('r');
-      } else if (keyCode == 'R') {
-        player[0].reload(); // Has the player reload
+      } else if (keyCode == "R") {
+        player[0].reload(); // Reload
       } else if (keyCode == ' ' && player[0].canShoot()) {
         Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
         bullets.add(bullet); // Addin new bullet
@@ -552,6 +555,10 @@ void setImages() {
   // Menu images
   imgVol1 = loadImage("volumeWhite1.png");
   imgVol2 = loadImage("volumeWhite2.png");
+  // Bullet images
+  imgBullet1 = loadImage("bullet1.png");
+  imgBullet2 = loadImage("bullet2.png");
+  imgBullet3 = loadImage("bullet3.png");
 }
 
 // Method to set up the audio files
