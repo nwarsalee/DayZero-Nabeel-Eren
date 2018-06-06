@@ -61,6 +61,7 @@ Bottom right of grid: 1400, 1400
 ### Main menu
 * ~Add instructions~
 * ~Add leaderboard~
+* New controls
 * Add credits
 ### In-game
 * ~Add user interface for lives, waves etc~
