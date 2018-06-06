@@ -1,12 +1,12 @@
 /* 
  ICS4U
- 2018/06/05 v3
+ 2018/06/06 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
- 
-import processing.sound.*; // Importing minim libraries for sound output
-SoundFile menu, game, zombie, shoot, hit, scream;
+
+import processing.sound.*; // Importing Sound libraries for sound output
+SoundFile menu, game, zombie, shoot, hit, scream; // Different sound files.
 
 Player[] player;
 ArrayList<Crate> defenses = new ArrayList<Crate>();
@@ -356,10 +356,20 @@ void bulletMoves() {
 void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
     zombies.get(i).show();
-    if (!(player[0].isDead())) {
-      zombies.get(i).moveStep(player[0]); // Moving towards player 1
+    if (zombies.get(i).getPlayer() == 1) {
+      zombies.get(i).moveStep(player[0]);
     } else {
       zombies.get(i).moveStep(player[1]);
+    }
+    // If a player dies, changes which player it follows.
+    if (player[0].isDead()) {
+      if (zombies.get(i).getPlayer() == 1) {
+        zombies.get(i).setPlayer(2); // Moving towards player 2 now after P1 dies
+      }
+    } else if (player[1].isDead()) {
+      if (zombies.get(i).getPlayer() == 2) {
+        zombies.get(i).setPlayer(1); // Moving towards player 1
+      }
     }
     if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
       player[0].hit(); // Has the player get hit and lose one heart...
@@ -436,6 +446,7 @@ void defenseMoves() {
 // Method to set the zombies
 void setZombies() {
   float x, y;
+  int player;
   char dir;
   if (random(100) > 50) { // 50 % chance of spawning on the top or bottom
     x = random(4, 28);
@@ -458,8 +469,13 @@ void setZombies() {
     }
     x = (int)random(4, 28);
   }
-  println("x:" + x + " y:" + y);
-  Enemy newZombie = new Enemy(dir, (int)x * 50, (int)y * 50);
+  if (players == 2) {
+    player = (int)random(1,3);
+    println("Player set to " + player);
+  } else {
+    player = 1;
+  }
+  Enemy newZombie = new Enemy(dir, (int)x * 50, (int)y * 50, player);
   zombies.add(newZombie);
 }
 
