@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v2
+ 2018/06/06 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -214,6 +214,7 @@ void keyPressed() {
         Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
         bullets.add(bullet); // Addin new bullet
         shots ++; // Adds a bullet shot
+        player[0].shoot(); // Has the player shoot and lose a bullet in the magazine
         if (!mute) {
           shoot.play(); // Playing the bullet sound
           shoot.amp(0.5);
@@ -234,6 +235,7 @@ void keyPressed() {
         Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
         bullets.add(bullet); // Adding new bullet
         shots ++; // Adds a bullet shot
+        player[1].shoot(); // Has the player shoot and lose a bullet in the magazine
         if (!mute) {
           shoot.play(); // Playing the bullet sound
           shoot.amp(0.5);
