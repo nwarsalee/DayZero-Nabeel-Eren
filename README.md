@@ -21,3 +21,11 @@ Level 4++
 ### Note:
 * Sound 1.4.0 processing library is necessary in order to hear the sounds.
 * The leaderboard.txt file must be placed with the game files and not in the Data folder.
+
+### Sources:
+* Zombie sound : http://soundbible.com/1035-Zombie-Moan.html
+* Shooting sound : http://soundbible.com/1998-Gun-Fire.html
+* Hit sound : http://soundbible.com/2069-Realistic-Punch.html
+* Menu music : http://soundimage.org/dark-ominous/
+* In-Game music : https://www.bensound.com/royalty-free-music/track/sci-fi
+* End-game scream : https://www.freesoundeffects.com/free-sounds/screams-10094/
