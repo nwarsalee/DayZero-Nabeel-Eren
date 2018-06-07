@@ -51,6 +51,7 @@
 Note: 
 Top left of grid: 200, 200
 Bottom right of grid: 1400, 1400
+Grid size 24x24
 
 ## UI To do list
 ### Leaderboard
