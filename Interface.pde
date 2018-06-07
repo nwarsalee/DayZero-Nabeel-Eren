@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v2
+ 2018/06/07 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -42,7 +42,7 @@ class Interface {
     textAlign(CENTER);
     textSize(width/10);
     fill(255);
-    text("ZOMBIE SURVIVAL", width/2, height/4);
+    show(imgLogo, 800, 400, 1000, 300);
     textSize(width/20);
     text("Singleplayer", width/2, height/2);
     text("2 Players", width/2, 5 * height/8);
