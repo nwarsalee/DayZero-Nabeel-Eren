@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/07 v3
+ 2018/06/07 v4
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -101,7 +101,7 @@ class Interface {
     text(score + " XP", 100, height/2 - 225);
     // Displays thet amounts of zombies
     text("Zombies", 100, height/2 + 300);
-    text(zombies.size(), 100, height/2 + 400);
+    text(zombiesLeft, 100, height/2 + 400);
     line(1475, height/2 - 555, 1525, height/2 - 555); // Line under player 1 health
     line(25, height/2 - 300, 175, height/2 - 300); // Line under the points tab
     line(25, height/2 + 320, 175, height/2 + 320); // Line under the zombies tab
