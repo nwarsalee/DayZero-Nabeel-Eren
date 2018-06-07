@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/07 v1
+ 2018/06/07 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -25,6 +25,13 @@ int lastSize = 1;
 int waves = 1;
 int score = 0;
 int shots = 0;
+int currentTime = 0;
+int minutes = 0;
+;
+int seconds = 0;
+;
+int deaths = 0;
+;
 int menuMultiplier = 800;
 String input = "";
 boolean inputComplete = false;
@@ -55,6 +62,11 @@ void reset() {
   startTime = millis(); // Resets clock
   shots = 0; // Resets the bullet count
   input = "";
+  // Resets data
+  currentTime = 0;
+  minutes = 0;
+  seconds = 0;
+  deaths = 0;
   callLeaderboard = true; // Sets the leaderboard caller 
   inputComplete = false;
   soundPlayed = false;
