@@ -1,16 +1,12 @@
 /* 
  ICS4U
- 2018/06/07 v2
+ 2018/06/07 v3
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 class Interface {
-  int currentTime;
-  int minutes;
-  int seconds;
-  int deaths;
 
   // Constructor which displays the game borders
   Interface() {
