@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/07 v2
+ 2018/06/07 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -14,7 +14,7 @@ ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3, imgLogo;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 PrintWriter pw;
 BufferedReader br;
@@ -27,12 +27,10 @@ int score = 0;
 int shots = 0;
 int currentTime = 0;
 int minutes = 0;
-;
 int seconds = 0;
-;
 int deaths = 0;
-;
 int menuMultiplier = 800;
+int zombiesLeft = 0, zombiesSpawned = 0;
 String input = "";
 boolean inputComplete = false;
 boolean callLeaderboard = true;
@@ -52,21 +50,22 @@ void reset() {
   // Resets the objects
   //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
   //zombies.add(newZombie);
-  setZombies();
+  //setZombies();
   player[0] = new Player(width/2, height/2);
   Crate crate = new Crate(500, 500);
   defenses.add(crate);
   lastSize = 1; // Resets the zombie multiplier
   state = 0; // Game begins
   waves = 1; // Resets the wave counter
+  zombiesSpawned = 0; // Resets the number of zombies spawned
+  zombiesLeft = spawning(waves);
   startTime = millis(); // Resets clock
   shots = 0; // Resets the bullet count
   input = "";
-  // Resets data
+  // Resets time
   currentTime = 0;
   minutes = 0;
   seconds = 0;
-  deaths = 0;
   callLeaderboard = true; // Sets the leaderboard caller 
   inputComplete = false;
   soundPlayed = false;
@@ -98,10 +97,6 @@ void draw() {
     // Game in progress
     // Checks if the player(s) is/are dead
     if (gameIsOver()) {
-      //loot.clear(); // Clearing all the loot
-      //zombies.clear(); // Clears the zombie array
-      //bullets.clear(); // Cleans the bullets array
-      //defenses.clear();
       game.stop(); // Stops the in-game music
       if (!mute) {
         scream.play();
@@ -109,6 +104,7 @@ void draw() {
       newState(2);
     }
     gui.gamePlay();
+    spawnZombies();
     lootMoves();
     bulletMoves(); // Method to show the bullets' moves
     playerMoves();
@@ -116,7 +112,6 @@ void draw() {
     zombieMoves(); // Method to show the moves of the zombies
     // Checks if the wave is over
     if (nextWave()) {
-      // Sets the next wave 
       setWave();
       // Sets the loot for the next wave
       setLoot();
@@ -167,7 +162,7 @@ boolean gameIsOver() {
 
 // Checks if the wave is over
 boolean nextWave() {
-  if (zombies.size() == 0) {
+  if (zombiesLeft == 0) {
     return true;
   } else {
     return false;
@@ -176,13 +171,11 @@ boolean nextWave() {
 
 // Sets up a new wave
 void setWave() {
-  for (int i = 0; i < spawning(waves); i ++) {
-    //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-    //zombies.add(newZombie);
-    setZombies();
-  }
+  // Awards player for surviving the round
   score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
+  zombiesSpawned = 0; // Resets the number of zombies spawned
+  zombiesLeft = spawning(waves);
 }
 
 // Recursive method to set the size of the waves
@@ -193,6 +186,18 @@ int spawning(int wave) {
     return 1;
   } else {
     return ceil(spawning(wave-1) * 1.5);
+  }
+}
+
+// Method to spawn the zombies throughout the round.
+void spawnZombies() {
+  int waveZombies = spawning(waves);
+  for (int i=0; i < 65; i++) {
+    if (waveZombies > zombiesSpawned && (int)random(1,50) == 1 && gui.currentTime % 100 == 0) { // 2% chance of spawning a zombie on a frame
+      setZombies();
+      println("Spawning a zombie.");
+      zombiesSpawned++;
+    }
   }
 }
 
@@ -447,6 +452,7 @@ void zombieMoves() {
       bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
       if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
         zombies.remove(i); // Removing the zombie from the arrayList/game
+        zombiesLeft--; // Decreases the zombies left counter...
         score += 10; // Adds 10 points to the score for killing a zombie
       }
     }
@@ -567,8 +573,6 @@ void setImages() {
   // Menu images
   imgVol1 = loadImage("volumeWhite1.png");
   imgVol2 = loadImage("volumeWhite2.png");
-  // Logo image
-  imgLogo = loadImage("DAY-ZERO.png");
   // Bullet images
   imgBullet1 = loadImage("bullet1.png");
   imgBullet2 = loadImage("bullet2.png");
