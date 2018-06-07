@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/07 v3
+ 2018/06/07 v4
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -14,7 +14,7 @@ ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3, imgLogo;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 PrintWriter pw;
 BufferedReader br;
@@ -193,7 +193,7 @@ int spawning(int wave) {
 void spawnZombies() {
   int waveZombies = spawning(waves);
   for (int i=0; i < 65; i++) {
-    if (waveZombies > zombiesSpawned && (int)random(1,50) == 1 && gui.currentTime % 100 == 0) { // 2% chance of spawning a zombie on a frame
+    if (waveZombies > zombiesSpawned && (int)random(1,50) == 1 && currentTime % 100 == 0) { // 2% chance of spawning a zombie on a frame
       setZombies();
       println("Spawning a zombie.");
       zombiesSpawned++;
@@ -553,6 +553,8 @@ void setImages() {
   imgHealth = loadImage("Health-img.png");
   // Map imgs
   imgMap = loadImage("MAP1.PNG");
+  // Logo imgs
+  imgLogo = loadImage("DAY-ZERO.png");
   // Zombie imgs
   imgZombieUp = loadImage("Zombie-up.png");
   imgZombieDown = loadImage("Zombie-down.png");
