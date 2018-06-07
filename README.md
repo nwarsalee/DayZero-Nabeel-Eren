@@ -26,6 +26,6 @@ Level 4++
 * Zombie sound : http://soundbible.com/1035-Zombie-Moan.html
 * Shooting sound : http://soundbible.com/1998-Gun-Fire.html
 * Hit sound : http://soundbible.com/2069-Realistic-Punch.html
-* Menu music : http://soundimage.org/dark-ominous/
+* Menu music : http://soundimage.org/dark-ominous/ *Music by Eric Matyas*
 * In-Game music : https://www.bensound.com/royalty-free-music/track/sci-fi
 * End-game scream : https://www.freesoundeffects.com/free-sounds/screams-10094/
