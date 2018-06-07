@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v5
+ 2018/06/07 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -14,7 +14,7 @@ ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3, imgLogo;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 PrintWriter pw;
 BufferedReader br;
@@ -555,6 +555,8 @@ void setImages() {
   // Menu images
   imgVol1 = loadImage("volumeWhite1.png");
   imgVol2 = loadImage("volumeWhite2.png");
+  // Logo image
+  imgLogo = loadImage("DAY-ZERO.png");
   // Bullet images
   imgBullet1 = loadImage("bullet1.png");
   imgBullet2 = loadImage("bullet2.png");
