@@ -1,111 +1,102 @@
 /* 
- ICS4U
- 2018/06/06 v3
- Game Summative
- Player class
- Made by Eren Sulutas and Nabeel Warsalee
- */
+ICS4U
+2018/06/08 v1
+Game Summative
+Person class
+Made by Eren Sulutas and Nabeel Warsalee
+*/
 
-class Player extends Person {
-  private float stamina, s = 5; // Floats for the player's stamina and the stamina limit
-  private int bullets, reload; // Int for the bullets the user has.
-
-  // Default constructor that sets the values to zero
-  Player() {
+class Person extends Rectangle {
+   private int lives; // Private integer variable for the number of lives.
+   private char dir = 'u'; // Variable for the direction the person is facing, automatically set to up
+  
+  // Default constructor for the Person class
+  Person() {
     super();
-    stamina = 0;
-    bullets = 0;
-    reload = 0;
+    lives = 0;
   }
-
-  // Constructor that initializes the Player 
-  Player(float xStart, float yStart) {
-    super(3, xStart, yStart); // Automatically sets the lives to 3
-    stamina = s;
-    bullets = 7;
-    reload = 0;
+  
+  // Constructor that takes in parameters for lives, xPos and yPos
+  Person(int health, float x, float y) {
+    super(x, y);
+    this.lives = health;
   }
-
-  // Show method that shows the player on the screen, takes in a PImage as a parameter and displays that TO BE USED ONCE PLAYER SPRITE IS MADE
-  void show(int num) {
-    imageMode(CORNER);
-    if (num == 1) {
-      if (getDir() == 'r') { // If it's facing right show the right img
-        image(playerImg[0][0], getX(), getBottom(), getWidth(), getHeight());
-      } else if (getDir() == 'l') { // If it's facing left show the left img
-        image(playerImg[0][1], getX(), getBottom(), getWidth(), getHeight());
-      } else if (getDir() == 'u') { // If it's facing up show the up img
-        image(playerImg[0][2], getX(), getBottom(), getWidth(), getHeight());
-      } else { // If it's facing down (aka none of the above) show the down img
-        image(playerImg[0][3], getX(), getBottom(), getWidth(), getHeight());
-      }
-    } else if (num == 2) {
-      if (getDir() == 'r') { // If it's facing right show the right img
-        image(playerImg[1][0], getX(), getBottom(), getWidth(), getHeight());
-      } else if (getDir() == 'l') { // If it's facing left show the left img
-        image(playerImg[1][1], getX(), getBottom(), getWidth(), getHeight());
-      } else if (getDir() == 'u') { // If it's facing up show the up img
-        image(playerImg[1][2], getX(), getBottom(), getWidth(), getHeight());
-      } else { // If it's facing down (aka none of the above) show the down img
-        image(playerImg[1][3], getX(), getBottom(), getWidth(), getHeight());
-      }
+  
+  // Constructor that takes in parameters for lives, xPos and yPos
+  Person(int health, float x, float y, char direction) {
+    super(x, y);
+    this.lives = health;
+    this.dir = direction;
+  }
+  
+  // Show method to show the player object
+  void show() {
+    fill(255);
+    rect(getX(), getBottom(), getWidth(), getHeight()); // Shows player as a rectangle on screen.
+  }
+  
+  // Move method to move the person on screen
+  void move(char direction) {
+    float v = 50; // Float for how many pixels it moves per move
+    dir = direction; // Changing facing directionn    // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move
+    if (dir == 'u' && inBounds(getX(), getBottom() - v) && canMove(getX(), getBottom() - v, defenses)) { // For moving up
+      setPos(getX(), getBottom() - v); // Will substract to move it up screen
+    } else if (dir == 'd' && inBounds(getX(), getBottom() + v) && canMove(getX(), getBottom() + v, defenses)) { // For moving down
+      setPos(getX(), getBottom() + v);
+    } else if (dir == 'r' && inBounds(getX() + v, getBottom()) && canMove(getX() + v, getBottom(), defenses)) { // For moving right
+      setPos(getX() + v, getBottom());
+    } else if (dir == 'l' && inBounds(getX() - v, getBottom()) && canMove(getX() - v, getBottom(), defenses)) { // For moving left
+      setPos(getX() - v, getBottom());
+    }
+    updatePos(); // Updating the coordinates of the right, top and middle
+  }
+  
+  // Method to take away health when a person is hit
+  void hit() {
+    if (this.lives > 0) {
+      this.lives--;
     }
   }
   
-  // Update method to update the players state..
-  void update() {
-    if (stamina < s) {
-      stamina++;
-    }
-    if (bullets == 0) {
-      reload++;
-      println("Reload " + reload + " out of 100");
-    }
-    if (reload == 60) {
-      bullets = 7;
-      reload = 0;
-    }
-  }
-  
-  // Method to give a health point to the person (primarily used for the Player class)
-  void lifePoint() {
-    if (getLives() < 5) {
-      setLives(getLives()+1);
-    }
-  }
-  
-  // Method to check whether or not the player can shoot
-  boolean canShoot() {
-    if (stamina == s && bullets > 0) {
-      stamina = 0;
+  // Method to check if the person is dead
+  boolean isDead() {
+    if (this.lives == 0) {
       return true;
     } else {
       return false;
     }
   }
   
-  // Method to take away a bullet
-  void shoot() {
-    bullets--;
+  // Method to see if whether or not the person can move towards a block (checks for crates)
+  boolean canMove(float newX, float newY, ArrayList<Crate> crates) {
+    for (Crate crate : crates) {
+      if (intersect(newX, newY, crate)) {
+        return false;
+      }
+    }
+    return true; // Default return
   }
   
-  // Method to reload the players bullets
-  void reload() {
-    bullets = 0; // Sets bullets to zero so that it triggers the reload counter in update()
+  // Series of getter and setter methods.
+  
+  // Setter method for lives
+  void setLives(int health) {
+    this.lives = health;
   }
   
-  // Method that returns the reload value 
-  int getProgress() {
-    return reload;
+  // Getter/accessor for the lives
+  int getLives() {
+    return this.lives;
   }
   
-  // Method that returns the bullets in the user's magazine
-  int getBullets() {
-    return bullets;
+  // Getter for the direction
+  char getDir() {
+    return this.dir;
+  }
+  
+  // Getter for the direction
+  void setDir(char direction) {
+    this.dir = direction;
   }
 
-  // Method to print the information of the object.
-  void toConsole() {
-    println("Lives : " + getLives() + "   X Position : " + getX() + "   Y Position : " + getY());
-  }
 }
