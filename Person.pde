@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/03 v1
+2018/06/08 v1
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -72,8 +72,6 @@ class Person extends Rectangle {
     for (Crate crate : crates) {
       if (intersect(newX, newY, crate)) {
         return false;
-      } else {
-        return true;
       }
     }
     return true; // Default return
