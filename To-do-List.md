@@ -58,6 +58,7 @@ Bottom right of grid: 1400, 1400
 Grid size 24x24
 
 ## UI To do list
+* Simplify image display
 ### Leaderboard
 * ~Check if user has a high score~
 * ~Use private variables~
