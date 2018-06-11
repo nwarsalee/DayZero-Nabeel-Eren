@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/11 v1
+ 2018/06/11 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -557,14 +557,14 @@ void setDefenses() {
   crate = new Crate(400, 650);
   defenses.add(crate);
   println("Number of blocks to make up house: " + defenses.size());
-  for (int i=0; i<4; i++) {
+  for (int i=0; i<6; i++) {
     int x, y;
     x = (int)random(5, 27);
     y = (int)random(5, 27);
     // If the values chosen don't interfere with the crates of the house, spawn them
     if (!(x >= 6 && x <= 15 && y >= 7 && y <= 13)) {
       println("x: " + x + " y: " + y);
-      crate = new Crate((int)random(5, 27) * 50, (int)random(5, 27) * 50);
+      crate = new Crate(x * 50, y * 50);
       defenses.add(crate);
     }
   }
