@@ -43,6 +43,7 @@
 ### Concerns
 * Make sure that when a lot of zombies spawn, they don't spawn on top of each other. They spawn in "mini-waves".
 * Make sure the zombies don't spawn on invisible crates (Not as bas since they spawn on sides)
+* Avoid loading images and audio files multiple times
 
 ### Ideas
 * Have zombies fade in when spawning
