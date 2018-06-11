@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/07 v1
+ 2018/06/11 v1
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -80,7 +80,6 @@ class Leaderboard {
     // Sorts through the scores to determine where the users score stands 
     do {
       if (i >= low) {
-        println(userScore + " > " + data.get(i));
         if (userScore > data.get(i)) {
           isLargerThan = true;
           i--;
@@ -103,6 +102,8 @@ class Leaderboard {
   // Instance method that writes in the file the updated high score list and uses insertion sort to sort the file
   void write(int newLine, int newScore, int newWave, String name, int mode) {
     int prev;
+    String scoreString = Integer.toString(newScore);
+    String waveString = Integer.toString(newWave); // Converts the score and waves to strings for later adjustment 
     final int RADIX = 10;
     // Adjusts the line to match with the file 
     int multiplier = 0;
@@ -112,6 +113,19 @@ class Leaderboard {
       multiplier = 9;
     }
     
+    // Adjusts the score digits to fit on the leaderboard
+    if (newScore < 100) { // Adds two zeros before the score
+      scoreString = "00" + scoreString;
+    } else if (newScore < 1000 && newScore >= 100) { // Adds one zero before the score 
+      scoreString = "0" + scoreString;
+    } 
+    
+    // Adjusts the wave digits to fit on the leaderboard
+    if (newWave < 10) {
+      waveString = "0" + waveString;
+    }
+      
+    
     // Loops over the lines of the leaderboard including/below the line of the new high score
     for (int i = 4 + multiplier; i >= newLine + multiplier; i --) {
       // Stores the information into the lineTotal array which holds the data for the file 
@@ -120,7 +134,7 @@ class Leaderboard {
         if (mode == 2) {// Duos
           place -= 7;
         }
-        lineTotal[i] = "" + place + "............" + newScore + "......." + newWave + "........." + name;
+        lineTotal[i] = "" + place + "............" + scoreString + "......." + waveString + "........." + name;
       } else { // Current score takes info from the next highest score
         prev = i - 1;
         if (mode == 2) { // Duos
