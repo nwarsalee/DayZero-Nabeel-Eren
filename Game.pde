@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/11 v2
+ 2018/06/11 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -14,7 +14,7 @@ ArrayList<Loot> loot = new ArrayList<Loot>();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
-PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3, imgLogo;
+PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3, imgLogo, imgNELogo;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 PrintWriter pw;
 BufferedReader br;
@@ -31,7 +31,12 @@ int seconds = 0;
 int deaths = 0;
 int menuMultiplier = 800;
 int zombiesLeft = 0, zombiesSpawned = 0;
+int colourIncrement = 0;
 String input = "";
+boolean loadAssets = false;
+boolean increase = true;
+boolean runLoadingScreen = true;
+boolean fadeMenu = true;
 boolean inputComplete = false;
 boolean callLeaderboard = true;
 boolean mute = false;
@@ -80,8 +85,11 @@ void setup() {
   size(1600, 1600);
   leaderboard = new Leaderboard();
   // Loads the assets
-  setImages();
-  setAudio();
+  if (!loadAssets) {
+    setImages();
+    setAudio();
+    loadAssets = true;
+  }
   // Initializes the objects
   player = new Player[2];
   player[0] = new Player(width/2 - 100, height/2);
@@ -118,6 +126,12 @@ void draw() {
   } else if (state == 1) {
     // Main menu
     gui.menu();
+    
+    // Runs for the first time
+    if (runLoadingScreen) {
+      gui.loadingScreen();
+    }
+    
     if (!mute) {
       if (!soundPlayed) { // If the sound hasn't played yet, plays the music
         menu.play();
@@ -643,6 +657,7 @@ void setImages() {
   playerImg[1][2] = loadImage("Player2-up.png");
   playerImg[1][3] = loadImage("Player2-down.png");
   // Menu images
+  imgNELogo = loadImage("devlogo.png");
   imgVol1 = loadImage("volumeWhite1.png");
   imgVol2 = loadImage("volumeWhite2.png");
   // Bullet images
