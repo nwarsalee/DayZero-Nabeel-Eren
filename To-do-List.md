@@ -66,11 +66,11 @@ Grid size 24x24
 ### Main menu
 * ~Add instructions~
 * ~Add leaderboard~
-* New controls
-* Add credits
+* ~New controls~
+* ~Add credits~
 ### In-game
 * ~Add user interface for lives, waves etc~
-* Do all visuals
+* ~Do all visuals~
 * ~Make user/zombie images face the way they are going~
 ### End game
 * ~Return to main menu and leaderboard~
