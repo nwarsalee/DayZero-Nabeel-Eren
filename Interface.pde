@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/08 v1
+ 2018/06/11 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -8,20 +8,15 @@
 
 class Interface {
 
-  // Constructor which displays the game borders
-  Interface() {
-    showBorder();
-  }
-
   // Instance which displays the borders when they are erased
   void showBorder() {
     imageMode(CENTER);
-    show(imgBackground, width/2, height/2, 1600, 1600); // Background image
+    image(imgBackground, width/2, height/2, 1600, 1600); // Background image
     // Mute/Unmute image
     if (!mute) { 
-      show(imgVol1, 100, 1500, 100, 100);
+      image(imgVol1, 100, 1500, 100, 100);
     } else {
-      show(imgVol2, 100, 1500, 100, 100);
+      image(imgVol2, 100, 1500, 100, 100);
     }
     fill(255, 0, 0);
     noStroke();
@@ -38,7 +33,7 @@ class Interface {
     textAlign(CENTER);
     textSize(width/10);
     fill(255);
-    show(imgLogo, 800, 400, 1000, 300);
+    image(imgLogo, 800, 400, 1000, 300);
     textSize(width/20);
     text("Singleplayer", width/2, height/2);
     text("2 Players", width/2, 5 * height/8);
@@ -56,11 +51,42 @@ class Interface {
     rectMode(CORNER);
   }
 
+  // Instance method that displays the loading screen 
+  void loadingScreen() {
+    if (colourIncrement < 255 && increase) {
+      // Fade in
+      fade(15);
+      if (colourIncrement == 255) {
+        // Logo in full 
+        delay(500);
+        increase = false;
+      }
+    } else if (colourIncrement > 0 && !increase) {
+      // Fade out
+      fade(-15);
+    }
+
+    if (!increase && colourIncrement == 0) {
+      // End of loading screen
+      runLoadingScreen = false;
+    } else {
+      // Logo
+      imageMode(CENTER);
+      image(imgNELogo, 800, 800, 1200, 1200);
+    }
+  }
+
+  // Instance method to change the fade on the screen
+  void fade (int speed) {
+    background(colourIncrement);
+    colourIncrement += speed;
+  }
+
   // Instance method that displays the proper interface for gameplay 
   void gamePlay() {
     // Game grid
     showBorder();
-    show(imgMap, width/2, height/2, 1200, 1200);
+    image(imgMap, width/2, height/2, 1200, 1200);
     stroke(255);
     fill(0);
     fill(255, 0, 0);
@@ -107,18 +133,18 @@ class Interface {
       // Displays the hearts for player 2
       for (int i = 0; i < player[1].getLives(); i ++) {
         if (i > 2) { // User has extra health that will be dispalyed as gold 
-          show(imgHeart2, 1500, height/2 + 90 + 100 * i, 75, 75);
+          image(imgHeart2, 1500, height/2 + 90 + 100 * i, 75, 75);
         } else { // Normal health will be displayed red
-          show(imgHeart1, 1500, height/2 + 90 + 100 * i, 75, 75);
+          image(imgHeart1, 1500, height/2 + 90 + 100 * i, 75, 75);
         }
       }
     }
     // Displays the hearts for player 1
     for (int i = 0; i < player[0].getLives(); i ++) {
       if (i > 2) { // User has extra health that will be displayed as gold 
-        show(imgHeart2, 1500, height/2 - 490 + 100 * i, 75, 75);
+        image(imgHeart2, 1500, height/2 - 490 + 100 * i, 75, 75);
       } else { // Normal health will be displayed red
-        show(imgHeart1, 1500, height/2 - 490 + 100 * i, 75, 75);
+        image(imgHeart1, 1500, height/2 - 490 + 100 * i, 75, 75);
       }
     }
 
@@ -137,11 +163,11 @@ class Interface {
       }
 
       if (player[i].getBullets() <= 1) {
-        show(imgBullet3, 520 + (i*menuMultiplier), 1485, 50, 50);
+        image(imgBullet3, 520 + (i*menuMultiplier), 1485, 50, 50);
       } else if (player[i].getBullets() >= 2 && player[i].getBullets() <= 4) {
-        show(imgBullet2, 520 + (i*menuMultiplier), 1485, 50, 50);
+        image(imgBullet2, 520 + (i*menuMultiplier), 1485, 50, 50);
       } else {
-        show(imgBullet1, 520 + (i*menuMultiplier), 1485, 50, 50);
+        image(imgBullet1, 520 + (i*menuMultiplier), 1485, 50, 50);
       }
     }
     strokeWeight(1);
@@ -253,11 +279,6 @@ class Interface {
         }
       }
     }
-  }
-
-  // Instance method that displays an image
-  void show(PImage img, int x, int y, int w, int h) {
-    image(img, x, y, w, h);
   }
 
   // Instance method that checks if the user has a new high score
