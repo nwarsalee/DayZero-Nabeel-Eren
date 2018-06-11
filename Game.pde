@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/07 v4
+ 2018/06/11 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -51,9 +51,8 @@ void reset() {
   //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
   //zombies.add(newZombie);
   //setZombies();
+  setDefenses();
   player[0] = new Player(width/2, height/2);
-  Crate crate = new Crate(500, 500);
-  defenses.add(crate);
   lastSize = 1; // Resets the zombie multiplier
   state = 0; // Game begins
   waves = 1; // Resets the wave counter
@@ -193,7 +192,7 @@ int spawning(int wave) {
 void spawnZombies() {
   int waveZombies = spawning(waves);
   for (int i=0; i < 65; i++) {
-    if (waveZombies > zombiesSpawned && (int)random(1,50) == 1 && currentTime % 100 == 0) { // 2% chance of spawning a zombie on a frame
+    if (waveZombies > zombiesSpawned && (int)random(1, 50) == 1 && currentTime % 100 == 0) { // 2% chance of spawning a zombie on a frame
       setZombies();
       println("Spawning a zombie.");
       zombiesSpawned++;
@@ -203,11 +202,15 @@ void spawnZombies() {
 
 // Sets up a new wave
 void setLoot() {
-  int random;
+  int random, x, y;
   for (int i=0; i < 2; i++) { // Loops twice to see if either of the two lootboxes will be added
     random = (int)random(1, 10);
     if (random == 1 && loot.size() < 2) { // 10% chance of a lootbox dropping
-      Loot health = new Loot((int)random(4, 28) * 50, (int)random(4, 28) * 50);
+      do { // Gets a value for the position and makes sure it's not on the house blocks
+        x = (int)random(4, 28);
+        y = (int)random(4, 28);
+      } while (x >= 6 && x <= 15 && y >= 7 && y <= 13);
+      Loot health = new Loot(x * 50, y * 50);
       loot.add(health);
       println("LootBox added!");
     }
@@ -500,18 +503,85 @@ void playerMoves() {
   }
 }
 
+// Method to set the defense crates
+void setDefenses() {
+  // Setting up the walls of the cabin on the map (MAP1.png)
+  // Setting up the left wall
+  Crate crate = new Crate(300, 350);
+  defenses.add(crate);
+  crate = new Crate(300, 400);
+  defenses.add(crate);
+  crate = new Crate(300, 450);
+  defenses.add(crate);
+  crate = new Crate(300, 500);
+  defenses.add(crate);
+  crate = new Crate(300, 550);
+  defenses.add(crate);
+  crate = new Crate(300, 600);
+  defenses.add(crate);
+  crate = new Crate(300, 650);
+  defenses.add(crate);
+  // Setting up the top wall
+  crate = new Crate(350, 350);
+  defenses.add(crate);
+  crate = new Crate(450, 350);
+  defenses.add(crate);
+  crate = new Crate(500, 350);
+  defenses.add(crate);
+  crate = new Crate(550, 350);
+  defenses.add(crate);
+  crate = new Crate(600, 350);
+  defenses.add(crate);
+  crate = new Crate(650, 350);
+  defenses.add(crate);
+  crate = new Crate(700, 350);
+  defenses.add(crate);
+  crate = new Crate(750, 350);
+  defenses.add(crate);
+  // Setting up the right wall
+  crate = new Crate(750, 400);
+  defenses.add(crate);
+  crate = new Crate(750, 600);
+  defenses.add(crate);
+  crate = new Crate(750, 650);
+  defenses.add(crate);
+  // Setting up the bottom wall
+  crate = new Crate(700, 650);
+  defenses.add(crate);
+  crate = new Crate(650, 650);
+  defenses.add(crate);
+  crate = new Crate(600, 650);
+  defenses.add(crate);
+  crate = new Crate(450, 650);
+  defenses.add(crate);
+  crate = new Crate(400, 650);
+  defenses.add(crate);
+  println("Number of blocks to make up house: " + defenses.size());
+  for (int i=0; i<4; i++) {
+    int x, y;
+    x = (int)random(5, 27);
+    y = (int)random(5, 27);
+    // If the values chosen don't interfere with the crates of the house, spawn them
+    if (!(x >= 6 && x <= 15 && y >= 7 && y <= 13)) {
+      println("x: " + x + " y: " + y);
+      crate = new Crate((int)random(5, 27) * 50, (int)random(5, 27) * 50);
+      defenses.add(crate);
+    }
+  }
+}
+
 // Method to show the defense crates and their moves
 void defenseMoves() {
-  for (int i=0; i < defenses.size(); i++) {
+  for (int i=23; i < defenses.size(); i++) { // Only shows the crates that are not apart of the house structure
     defenses.get(i).show();
   }
 }
 
 // Method to set the zombies
 void setZombies() {
-  float x, y;
-  int player;
-  char dir;
+  float x, y; // Floats for the x and y position the zombie spawns at
+  int player; // Int for which player the zombie follows (random)
+  char dir; // Character to set the direction of the zombie
   if (random(100) > 50) { // 50 % chance of spawning on the top or bottom
     x = random(4, 28);
     if (x < 16) { // Spawn on left
