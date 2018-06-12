@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/12 v4
+ 2018/06/12 v5
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -140,7 +140,7 @@ void draw() {
 
     if (!mute) {
       if (!soundPlayed) { // If the sound hasn't played yet, plays the music
-        menu.play();
+        menu.loop();
         soundPlayed = true;
       }
     }
@@ -315,13 +315,13 @@ void mousePressed() {
       players = 1;
       reset();
       if (!mute) {
-        game.play(); // Playing the in-game music
+        game.loop(); // Playing the in-game music
       }
     } else if (multiplayer()) { // Multiplayer option is chosen
       players = 2;
       reset();
       if (!mute) {
-        game.play(); // Playing the in-game music
+        game.loop(); // Playing the in-game music
       }
     } else if (instructions()) { // How to play screen 
       newState(3);
@@ -341,7 +341,7 @@ void mousePressed() {
       if (state == 0) { // Game in progress
         game.play();
       } else {
-        menu.play();
+        menu.loop();
       }
       mute = false;
     } else {
