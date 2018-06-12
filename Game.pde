@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/11 v3
+ 2018/06/12 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -19,7 +19,7 @@ PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 PrintWriter pw;
 BufferedReader br;
 int players = 0;
-int state = 1;
+int state = 6;
 int startTime;
 int lastSize = 1;
 int waves = 1;
@@ -126,12 +126,7 @@ void draw() {
   } else if (state == 1) {
     // Main menu
     gui.menu();
-    
-    // Runs for the first time
-    if (runLoadingScreen) {
-      gui.loadingScreen();
-    }
-    
+
     if (!mute) {
       if (!soundPlayed) { // If the sound hasn't played yet, plays the music
         menu.play();
@@ -149,9 +144,19 @@ void draw() {
     gui.leaderboard();
   } else if (state == 5) {
     // New high score
-    gui.highscore();
-    if (!callLeaderboard) {
+    if (callLeaderboard) {
+      gui.highscore();
+    } else {
       newState(2);
+    }
+  } else if (state == 6) {
+    // Loading screen
+    if (runLoadingScreen) {
+      gui.loadingScreen();
+    } else {
+      // Returns to the menu when the animation is over
+      noTint();
+      newState(1);
     }
   }
 }
@@ -293,8 +298,14 @@ void keyPressed() {
       // User entry 
       input = input + Character.toUpperCase(key);
     } else if (input.length() == 3 && keyCode == ENTER) {
+      // Entry complete
       inputComplete = true;
-      newState(2); // Returns to endgame screen
+    }
+  } else if (state == 6) { // Loading screen
+    if (keyCode == ' ') {
+      // Skips the loading screen
+      noTint();
+      newState(1);
     }
   }
 }
