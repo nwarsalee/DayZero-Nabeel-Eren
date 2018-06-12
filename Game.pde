@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/12 v1
+ 2018/06/12 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -86,8 +86,13 @@ void setup() {
   leaderboard = new Leaderboard();
   // Loads the assets
   if (!loadAssets) {
-    setImages();
-    setAudio();
+    try {
+      setImages();
+      setAudio();
+    } 
+    catch (NullPointerException e) {
+      println("A required file is not present. Please refer to the GitHub repository and make sure all necessary files are downloaded and with the correct name.");
+    }
     loadAssets = true;
   }
   // Initializes the objects
@@ -193,25 +198,26 @@ void setWave() {
   score += 100; // Adds 100 points to the score for surviving a wave
   waves ++;
   zombiesSpawned = 0; // Resets the number of zombies spawned
-  zombiesLeft = spawning(waves);
+  zombiesLeft = spawning(waves); // The number of zombies left starts at what the wave number of zombies is
 }
 
 // Recursive method to set the size of the waves
 int spawning(int wave) {
+  // Throws error if the wave number is below 1.
   if (wave < 1) {
     throw new  RuntimeException("Invalid wave number...");
-  } else if (wave == 1) {
+  } else if (wave == 1) { // Terminating sequence that returns 1
     return 1;
-  } else {
+  } else { // If the wave is above 1, returns the recursive sequence t(n) = ceil(t(n-1) * 1.5)
     return ceil(spawning(wave-1) * 1.5);
   }
 }
 
 // Method to spawn the zombies throughout the round.
 void spawnZombies() {
-  int waveZombies = spawning(waves);
+  int waveZombies = spawning(waves); // The zombies for the wave is the return value of the recursive method
   for (int i=0; i < 65; i++) {
-    if (waveZombies > zombiesSpawned && (int)random(1, 50) == 1 && currentTime % 100 == 0) { // 2% chance of spawning a zombie on a frame
+    if (waveZombies > zombiesSpawned && (int)random(1, 50) == 1 && currentTime % 100 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
       setZombies();
       println("Spawning a zombie.");
       zombiesSpawned++;
@@ -221,7 +227,7 @@ void spawnZombies() {
 
 // Sets up a new wave
 void setLoot() {
-  int random, x, y;
+  int random, x, y; // Integers for the random number, and the x, y position.
   for (int i=0; i < 2; i++) { // Loops twice to see if either of the two lootboxes will be added
     random = (int)random(1, 10);
     if (random == 1 && loot.size() < 2) { // 10% chance of a lootbox dropping
@@ -229,8 +235,8 @@ void setLoot() {
         x = (int)random(4, 28);
         y = (int)random(4, 28);
       } while (x >= 6 && x <= 15 && y >= 7 && y <= 13);
-      Loot health = new Loot(x * 50, y * 50);
-      loot.add(health);
+      Loot health = new Loot(x * 50, y * 50); // Creates new loot object
+      loot.add(health); // Adds that loot object to the ArrayList
       println("LootBox added!");
     }
   }
@@ -253,14 +259,7 @@ void keyPressed() {
       } else if (keyCode == 'R') {
         player[0].reload(); // Reload
       } else if (keyCode == ' ' && player[0].canShoot()) {
-        Bullet bullet = new Bullet(player[0].getX(), player[0].getBottom(), player[0].getDir());
-        bullets.add(bullet); // Addin new bullet
-        shots ++; // Adds a bullet shot
-        player[0].shoot(); // Has the player shoot and lose a bullet in the magazine
-        if (!mute) {
-          shoot.play(); // Playing the bullet sound
-          shoot.amp(0.5);
-        }
+        createBullet(0); // Creates the bullet for player 1
       }
     }
     // Player 2
@@ -276,14 +275,7 @@ void keyPressed() {
       } else if (keyCode == 'P') {
         player[1].reload();
       } else if (keyCode == 16 && player[1].canShoot()) {
-        Bullet bullet = new Bullet(player[1].getX(), player[1].getBottom(), player[1].getDir());
-        bullets.add(bullet); // Adding new bullet
-        shots ++; // Adds a bullet shot
-        player[1].shoot(); // Has the player shoot and lose a bullet in the magazine
-        if (!mute) {
-          shoot.play(); // Playing the bullet sound
-          shoot.amp(0.5);
-        }
+        createBullet(1); // Creates the bullet for player 2
       }
     }
   } else if (state == 3) { // How to play menu
@@ -298,14 +290,13 @@ void keyPressed() {
       // User entry 
       input = input + Character.toUpperCase(key);
     } else if (input.length() == 3 && keyCode == ENTER) {
-      // Entry complete
       inputComplete = true;
-    }
-  } else if (state == 6) { // Loading screen
-    if (keyCode == ' ') {
-      // Skips the loading screen
-      noTint();
-      newState(1);
+    } else if (state == 6) { // Loading screen
+      if (keyCode == ' ') {
+        // Skips the loading screen
+        noTint();
+        newState(1);
+      }
     }
   }
 }
@@ -425,7 +416,7 @@ void bulletMoves() {
     try {
       bullets.get(i).show();
       bullets.get(i).move();
-      if (bullets.get(i).inBounds() == false ) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
+      if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
         bullets.remove(i);
       }
       // Checking if the bullet hits any crates, removes it if it does
@@ -436,53 +427,58 @@ void bulletMoves() {
       }
     } 
     catch (Exception ArrayOutOfBoundsException) {
-      println("Out of bounds...");
+      // Used to catch errors where the bullet has already been deleted, yet the comparison between the crate and the bullet still tries to occur
     }
   }
 }
 
 void zombieMoves() {
   for (int i=0; i<zombies.size(); i++) {
-    zombies.get(i).show();
-    if (zombies.get(i).getPlayer() == 1) {
-      zombies.get(i).moveStep(player[0]);
-    } else {
-      zombies.get(i).moveStep(player[1]);
-    }
-    // If a player dies, changes which player it follows.
-    if (player[0].isDead()) {
-      if (zombies.get(i).getPlayer() == 1) {
-        zombies.get(i).setPlayer(2); // Moving towards player 2 now after P1 dies
+    try {
+      zombies.get(i).show(); // Showing the zombie on screen
+      if (zombies.get(i).getPlayer() == 1) { // If the zombie is programmed to player 1, follows player 1.
+        zombies.get(i).moveStep(player[0]);
+      } else { // If it's programmed to player 2, follows player 2.
+        zombies.get(i).moveStep(player[1]);
       }
-    } else if (player[1].isDead()) {
-      if (zombies.get(i).getPlayer() == 2) {
-        zombies.get(i).setPlayer(1); // Moving towards player 1
-      }
-    }
-    if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
-      player[0].hit(); // Has the player get hit and lose one heart...
-      if (!mute) {
-        hit.play(); // Playing hit sound effect
-      }
+      // If a player dies, changes which player it follows.
       if (player[0].isDead()) {
-        player[0].setPos(0, 0); // Sets its position outisde of the player area
+        if (zombies.get(i).getPlayer() == 1) {
+          zombies.get(i).setPlayer(2); // Moving towards player 2 now after P1 dies
+        }
+      } else if (player[1].isDead()) {
+        if (zombies.get(i).getPlayer() == 2) {
+          zombies.get(i).setPlayer(1); // Moving towards player 1 now after P2 dies
+        }
       }
-    } else if (zombies.get(i).attacking(player[1])) {
-      player[1].hit(); // Has the second player get hit
-      hit.play(); // Playing hit sound effect
-      if (player[1].isDead()) {
-        player[1].setPos(0, 0); // Sets its position outisde of the player area
+      if (zombies.get(i).attacking(player[0])) { // Method to check if the zombie is on top of the player
+        player[0].hit(); // Has the player get hit and lose one heart...
+        if (!mute) {
+          hit.play(); // Playing hit sound effect
+        }
+        if (player[0].isDead()) {
+          player[0].setPos(0, 0); // If the player dies, sets their position outisde of the player area
+        }
+      } else if (zombies.get(i).attacking(player[1])) {
+        player[1].hit(); // Has the second player get hit
+        hit.play(); // Playing hit sound effect
+        if (player[1].isDead()) {
+          player[1].setPos(0, 0); // Sets its position outisde of the player area
+        }
       }
-    }
-    // Checking if the zombie is hit
-    if (zombies.get(i).isHit(bullets)) {
-      zombies.get(i).hit(); // Having the zombie take damage
-      bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
-      if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
-        zombies.remove(i); // Removing the zombie from the arrayList/game
-        zombiesLeft--; // Decreases the zombies left counter...
-        score += 10; // Adds 10 points to the score for killing a zombie
+      // Checking if the zombie is hit
+      if (zombies.get(i).isHit(bullets)) {
+        zombies.get(i).hit(); // Having the zombie take damage
+        bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
+        if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
+          zombies.remove(i); // Removing the zombie from the arrayList/game
+          zombiesLeft--; // Decreases the zombies left counter...
+          score += 10; // Adds 10 points to the score for killing a zombie
+        }
       }
+    } 
+    catch (Exception ArrayOutOfBoundsException) {
+      // Used to catch any errors surrounding the array index
     }
   }
   if ((int)random(200) == 1) { // Has a 20% chance of playing a zombie sound
@@ -510,6 +506,7 @@ void lootMoves() {
       }
     } 
     catch (IndexOutOfBoundsException e) {
+      // Used to catch any error regarding the array being out of bounds
       println("There is not loot box present...");
     }
   }
@@ -522,9 +519,21 @@ void playerMoves() {
     player[0].show(1);
     player[0].update();
   }
-  if (players == 2 && !player[1].isDead()) { // If the gamemode it 2-player, show the second player
+  if (players == 2 && !player[1].isDead()) { // If the gamemode is 2-player, show the second player
     player[1].show(2);
     player[1].update();
+  }
+}
+
+// Method to create a bullet and play the bullet sound
+void createBullet(int index) {
+  Bullet bullet = new Bullet(player[index].getX(), player[index].getBottom(), player[index].getDir()); // Creates new bullet at the current location of the player
+  bullets.add(bullet); // Addin new bullet
+  shots ++; // Adds a bullet shot
+  player[index].shoot(); // Has the player shoot and lose a bullet in the magazine
+  if (!mute) {
+    shoot.play(); // Playing the bullet sound
+    shoot.amp(0.5);
   }
 }
 
@@ -581,7 +590,6 @@ void setDefenses() {
   defenses.add(crate);
   crate = new Crate(400, 650);
   defenses.add(crate);
-  println("Number of blocks to make up house: " + defenses.size());
   for (int i=0; i<6; i++) {
     int x, y;
     x = (int)random(5, 27);
@@ -616,7 +624,7 @@ void setZombies() {
       x = 27;
       dir = 'l';
     }
-    y = (int)random(4, 28);
+    y = (int)random(4, 28); // Sets random y position
   } else { // 50 % chance of spawning on the sides
     y = random(4, 28);
     if (y < 16) { // Spawn on top
@@ -626,7 +634,7 @@ void setZombies() {
       y = 27;
       dir = 'u';
     }
-    x = (int)random(4, 28);
+    x = (int)random(4, 28); // Sets random x position
   }
   if (players == 2) {
     player = (int)random(1, 3);
