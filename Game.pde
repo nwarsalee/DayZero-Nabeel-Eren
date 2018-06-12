@@ -1,12 +1,12 @@
 /* 
  ICS4U
- 2018/06/12 v5
+ 2018/06/12 v6
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 import processing.sound.*; // Importing sound libraries for sound output
-SoundFile menu, game, zombie, shoot, hit, scream; // Different sound files
+SoundFile menu, game, zombie, shoot, hit, scream, reload; // Different sound files
 
 Player[] player;
 ArrayList<Crate> defenses = new ArrayList<Crate>();
@@ -264,6 +264,10 @@ void keyPressed() {
         player[0].move('r');
       } else if (keyCode == 'R') {
         player[0].reload(); // Reload
+        if (!mute) {
+          reload.play();
+          reload.amp(5);
+        }
       } else if (keyCode == ' ' && player[0].canShoot()) {
         createBullet(0); // Creates the bullet for player 1
       }
@@ -280,6 +284,10 @@ void keyPressed() {
         player[1].move('r');
       } else if (keyCode == 'P') {
         player[1].reload();
+        if (!mute) {
+          reload.play();
+          reload.amp(5);
+        }
       } else if (keyCode == 16 && player[1].canShoot()) {
         createBullet(1); // Creates the bullet for player 2
       }
@@ -300,7 +308,6 @@ void keyPressed() {
     }
   } else if (state == 6) { // Loading screen
     if (keyCode == ' ') {
-      println("space pressed");
       // Skips the loading screen
       noTint();
       newState(1);
@@ -698,6 +705,7 @@ void setAudio() {
   game = new SoundFile(this, "in-game-music.mp3");
   zombie = new SoundFile(this, "zombie-moan.wav");
   shoot = new SoundFile(this, "gun-fire.wav");
+  reload = new SoundFile(this, "reload.wav");
   hit = new SoundFile(this, "hit-sound.wav");
   scream = new SoundFile(this, "scream-sound.wav");
 }
