@@ -59,6 +59,7 @@ Grid size 24x24
 
 ## UI To do list
 * Simplify image display
+* Move if statment from gameOver to game class
 ### Leaderboard
 * ~Check if user has a high score~
 * ~Use private variables~
