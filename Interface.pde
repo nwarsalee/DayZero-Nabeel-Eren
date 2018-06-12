@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/12 v1
+ 2018/06/12 v2
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -178,9 +178,6 @@ class Interface {
 
   // Instance method that displays the game over screen
   void gameOver() {
-    if (newHighscore() && callLeaderboard) { // Checks if the user has a new high score
-      newState(5);
-    }
     showBorder();
     deaths = (score - 100 * (waves - 1)) / 10;
     textAlign(CENTER);
