@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/12 v2
+ 2018/06/12 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -291,12 +291,13 @@ void keyPressed() {
       input = input + Character.toUpperCase(key);
     } else if (input.length() == 3 && keyCode == ENTER) {
       inputComplete = true;
-    } else if (state == 6) { // Loading screen
-      if (keyCode == ' ') {
-        // Skips the loading screen
-        noTint();
-        newState(1);
-      }
+    }
+  } else if (state == 6) { // Loading screen
+    if (keyCode == ' ') {
+      println("space pressed");
+      // Skips the loading screen
+      noTint();
+      newState(1);
     }
   }
 }
