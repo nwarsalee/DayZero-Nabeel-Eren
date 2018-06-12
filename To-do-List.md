@@ -42,8 +42,8 @@
 
 ### Concerns
 * Make sure that when a lot of zombies spawn, they don't spawn on top of each other. They spawn in "mini-waves".
-* Make sure the zombies don't spawn on invisible crates (Not as bas since they spawn on sides)
-* Avoid loading images and audio files multiple times
+* Make sure the zombies don't spawn on invisible crates (Not as bad since they spawn on sides)
+* ~Avoid loading images and audio files multiple times~
 
 ### Ideas
 * Have zombies fade in when spawning
@@ -58,8 +58,8 @@ Bottom right of grid: 1400, 1400
 Grid size 24x24
 
 ## UI To do list
-* Simplify image display
-* Move if statment from gameOver to game class
+* ~Simplify image display~
+* ~Move if statment from gameOver to game class~
 ### Leaderboard
 * ~Check if user has a high score~
 * ~Use private variables~
