@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/12 v3
+ 2018/06/12 v4
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -113,7 +113,13 @@ void draw() {
       if (!mute) {
         scream.play();
       }
-      newState(2);
+      // Checks if the user has a new high score
+      if (gui.newHighscore() && callLeaderboard) { 
+        newState(5);
+      } else {
+        // Game over
+        newState(2);
+      }
     }
     gui.gamePlay();
     spawnZombies();
