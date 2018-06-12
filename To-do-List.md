@@ -6,7 +6,10 @@
 * ~Finish adding graphical components.~
 * ~Start adding audio to the game.~
 * Refine the game and test it for bugs
+* Adjust values depending on desired game-flow (bullet speed, spawning speed, etc)
+* Begin uploading it to **openprocessing.org** and test it there to fix any compatibility issues.
 * Write down a *'report'* of how our game meets the ICS4U expecations
+* Do interview portion...
 
 ## Mechanics To do list
 * ~Work on Game class~       
@@ -37,12 +40,12 @@
 * ~Add a reload button for both players~
 * ~Adjust spawning of zombies so they spaw gradually.~
 * ~Set the crates up for the new map~
-* Have the zombies move out of the way when they encounter a crate
+* ~Have the zombies move out of the way when they encounter a crate~
 * Begin testing for bugs...
 
 ### Concerns
-* Make sure that when a lot of zombies spawn, they don't spawn on top of each other. They spawn in "mini-waves".
-* Make sure the zombies don't spawn on invisible crates (Not as bad since they spawn on sides)
+* ~Make sure that when a lot of zombies spawn, they don't spawn on top of each other. They spawn in "mini-waves".~
+* ~Make sure the zombies don't spawn on invisible crates (Not as bad since they spawn on sides)~
 * ~Avoid loading images and audio files multiple times~
 
 ### Ideas
