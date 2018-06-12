@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/11 v1
+ 2018/06/12 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -53,15 +53,17 @@ class Interface {
 
   // Instance method that displays the loading screen 
   void loadingScreen() {
-    if (colourIncrement < 255 && increase) {
-      // Fade in
+    background(0);
+    // Logo
+    if (increase && colourIncrement < 255) {
+      // Fades in
       fade(15);
       if (colourIncrement == 255) {
-        // Logo in full 
-        delay(500);
+        // Logo in full
+        delay(700);
         increase = false;
       }
-    } else if (colourIncrement > 0 && !increase) {
+    } else if (!increase && colourIncrement > 0) {
       // Fade out
       fade(-15);
     }
@@ -72,13 +74,13 @@ class Interface {
     } else {
       // Logo
       imageMode(CENTER);
+      tint(255, colourIncrement);
       image(imgNELogo, 800, 800, 1200, 1200);
     }
   }
 
   // Instance method to change the fade on the screen
   void fade (int speed) {
-    background(colourIncrement);
     colourIncrement += speed;
   }
 
