@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v1
+ 2018/06/06 v2
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -139,10 +139,5 @@ class Enemy extends Person {
   // Method to set the player it's following
   void setPlayer(int p) {
     player = p;
-  }
-
-  // Method to print the information of the object.
-  void toConsole() {
-    println("Lives : " + getLives() + "   X Position : " + getX() + "   Y Position : " + getY());
   }
 }
