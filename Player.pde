@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/08 v1
+ 2018/06/13 v1
  Game Summative
  Player class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -59,7 +59,6 @@ class Player extends Person {
     }
     if (bullets == 0) {
       reload++;
-      println("Reload " + reload + " out of 100");
     }
     if (reload == 60) {
       bullets = 7;
@@ -102,10 +101,5 @@ class Player extends Person {
   // Method that returns the bullets in the user's magazine
   int getBullets() {
     return bullets;
-  }
-
-  // Method to print the information of the object.
-  void toConsole() {
-    println("Lives : " + getLives() + "   X Position : " + getX() + "   Y Position : " + getY());
   }
 }
