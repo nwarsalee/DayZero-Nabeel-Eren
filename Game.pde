@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/12 v7
+ 2018/06/13 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -53,9 +53,6 @@ void reset() {
   // Resets the score
   score = 0;
   // Resets the objects
-  //Enemy newZombie = new Enemy((int)random(4, 28) * 50, (int)random(4, 28) * 50);
-  //zombies.add(newZombie);
-  //setZombies();
   setDefenses();
   player[0] = new Player(width/2, height/2);
   lastSize = 1; // Resets the zombie multiplier
@@ -225,7 +222,6 @@ void spawnZombies() {
   for (int i=0; i < 65; i++) {
     if (waveZombies > zombiesSpawned && (int)random(1, 50) == 1 && currentTime % 100 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
       setZombies();
-      println("Spawning a zombie.");
       zombiesSpawned++;
     }
   }
@@ -243,7 +239,6 @@ void setLoot() {
       } while (x >= 6 && x <= 15 && y >= 7 && y <= 13);
       Loot health = new Loot(x * 50, y * 50); // Creates new loot object
       loot.add(health); // Adds that loot object to the ArrayList
-      println("LootBox added!");
     }
   }
 }
@@ -618,7 +613,6 @@ void setDefenses() {
     y = (int)random(5, 27);
     // If the values chosen don't interfere with the crates of the house, spawn them
     if (!(x >= 6 && x <= 15 && y >= 7 && y <= 13)) {
-      println("x: " + x + " y: " + y);
       crate = new Crate(x * 50, y * 50);
       defenses.add(crate);
     }
@@ -660,7 +654,6 @@ void setZombies() {
   }
   if (players == 2) {
     player = (int)random(1, 3);
-    println("Player set to " + player);
   } else {
     player = 1;
   }
