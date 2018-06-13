@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/05/31
+2018/06/13 v1
 Game Summative
 Rectangle class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -97,7 +97,6 @@ class Rectangle {
 
     // Checks to see if the top left coord is inside the rectangle of the left rectangle
     if (other.mx >= left.l && other.mx <= left.r && other.my >= left.b && other.my <= left.t) {
-      println("Intersection");
       return true;
     } else {
       return false;
@@ -119,7 +118,6 @@ class Rectangle {
 
     // Checks to see if the top left coord is inside the rectangle of the left rectangle
     if (other.mx >= left.l && other.mx <= left.r && other.my >= left.b && other.my <= left.t) {
-      println("Forsight Intersection");
       return true;
     } else {
       return false;
