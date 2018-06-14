@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/08 v1
+2018/06/14 v1
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -22,23 +22,24 @@ class Person extends Rectangle {
     this.lives = health;
   }
   
-  // Constructor that takes in parameters for lives, xPos and yPos
+  // Constructor that takes in parameters for lives, xPos and yPos and the direction
   Person(int health, float x, float y, char direction) {
     super(x, y);
     this.lives = health;
     this.dir = direction;
   }
   
-  // Show method to show the player object
+  // Show method to show the person object
   void show() {
     fill(255);
-    rect(getX(), getBottom(), getWidth(), getHeight()); // Shows player as a rectangle on screen.
+    rect(getX(), getBottom(), getWidth(), getHeight()); // Shows person as a rectangle on screen by default
   }
   
   // Move method to move the person on screen
   void move(char direction) {
     float v = 50; // Float for how many pixels it moves per move
-    dir = direction; // Changing facing directionn    // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move
+    dir = direction; // Changing facing direction of person
+    // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move and refers to method canMove to see if they're not obstructed
     if (dir == 'u' && inBounds(getX(), getBottom() - v) && canMove(getX(), getBottom() - v, defenses)) { // For moving up
       setPos(getX(), getBottom() - v); // Will substract to move it up screen
     } else if (dir == 'd' && inBounds(getX(), getBottom() + v) && canMove(getX(), getBottom() + v, defenses)) { // For moving down
