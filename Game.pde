@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/14 v2
+ 2018/06/14 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -16,6 +16,7 @@ ArrayList<Enemy> zombies = new ArrayList<Enemy>();
 Leaderboard leaderboard;
 PImage imgHeart1, imgHeart2, imgMap, imgZombieUp, imgZombieDown, imgZombieLeft, imgZombieRight, imgBackground, imgCrate, imgHealth, imgVol1, imgVol2, imgBullet1, imgBullet2, imgBullet3, imgLogo, imgNELogo;
 PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
+String[] zeroes;
 PrintWriter pw;
 BufferedReader br;
 int players = 0;
@@ -60,6 +61,8 @@ void reset() {
   zombiesSpawned = 0; // Resets the number of zombies spawned
   zombiesLeft = spawning(waves);
   startTime = millis(); // Resets clock
+  zeroes[0] = "";
+  zeroes[1] = "";
   shots = 0; // Resets the bullet count
   input = "";
   // Resets time
@@ -95,6 +98,8 @@ void setup() {
   player = new Player[2];
   player[0] = new Player(width/2 + 50, height/2);
   player[1] = new Player(width/2, height/2);
+  // Initializes the timer display
+  zeroes = new String[2];
   // Outline
   gui = new Interface();
   font = createFont("Arial", 32, true);
