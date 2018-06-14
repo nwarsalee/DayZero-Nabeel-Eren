@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/14 v1
+ 2018/06/14 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -417,7 +417,6 @@ boolean backToMenu() {
 
 // Instance method that checks if the user's mouse is on the mute/unmute button
 boolean muteVolume() { 
-  //100, 1500, 100, 100)
   if (mouseX >= 50 && mouseX <= 150 && mouseY >= 1450 && mouseY <= 1550) {
     return true;
   } else {
@@ -432,7 +431,7 @@ void bulletMoves() {
     try {
       bullets.get(i).show();
       bullets.get(i).move();
-      if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list (Attempt at optimizing)
+      if (bullets.get(i).inBounds() == false) { // If the bullet is out of bounds, removes bullet from array list
         bullets.remove(i);
       }
       // Checking if the bullet hits any crates, removes it if it does
@@ -473,7 +472,7 @@ void zombieMoves() {
           hit.play(); // Playing hit sound effect
         }
         if (player[0].isDead()) {
-          player[0].setPos(0, 0); // If the player dies, sets their position outisde of the player area
+          player[0].setPos(0, 0); // If the player dies, sets their position outside of the player area
         }
       } else if (zombies.get(i).attacking(player[1])) {
         player[1].hit(); // Has the second player get hit
@@ -514,7 +513,7 @@ void lootMoves() {
         player[0].lifePoint(); // For now, the loot box gives them a life point
         loot.remove(i);
       }
-      if (players == 2) { // Checks if it's in two player mod
+      if (players == 2) { // Checks if it's in two player mode
         if (loot.get(i).intersect(player[1]) && player[1].getLives() < 5) {
           player[1].lifePoint();
           loot.remove(i);
@@ -523,7 +522,7 @@ void lootMoves() {
     } 
     catch (IndexOutOfBoundsException e) {
       // Used to catch any error regarding the array being out of bounds
-      println("There is not loot box present...");
+      println("There is no loot box present...");
     }
   }
 }
@@ -544,7 +543,7 @@ void playerMoves() {
 // Method to create a bullet and play the bullet sound
 void createBullet(int index) {
   Bullet bullet = new Bullet(player[index].getX(), player[index].getBottom(), player[index].getDir()); // Creates new bullet at the current location of the player
-  bullets.add(bullet); // Addin new bullet
+  bullets.add(bullet); // Adding new bullet
   shots ++; // Adds a bullet shot
   player[index].shoot(); // Has the player shoot and lose a bullet in the magazine
   if (!mute) {
