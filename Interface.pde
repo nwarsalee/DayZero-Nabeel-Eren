@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/12 v2
+ 2018/06/14 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -111,7 +111,17 @@ class Interface {
       startTime = millis();
       minutes ++;
     }
-    text(minutes + ":" + seconds, width/2, 125);
+    if (minutes < 10) { // Single minute digits
+      zeroes[0] = "0";
+    } else {
+      zeroes[0] = "";
+    }
+    if (seconds < 10) { // Single second digits
+      zeroes[1] = "0";
+    } else {
+      zeroes[1] = "";
+    }
+    text(zeroes[0] + minutes + ":" + zeroes[1] + seconds, width/2, 125);
     // Displays the waves
     text("Wave: " + waves, width/2, height - 75);
     textSize(width/40);
