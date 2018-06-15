@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/14 v4 
+ 2018/06/15 v1 
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -562,54 +562,54 @@ void createBullet(int index) {
 void setDefenses() {
   // Setting up the walls of the cabin on the map (MAP1.png)
   // Setting up the left wall
-  Crate crate = new Crate(300, 350);
+  Crate crate = new Crate(3 * width/16, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(300, 400);
+  crate = new Crate(3 * width/16, width/4);
   defenses.add(crate);
-  crate = new Crate(300, 450);
+  crate = new Crate(3 * width/16, 9 * width/32);
   defenses.add(crate);
-  crate = new Crate(300, 500);
+  crate = new Crate(3 * width/16, 5 * width/16);
   defenses.add(crate);
-  crate = new Crate(300, 550);
+  crate = new Crate(3 * width/16, 11 * width/32);
   defenses.add(crate);
-  crate = new Crate(300, 600);
+  crate = new Crate(3 * width/16, 3 * width / 8);
   defenses.add(crate);
-  crate = new Crate(300, 650);
+  crate = new Crate(3 * width/16, 13 * width/32);
   defenses.add(crate);
   // Setting up the top wall
-  crate = new Crate(350, 350);
+  crate = new Crate(7 * width/32, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(450, 350);
+  crate = new Crate(9 * width/32, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(500, 350);
+  crate = new Crate(5 * width/16, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(550, 350);
+  crate = new Crate(11 * width/32, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(600, 350);
+  crate = new Crate(3 * width / 8, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(650, 350);
+  crate = new Crate(13 * width/32, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(700, 350);
+  crate = new Crate(7 * width/16, 7 * width/32);
   defenses.add(crate);
-  crate = new Crate(750, 350);
+  crate = new Crate(15 * width/32, 7 * width/32);
   defenses.add(crate);
   // Setting up the right wall
-  crate = new Crate(750, 400);
+  crate = new Crate(15 * width/32, width/4);
   defenses.add(crate);
-  crate = new Crate(750, 600);
+  crate = new Crate(15 * width/32, 3 * width / 8);
   defenses.add(crate);
-  crate = new Crate(750, 650);
+  crate = new Crate(15 * width/32, 13 * width/32);
   defenses.add(crate);
   // Setting up the bottom wall
-  crate = new Crate(700, 650);
+  crate = new Crate(7 * width/16, 13 * width/32);
   defenses.add(crate);
-  crate = new Crate(650, 650);
+  crate = new Crate(13 * width/32, 13 * width/32);
   defenses.add(crate);
-  crate = new Crate(600, 650);
+  crate = new Crate(3 * width / 8, 13 * width/32);
   defenses.add(crate);
-  crate = new Crate(450, 650);
+  crate = new Crate(9 * width/32, 13 * width/32);
   defenses.add(crate);
-  crate = new Crate(400, 650);
+  crate = new Crate(width/4, 13 * width/32);
   defenses.add(crate);
   for (int i=0; i<6; i++) {
     int x, y;
