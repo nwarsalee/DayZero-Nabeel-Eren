@@ -7,7 +7,6 @@
 * ~Start adding audio to the game.~
 * Refine the game and test it for bugs
 * Adjust values depending on desired game-flow (bullet speed, spawning speed, etc)
-* Begin uploading it to **openprocessing.org** and test it there to fix any compatibility issues.
 * Write down a *'report'* of how our game meets the ICS4U expecations
 * Change the leaderboard file to contain current user high scores
 * Do interview portion...
