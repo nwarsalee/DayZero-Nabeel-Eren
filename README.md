@@ -34,6 +34,5 @@ Level 4++
 * End-game scream : https://www.freesoundeffects.com/free-sounds/screams-10094/
 
 #### Image files:
-* Background image : https://steamcommunity.com/sharedfiles/filedetails/?id=844946240
 * Dev logo, game logo, and map made by Eren Sulutas
 * Character and zombie models made by Nabeel Warsalee
