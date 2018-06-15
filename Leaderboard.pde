@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/14 v1
+ 2018/06/15 v1
  Game Summative
  Leaderboard class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -9,7 +9,7 @@
 class Leaderboard {
   private String[] lineTotal = new String[14]; // String that stores the information on every line in the file
   private ArrayList<Integer> data = new ArrayList<Integer>(); // Arraylist that stores the point data
-  private int y = 350;
+  private int y = 7 * width/32;
 
   // Instance method that reads the file 
   Leaderboard() {
@@ -46,7 +46,7 @@ class Leaderboard {
     textAlign(CORNER);
     fill(255);
     for (int i = 0; i < lineTotal.length; i ++) {
-      text(lineTotal[i], 250, y + 80 * i);
+      text(lineTotal[i], 5 * width/32, y + width/20 * i);
     }
   }
 
