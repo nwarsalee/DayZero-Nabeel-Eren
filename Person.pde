@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/14 v1
+2018/06/15 v1
 Game Summative
 Person class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -37,16 +37,16 @@ class Person extends Rectangle {
   
   // Move method to move the person on screen
   void move(char direction) {
-    float v = 50; // Float for how many pixels it moves per move
+    float v = getBlockSize(); // Float for how many pixels it moves per move
     dir = direction; // Changing facing direction of person
     // Selection statements for moving up, down, right and left. Uses method inBounds to check if it will be inbounds before doing move and refers to method canMove to see if they're not obstructed
-    if (dir == 'u' && inBounds(getX(), getBottom() - v) && canMove(getX(), getBottom() - v, defenses)) { // For moving up
+    if (dir == 'u' && inBounds(getX(), getBottom() - v) && canMove(getX(), getBottom() - v)) { // For moving up
       setPos(getX(), getBottom() - v); // Will substract to move it up screen
-    } else if (dir == 'd' && inBounds(getX(), getBottom() + v) && canMove(getX(), getBottom() + v, defenses)) { // For moving down
+    } else if (dir == 'd' && inBounds(getX(), getBottom() + v) && canMove(getX(), getBottom() + v)) { // For moving down
       setPos(getX(), getBottom() + v);
-    } else if (dir == 'r' && inBounds(getX() + v, getBottom()) && canMove(getX() + v, getBottom(), defenses)) { // For moving right
+    } else if (dir == 'r' && inBounds(getX() + v, getBottom()) && canMove(getX() + v, getBottom())) { // For moving right
       setPos(getX() + v, getBottom());
-    } else if (dir == 'l' && inBounds(getX() - v, getBottom()) && canMove(getX() - v, getBottom(), defenses)) { // For moving left
+    } else if (dir == 'l' && inBounds(getX() - v, getBottom()) && canMove(getX() - v, getBottom())) { // For moving left
       setPos(getX() - v, getBottom());
     }
     updatePos(); // Updating the coordinates of the right, top and middle
@@ -69,8 +69,8 @@ class Person extends Rectangle {
   }
   
   // Method to see if whether or not the person can move towards a block (checks for crates)
-  boolean canMove(float newX, float newY, ArrayList<Crate> crates) {
-    for (Crate crate : crates) {
+  boolean canMove(float newX, float newY) {
+    for (Crate crate : defenses) { // Traversing the defenses arrayList with a for-each loop
       if (intersect(newX, newY, crate)) {
         return false;
       }
