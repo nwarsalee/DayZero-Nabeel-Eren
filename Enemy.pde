@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/06 v2
+ 2018/06/15 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -59,24 +59,24 @@ class Enemy extends Person {
     // Changing the x pos numbers depending on where the player is
     if (p1.getX() > getX()) { // If the enemy has to move to the right
       x++;
-      if (x % 50 == 0) {
+      if (x % getBlockSize() == 0) {
         move('r');
       }
     } else if (p1.getX() < getX()) { // If the enemy has to move to the left
       x--;
-      if (x % 50 == 0) {
+      if (x % getBlockSize() == 0) {
         move('l');
       }
     }
     // Changing the y pos numbers depending on where the player is
     if (p1.getBottom() > getBottom()) { // If the enemy has to move downwards
       y++;
-      if (y % 50 == 0) {
+      if (y % getBlockSize() == 0) {
         move('d');
       }
     } else if (p1.getBottom() < getBottom()) { // If the enemy has to move upwards
       y--;
-      if (y % 50 == 0) {
+      if (y % getBlockSize() == 0) {
         move('u');
       }
     }
