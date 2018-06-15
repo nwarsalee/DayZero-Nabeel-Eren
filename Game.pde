@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/14 v3
+ 2018/06/14 v4 
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -30,7 +30,7 @@ int currentTime = 0;
 int minutes = 0;
 int seconds = 0;
 int deaths = 0;
-int menuMultiplier = 800;
+int menuMultiplier;
 int zombiesLeft = 0, zombiesSpawned = 0;
 int colourIncrement = 0;
 String input = "";
@@ -96,13 +96,14 @@ void setup() {
   }
   // Initializes the objects
   player = new Player[2];
-  player[0] = new Player(width/2 + 50, height/2);
-  player[1] = new Player(width/2, height/2);
+  player[0] = new Player(width/2, height/2);
+  player[1] = new Player(17 * width/32, height/2);
   // Initializes the timer display
   zeroes = new String[2];
   // Outline
   gui = new Interface();
-  font = createFont("Arial", 32, true);
+  menuMultiplier = width/2;
+  font = createFont("Arial", width/50, true);
 }
 
 void draw() {
@@ -368,7 +369,7 @@ void mousePressed() {
 
 // Instance method that checks if the user's mouse is on the singleplayer option
 boolean singleplayer() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= width/2.06 - width/30 && mouseY <= 853 * width / 1545 - width/30) {
+  if (mouseX >= width/3 && mouseX <= 2 * width/3 && mouseY >= 1397 * width/3090 && mouseY <= 1603 * width / 3090) {
     return true;
   } else { 
     return false;
@@ -377,7 +378,7 @@ boolean singleplayer() {
 
 // Instance method that checks if the user's mouse is on the multipayer option
 boolean multiplayer() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= height/2 + height/8 - 23 - width/30 && mouseY <= 3251 / 3 - width/30) {
+  if (mouseX >= width/3 && mouseX <= 2 * width/3 && mouseY >= 71 * width/120 && mouseY <= 3091 * width/4800) {
     return true;
   } else { 
     return false;
@@ -386,7 +387,7 @@ boolean multiplayer() {
 
 // Instance method that checks if the user's mouse is on the instructions option
 boolean instructions() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= height/2 + height/4 - 23 - height/30 && mouseY <= 3851 / 3 - height/30) {
+  if (mouseX >= width/3 && mouseX <= 2 * width/3 && mouseY >= 3371 * height/4800 && mouseY <= 3691 * height/4800) {
     return true;
   } else { 
     return false;
@@ -395,16 +396,16 @@ boolean instructions() {
 
 // Instance method that checks if the user's mouse is on the leaderboad option
 boolean leaderboard() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= 7 * height/8 - 23 - height/30 && mouseY <= 4451/3 - height/30) {
+  if (mouseX >= width/3 && mouseX <= 2 * width/3 && mouseY >= 3971 * height/4800 && mouseY <= 4291 * height/4800) {
     return true;
   } else { 
     return false;
   }
 }
 
-// Instance method that checks if the user's mouse is on the leaderboad option when in end game screen
+// Instance method that checks if the user's mouse is on the leaderboad option when in the end game screen
 boolean leaderboard2() {
-  if (mouseX >= width/2 - 0.5 * width/3 && mouseX <= 5 * width / 6 - 0.5 * width/3 && mouseY >= 7 * height/8 - 123 - height/30 && mouseY <= 4451/3 - height/30  - 123) {
+  if (mouseX >= width/3 && mouseX <= 2 * width/3 && mouseY >= 3671 * height/4800 && mouseY <= 1961 * width/2400){
     return true;
   } else { 
     return false;
@@ -413,7 +414,7 @@ boolean leaderboard2() {
 
 // Instance method that checks if the user's mouse is on the back to menu option
 boolean backToMenu() {
-  if (mouseX >= width/2 - 0.5 * width/2.2 && mouseX <= 21 * width / 22 - 0.5 * width/2.2 && mouseY >= height - 115 - width/30 && mouseY <= 16  * height / 15 - 115 - width/30) {
+  if (mouseX >= 3 * width/11 && mouseX <= 8 * width/11 && mouseY >= 859 * width/960 && mouseY <= 923 * width/960) {
     return true;
   } else { 
     return false;
@@ -422,7 +423,7 @@ boolean backToMenu() {
 
 // Instance method that checks if the user's mouse is on the mute/unmute button
 boolean muteVolume() { 
-  if (mouseX >= 50 && mouseX <= 150 && mouseY >= 1450 && mouseY <= 1550) {
+  if (mouseX >= width/32 && mouseX <= 3 * width/32 && mouseY >= 29 * width/32 && mouseY <= 31 * width/32) {
     return true;
   } else {
     return false;
