@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/14 v2
+ 2018/06/15 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -243,22 +243,22 @@ class Interface {
     textSize(width/30);
     textAlign(CENTER);
     rectMode(CENTER);
-    rect(width/2, height/3 - 70, 650, 10);
-    rect(width/2, height/2 - 150, 650, 10);
-    rect(width/2, height/2 + 50, 170, 10);
+    rect(width/2, 139 * height/480, 13 * width/32, width/160);
+    rect(width/2, 13 * width/32, 13 * width/32, width/160);
+    rect(width/2, 17 * height/32, 17 * width/160, width/160);
     rectMode(CORNER);
     // Each text is 100 px beneath the last 
-    text("MOVEMENT CONTROLS", width/2, height/3 - 100);
+    text("MOVEMENT CONTROLS", width/2, 13 * height/48);
     text("Player 1 : W, A, S, D | Player 2: I, J, K, L", width/2, height/3);
-    text("FIRE GUN / RELOAD GUN", width/2, height/3 + 90);
-    text("Player 1: SPACE / R | Player 2: SHIFT / P", width/2, height/3 + 200);
-    text("RULES", width/2, height/3 + 300);
+    text("FIRE GUN / RELOAD GUN", width/2, 187 * height/480);
+    text("Player 1: SPACE / R | Player 2: SHIFT / P", width/2, 11 * height/24);
+    text("RULES", width/2, 25 * height/ 48);
     textAlign(LEFT);
-    text("-  Each player has 3 hearts", width/16, height/3 + 400);
-    text("-  Zombies come in endless waves", width/16, height/3 + 500);
-    text("-  Golden hearts are armour and serve as extra health", width/16, height/3 + 600);
-    text("-  Game is over when both players have no more hearts", width/16, height/3 + 700);
-    text("-  Your objective is to survive for as long as possible", width/16, height/3 + 800);
+    text("-  Each player has 3 hearts", width/16, 7 * height/12);
+    text("-  Zombies come in endless waves", width/16, 31 * height/48);
+    text("-  Golden hearts are armour and serve as extra health", width/16, 17 * height/24);
+    text("-  Game is over when both players have no more hearts", width/16, 37 * height/48);
+    text("-  Your objective is to survive for as long as possible", width/16, 5 * height/6);
     returnToMenu();
   }
 
@@ -282,12 +282,12 @@ class Interface {
     text("HIGH SCORE!", width/2, height/4);
     textSize(width/20);
     fill(255);
-    text("Score: " + score + " XP", width/2, height/4 + 100);
+    text("Score: " + score + " XP", width/2, 5 * height/16);
     text("Name: " + input, width/2, height/2);
     textSize(width/30);
-    text("Enter Name to Claim High Score:", width/2, height/2 - 100);
+    text("Enter Name to Claim High Score:", width/2, 7 * height/16);
     if (input.length() == 3) {
-      text("Press Enter to Continue", width/2, height/2 + 100);
+      text("Press Enter to Continue", width/2, 9 * width/16);
       if (inputComplete) {
         if (callLeaderboard) {
           // Replaces the score
