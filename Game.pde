@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/15 v1 
+ 2018/06/15 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -19,6 +19,7 @@ PImage[][] playerImg = new PImage[2][4]; // 2D array for the player imgs
 String[] zeroes;
 PrintWriter pw;
 BufferedReader br;
+float gridSize; // Float variable for the size of a block (grid size), the size of a block for a given width is (3*width)/96
 int players = 0;
 int state = 6;
 int startTime;
@@ -81,7 +82,7 @@ void newState(int state1) {
 }
 
 void setup() {
-  size(1600, 1600);
+  size(1600,1600);
   leaderboard = new Leaderboard();
   // Loads the assets
   if (!loadAssets) {
@@ -98,6 +99,8 @@ void setup() {
   player = new Player[2];
   player[0] = new Player(width/2, height/2);
   player[1] = new Player(17 * width/32, height/2);
+  // Setting the grid size
+  gridSize = (3*width)/96;
   // Initializes the timer display
   zeroes = new String[2];
   // Outline
@@ -225,7 +228,7 @@ int spawning(int wave) {
 void spawnZombies() {
   int waveZombies = spawning(waves); // The zombies for the wave is the return value of the recursive method
   for (int i=0; i < 65; i++) {
-    if (waveZombies > zombiesSpawned && (int)random(1, 50) == 1 && currentTime % 100 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
+    if (waveZombies > zombiesSpawned && (int)random(1, 25) == 1 && currentTime % 10 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
       setZombies();
       zombiesSpawned++;
     }
@@ -242,7 +245,7 @@ void setLoot() {
         x = (int)random(4, 28);
         y = (int)random(4, 28);
       } while (x >= 6 && x <= 15 && y >= 7 && y <= 13);
-      Loot health = new Loot(x * 50, y * 50); // Creates new loot object
+      Loot health = new Loot(x * gridSize, y * gridSize); // Creates new loot object
       loot.add(health); // Adds that loot object to the ArrayList
     }
   }
@@ -405,7 +408,7 @@ boolean leaderboard() {
 
 // Instance method that checks if the user's mouse is on the leaderboad option when in the end game screen
 boolean leaderboard2() {
-  if (mouseX >= width/3 && mouseX <= 2 * width/3 && mouseY >= 3671 * height/4800 && mouseY <= 1961 * width/2400){
+  if (mouseX >= width/3 && mouseX <= 2 * width/3 && mouseY >= 3671 * height/4800 && mouseY <= 1961 * width/2400) {
     return true;
   } else { 
     return false;
@@ -617,7 +620,7 @@ void setDefenses() {
     y = (int)random(5, 27);
     // If the values chosen don't interfere with the crates of the house, spawn them
     if (!(x >= 6 && x <= 15 && y >= 7 && y <= 13)) {
-      crate = new Crate(x * 50, y * 50);
+      crate = new Crate(x * gridSize, y * gridSize);
       defenses.add(crate);
     }
   }
@@ -661,7 +664,7 @@ void setZombies() {
   } else {
     player = 1;
   }
-  Enemy newZombie = new Enemy(dir, (int)x * 50, (int)y * 50, player);
+  Enemy newZombie = new Enemy(dir, (int)x * gridSize, (int)y * gridSize, player);
   zombies.add(newZombie);
 }
 
