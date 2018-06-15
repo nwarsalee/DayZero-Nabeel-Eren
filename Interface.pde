@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/14 v1
+ 2018/06/14 v2
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -11,12 +11,12 @@ class Interface {
   // Instance which displays the borders when they are erased
   void showBorder() {
     imageMode(CENTER);
-    image(imgBackground, width/2, height/2, 1600, 1600); // Background image
+    image(imgBackground, width/2, height/2, width, height); // Background image
     // Mute/Unmute image
     if (!mute) { 
-      image(imgVol1, 100, 1500, 100, 100);
+      image(imgVol1, width/16, 15 * width/16, width/16, width/16);
     } else {
-      image(imgVol2, 100, 1500, 100, 100);
+      image(imgVol2, width/16, 15 * width/16, width/16, width/16);
     }
     fill(255, 0, 0);
     noStroke();
@@ -33,21 +33,21 @@ class Interface {
     textAlign(CENTER);
     textSize(width/10);
     fill(255);
-    image(imgLogo, 800, 400, 1000, 300);
+    image(imgLogo, width/2, width/4, 5 * width/8, 3 * width/16);
     textSize(width/20);
     text("Singleplayer", width/2, height/2);
     text("2 Players", width/2, 5 * height/8);
     text("How to play", width/2, 3 * height/4);
     text("Leaderboard", width/2, 7 * height/8);
-    textSize(35);
-    text("Made by: Eren Sulutas & Nabeel Warsalee", 1200, 1550);
+    textSize(7 * width/320);
+    text("Made by: Eren Sulutas & Nabeel Warsalee", 3 * width/4, 31 * width/32);
     noFill();
     stroke(255, 0, 0);
     rectMode(CENTER);
     rect(width/2, height/2.06, width/3, height/15);
-    rect(width/2, 5 * height/8 - 23, width/3, height/15);
-    rect(width/2, 3 * height/4 - 23, width/3, height/15);
-    rect(width/2, 7 * height/8 - 23, width/3, height/15);
+    rect(width/2, 977 * width/1600, width/3, height/15);
+    rect(width/2, 1177 * height/1600, width/3, height/15);
+    rect(width/2, 1377 * height/1600, width/3, height/15);
     rectMode(CORNER);
   }
 
@@ -75,7 +75,7 @@ class Interface {
       // Logo
       imageMode(CENTER);
       tint(255, colourIncrement);
-      image(imgNELogo, 800, 800, 1200, 1200);
+      image(imgNELogo, width/2, width/2, 3 * width/4, 3 * width/4);
     }
   }
 
@@ -88,16 +88,24 @@ class Interface {
   void gamePlay() {
     // Game grid
     showBorder();
-    image(imgMap, width/2, height/2, 1200, 1200);
+    image(imgMap, width/2, height/2, 3 * width / 4, 3 * width / 4);
     stroke(255);
     fill(0);
+    // Y axis grid
+    for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / 24) {
+      line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
+    }
+    // X axis grid
+    for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / 24) {
+      line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
+    }
     fill(255, 0, 0);
     noStroke();
     // Game box
-    rect(width/8 - width/160, width/8 - width/160, width - 2 * width/8 + width/140, width/160);
-    rect(width/8 - width/160, width - width/8 + width/140 - width/160, width - 2 * width/8 + width/140, width/160);
-    rect(width/8 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/140);
-    rect(width - width/8 + width/140 - width/160, width/8 - width/160, width/160, width - 2 * width/8 + width/75);
+    rect(19 * width/160, 19 * width/160, 53 * width/70, width/160);
+    rect(19 * width/160, 981 * width/1120, 53 * width/70, width/160);
+    rect(19 * width/160, 19 * width/160, width/160, 53 * width/70);
+    rect(981 * width/1120, 19 * width/160, width/160, 229 * width/300);
     // In-game GUI
     fill(255);
     textAlign(CENTER);
@@ -121,65 +129,65 @@ class Interface {
     } else {
       zeroes[1] = "";
     }
-    text(zeroes[0] + minutes + ":" + zeroes[1] + seconds, width/2, 125);
+    text(zeroes[0] + minutes + ":" + zeroes[1] + seconds, width/2, 5 * width/64);
     // Displays the waves
-    text("Wave: " + waves, width/2, height - 75);
+    text("Wave: " + waves, width/2, 61 * height/64);
     textSize(width/40);
-    strokeWeight(10);
+    strokeWeight(width/160);
     stroke(255);
-    text("P1", 1500, height/2 - 575);
+    text("P1", 15 * width/16, 9 * height/64);
     // Displays the points
-    text("Points", 100, height/2 - 320);
-    text(score + " XP", 100, height/2 - 225);
+    text("Points", width/16, 3 * height/10);
+    text(score + " XP", width/16, 23 * height/64);
     // Displays thet amounts of zombies
-    text("Zombies", 100, height/2 + 300);
-    text(zombiesLeft, 100, height/2 + 400);
-    line(1475, height/2 - 555, 1525, height/2 - 555); // Line under player 1 health
-    line(25, height/2 - 300, 175, height/2 - 300); // Line under the points tab
-    line(25, height/2 + 320, 175, height/2 + 320); // Line under the zombies tab
+    text("Zombies", width/16, 11 * height/16);
+    text(zombiesLeft, width/16, 3 * height/4);
+    line(59 * width/64, 49 * height/320, 61 * width/64, 49 * height/320); // Line under player 1 health
+    line(width/64, 5 * height/16, 7 * width/64, 5 * width/16); // Line under the points tab
+    line(width/64, 7 * height/10, 7 * width/64, 7 * height/10); // Line under the zombies tab
     if (players == 2) {
       // Adds player 2 health if the game is multiplayer  
-      text("P2", 1500, height/2);
-      text("P2", 1500, height/2);
-      line(1475, height/2 + 20, 1525, height/2 + 20); // Line under player 2 health 
+      text("P2", 15 * width/16, height/2);
+      text("P2", 15 * width/16, height/2);
+      line(59 * width/64, 41 * height/80, 1525, 41 * height/80); // Line under player 2 health 
       // Displays the hearts for player 2
       for (int i = 0; i < player[1].getLives(); i ++) {
         if (i > 2) { // User has extra health that will be dispalyed as gold 
-          image(imgHeart2, 1500, height/2 + 90 + 100 * i, 75, 75);
+          image(imgHeart2, 15 * width/16, 89 * height/160 + width/16 * i, 3 * width/64, 3 * width/64);
         } else { // Normal health will be displayed red
-          image(imgHeart1, 1500, height/2 + 90 + 100 * i, 75, 75);
+          image(imgHeart1, 15 * width/16, 89 * height/160 + width/16 * i, 3 * width/64, 3 * width/64);
         }
       }
     }
     // Displays the hearts for player 1
     for (int i = 0; i < player[0].getLives(); i ++) {
       if (i > 2) { // User has extra health that will be displayed as gold 
-        image(imgHeart2, 1500, height/2 - 490 + 100 * i, 75, 75);
+        image(imgHeart2, 15 * width/16, 31 * height/160 + width/16 * i, 3 * width/64, 3 * width/64);
       } else { // Normal health will be displayed red
-        image(imgHeart1, 1500, height/2 - 490 + 100 * i, 75, 75);
+        image(imgHeart1, 15 * width/16, 31 * height/160 + width/16 * i, 3 * width/64, 3 * width/64);
       }
     }
 
     // Displays the bullets for the players
     for (int i = 0; i < players; i ++) {
       if (player[i].getBullets() != 0) {
-        text("P" + (i+1) + ": " + player[i].getBullets()  + "/7", 400 + (i*menuMultiplier), 1500);
+        text("P" + (i+1) + ": " + player[i].getBullets()  + "/7", width/4 + (i*menuMultiplier), 15 * width/16);
       } else {
         if (player[i].getProgress() >= 0 && player[i].getProgress() <= 20) {
-          text("P" + (i+1) + ":  .", 400 + (i*menuMultiplier), 1500);
+          text("P" + (i+1) + ":  .", width/4 + (i*menuMultiplier), 15 * width/16);
         } else if (player[i].getProgress() > 20 && player[i].getProgress() <= 40) {
-          text("P" + (i+1) + ":  ..", 400 + (i*menuMultiplier), 1500);
+          text("P" + (i+1) + ":  ..", width/4 + (i*menuMultiplier), 15 * width/16);
         } else {
-          text("P" + (i+1) + ":  ...", 400 + (i*menuMultiplier), 1500);
+          text("P" + (i+1) + ":  ...", width/4 + (i*menuMultiplier), 15 * width/16);
         }
       }
 
       if (player[i].getBullets() <= 1) {
-        image(imgBullet3, 520 + (i*menuMultiplier), 1485, 50, 50);
+        image(imgBullet3, 13 * width/40 + (i*menuMultiplier), 297 * width/320, width/32, width/32);
       } else if (player[i].getBullets() >= 2 && player[i].getBullets() <= 4) {
-        image(imgBullet2, 520 + (i*menuMultiplier), 1485, 50, 50);
+        image(imgBullet2, 13 * width/40 + (i*menuMultiplier), 297 * width/320, width/32, width/32);
       } else {
-        image(imgBullet1, 520 + (i*menuMultiplier), 1485, 50, 50);
+        image(imgBullet1, 13 * width/40 + (i*menuMultiplier), 297 * width/320, width/32, width/32);
       }
     }
     strokeWeight(1);
@@ -196,18 +204,18 @@ class Interface {
     text("GAME OVER", width/2, height/5);
     fill(255);
     textSize(width/30);
-    text("Score: " + score + " XP | Waves Survived: " + (waves - 1), width/2, height/2 - 300);
+    text("Score: " + score + " XP | Waves Survived: " + (waves - 1), width/2, 5 * width/16);
     if (minutes >= 1) {
-      text("Time elapsed: " + minutes + "m " + seconds + "s", width/2, height/2 - 100);
+      text("Time elapsed: " + minutes + "m " + seconds + "s", width/2, 7 * width/16);
     } else {
-      text("Time elapsed: " + seconds + "s", width/2, height/2 - 100);
+      text("Time elapsed: " + seconds + "s", width/2, 7 * width/16);
     }
-    text("Zombies Slain: " + deaths, width/2, height/2 + 100);
-    text("Bullets Shot: " + shots + " | Weapon Accuracy: " + Math.round(((double)deaths / (double)shots) * 1000.0) / 10.0 + "%", width/2, height/2 + 300);
+    text("Zombies Slain: " + deaths, width/2, 9 * width/16);
+    text("Bullets Shot: " + shots + " | Weapon Accuracy: " + Math.round(((double)deaths / (double)shots) * 1000.0) / 10.0 + "%", width/2, 11 * width/16);
     returnToMenu();
-    text("Leaderboard", width/2, 7 * height/8 - 100);
+    text("Leaderboard", width/2, 13 * width/16);
     rectMode(CENTER);
-    rect(width/2, 7 * height/8 - 123, width/3, height/15);
+    rect(width/2, 1277 * width/1600, width/3, height/15);
     rectMode(CORNER);
   }
 
@@ -216,11 +224,11 @@ class Interface {
     textAlign(CENTER);
     textSize(width/30);
     fill(255);
-    text("<-- Return to Main Menu", width/2, height - 100);
+    text("<-- Return to Main Menu", width/2, 15 * width/16);
     noFill();
     stroke(255, 0, 0);
     rectMode(CENTER);
-    rect(width/2, height - 115, width/2.2, height/15);
+    rect(width/2, 297 * height/320, width/2.2, height/15);
     rectMode(CORNER);
   }
 
