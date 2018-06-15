@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/14 v1
+2018/06/15 v1
 Game Summative
 Rectangle class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -8,7 +8,8 @@ Made by Eren Sulutas and Nabeel Warsalee
 
 class Rectangle {
   private float l, b, w, h, r, t, mx, my; // Private float fields for left, bottom, width and height and the middle x and y
-
+  private float blockSize = (3*width)/96; // Float variable for the size of a block (grid size), the size of a block for a given width is (3*width)/96
+  
   // Constructor method that automatically sets all fields to zero
   Rectangle() {
     this.l = 0;
@@ -47,16 +48,16 @@ class Rectangle {
     this.my = this.b + this.h/2;
   }
   
-  // Constructor method that takes in two float parameters to set the fields of the rectangle (only sets the bottom left coordinate; length and width set to 50x50)
+  // Constructor method that takes in two float parameters to set the fields of the rectangle (only sets the bottom left coordinate; length and width set to blockSize variable)
   Rectangle(float left, float bottom) {
     this.l = left;
     this.b = bottom;
 
     // Sets the value of the width field to 50
-    this.w = 50;
+    this.w = blockSize;
     
     // Setting the value of the height field to 50
-    this.h = 50;
+    this.h = blockSize;
 
     // For the top right coordinates, will just be the coord + the length of the respective side
     this.r = this.l + this.w;
@@ -127,20 +128,32 @@ class Rectangle {
   // Method to check if the rectangle is out of bounds (Uses the known dimensions of the gameplay box 1200x1200 with 200px borders)
   // Takes in two float parameters that act as the impending position of the rectangle
   boolean inBounds(float newX, float newY) {
+    float shortest, longest, border; // Variables for the shortest and longest distance the object has to stay in bounds with and for the length of the border
+    // Determining the border size through a ratio calculation for the length of the game area
+    border = (width-(3*width/4))/2;
+    shortest = border;
+    longest = (3*width/4) + border;
     // If the x and y both lie within the range 200 to 1400, returns true to say it's in bounds
-    if (newX >= 200 && newX < 1400 && newY >= 200 && newY < 1400) {
+    if (newX >= shortest && newX < longest && newY >= shortest && newY < longest) {
       return true;
     } else {
+      println("Out of bounds...");
       return false;
     }
   }
   
   // Method to check if the player is out of bounds (Uses the known dimensions of the gameplay box 1200x1200 with 200px borders)
   boolean inBounds() {
+    float shortest, longest, border; // Variables for the shortest and longest distance the object has to stay in bounds with and for the length of the border
+    // Determining the border size through a ratio calculation for the length of the game area
+    border = (width-(3*width/4))/2;
+    shortest = border;
+    longest = border + 24*blockSize;
     // If the x and y both lie within the range 200 to 1400, returns true to say it's in bounds (uses its own left and bottom value)
-    if (l >= 200 && l < 1400 && b >= 200 && b < 1400) {
+    if (l >= shortest && l < longest && b >= shortest && b < longest) {
       return true;
     } else {
+      println("Out of bounds...");
       return false;
     }
   }
@@ -183,6 +196,13 @@ class Rectangle {
    * post : Returns the height as a float*/
   float getHeight() {
     return this.h;
+  }
+  
+  /* Accessor method that returns the blockSize for the game
+   * pre : none
+   * post : Returns the block/grid size as a float*/
+  float getBlockSize() {
+    return this.blockSize;
   }
 
   /* Mutator method that sets the left of the rectangle
