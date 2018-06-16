@@ -624,8 +624,8 @@ void setDefenses() {
     int x, y;
     x = (int)random(5, 27);
     y = (int)random(5, 27);
-    // If the values chosen don't interfere with the crates of the house, spawn them
-    if (!(x >= 6 && x <= 15 && y >= 7 && y <= 13)) {
+    // If the values chosen don't interfere with the crates of the house and the initial player spawn location, spawn them
+    if (!((x >= 6 && x <= 15 && y >= 7 && y <= 13) || (x==12 && y==12) || (x==13 && y==12))) {
       crate = new Crate(x * gridSize, y * gridSize);
       defenses.add(crate);
     }
