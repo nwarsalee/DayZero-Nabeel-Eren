@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/15 v1
+2018/06/16 v1
 Game Summative
 Rectangle class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -148,7 +148,7 @@ class Rectangle {
     // Determining the border size through a ratio calculation for the length of the game area
     border = (width-(3*width/4))/2;
     shortest = border;
-    longest = border + 24*blockSize;
+    longest = (3*width/4) + border;
     // If the x and y both lie within the range 200 to 1400, returns true to say it's in bounds (uses its own left and bottom value)
     if (l >= shortest && l < longest && b >= shortest && b < longest) {
       return true;
