@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/15 v1
+ 2018/06/16 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -97,7 +97,7 @@ class Enemy extends Person {
   }
 
   // Method to check if the enemy is hit
-  boolean isHit(ArrayList<Bullet> bullets) {
+  boolean isHit() {
     // Method to show the bullets
     for (Bullet bullet : bullets) {
       if (intersect(bullet)) {
@@ -108,7 +108,7 @@ class Enemy extends Person {
   }
   
   // Method to return the index of the bullet that kills the player
-  int bulletHit(ArrayList<Bullet> bullets) {
+  int bulletHit() {
     for (int i=0; i<bullets.size(); i++) {
       if (intersect(bullets.get(i))) {
         return i; // Sending index of the bullet that hit
