@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/16 v5
+ 2018/06/16 v6
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -82,7 +82,7 @@ void newState(int state1) {
 }
 
 void setup() {
-  size(1600, 1600, P3D);
+  size(800, 800, P3D);
   leaderboard = new Leaderboard();
   // Loads the assets
   if (!loadAssets) {
@@ -228,7 +228,7 @@ int spawning(int wave) {
 void spawnZombies() {
   int waveZombies = spawning(waves); // The zombies for the wave is the return value of the recursive method
   for (int i=0; i < 65; i++) {
-    if (waveZombies > zombiesSpawned && (int)random(1, 25) == 1 && currentTime % 10 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
+    if (waveZombies > zombiesSpawned && (int)random(1, 50) == 1 && currentTime % 50 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
       setZombies();
       zombiesSpawned++;
     }
@@ -239,8 +239,8 @@ void spawnZombies() {
 void setLoot() {
   int random, x, y; // Integers for the random number, and the x, y position.
   for (int i=0; i < 2; i++) { // Loops twice to see if either of the two lootboxes will be added
-    random = (int)random(1, 10);
-    if (random == 1 && loot.size() < 2) { // 10% chance of a lootbox dropping
+    random = (int)random(1, 5);
+    if (random == 1 && loot.size() < 2) { // 20% chance of a lootbox dropping
       do { // Gets a value for the position and makes sure it's not on the house blocks
         x = (int)random(4, 28);
         y = (int)random(4, 28);
