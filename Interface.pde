@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/15 v2
+ 2018/06/16 v1
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -11,6 +11,7 @@ class Interface {
   // Instance which displays the borders when they are erased
   void showBorder() {
     imageMode(CENTER);
+    background(0);
     image(imgBackground, width/2, height/2, width, height); // Background image
     // Mute/Unmute image
     if (!mute) { 
@@ -89,16 +90,6 @@ class Interface {
     // Game grid
     showBorder();
     image(imgMap, width/2, height/2, 3 * width / 4, 3 * width / 4);
-    stroke(255);
-    fill(0);
-    // Y axis grid
-    for (int i = width/8 + width/160; i <= width - width/8 + width/160; i += (width - width/4) / (3 * width/200)) {
-      line(i - width/160, width/8 - width/160, i - width/160, width - width/8 + width/160);
-    }
-    // X axis grid
-    for (int i = height/8 + height/160; i <= height - height/8 + height/160; i += (height - height/4) / (3 * width/200)) {
-      line(height/8 - height/160, i - width/160, height - height/8 + height/160 - width/160, i - width/160);
-    }
     fill(255, 0, 0);
     noStroke();
     // Game box
