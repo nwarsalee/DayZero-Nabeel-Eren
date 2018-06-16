@@ -1,12 +1,14 @@
 /* 
  ICS4U
- 2018/06/16 v2
+ 2018/06/16 v3
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 import processing.sound.*; // Importing sound libraries for sound output
 SoundFile menu, game, zombie, shoot, hit, scream, reload; // Different sound files
+
+int winSize = 1600; // Integer variable for the size of the window (ADJUST THIS DEPENDING ON SCREEN SIZE)
 
 Player[] player;
 ArrayList<Crate> defenses = new ArrayList<Crate>();
@@ -82,7 +84,7 @@ void newState(int state1) {
 }
 
 void setup() {
-  size(1600,1600);
+  size(winSize,winSize, P3D);
   leaderboard = new Leaderboard();
   // Loads the assets
   if (!loadAssets) {
