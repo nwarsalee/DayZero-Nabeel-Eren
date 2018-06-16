@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/16 v1
+ 2018/06/16 v3
  Game Summative
  Interface class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -140,7 +140,7 @@ class Interface {
       // Adds player 2 health if the game is multiplayer  
       text("P2", 15 * width/16, height/2);
       text("P2", 15 * width/16, height/2);
-      line(59 * width/64, 41 * height/80, 1525, 41 * height/80); // Line under player 2 health 
+      line(59 * width/64, 41 * height/80, 61 * width/64, 41 * height/80); // Line under player 2 health 
       // Displays the hearts for player 2
       for (int i = 0; i < player[1].getLives(); i ++) {
         if (i > 2) { // User has extra health that will be dispalyed as gold 
