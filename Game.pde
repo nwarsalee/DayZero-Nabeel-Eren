@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/15 v2
+ 2018/06/16 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -274,8 +274,10 @@ void keyPressed() {
       } else if (keyCode == ' ' && player[0].canShoot()) {
         createBullet(0); // Creates the bullet for player 1
         if (player[0].getBullets() == 0) {
+         if (!mute) {
           reload.play();
           reload.amp(5);
+          }
         }
       }
     }
@@ -298,8 +300,10 @@ void keyPressed() {
       } else if (keyCode == 16 && player[1].canShoot()) {
         createBullet(1); // Creates the bullet for player 2
         if (player[1].getBullets() == 0) {
+         if (!muite) {
           reload.play();
           reload.amp(5);
+          }
         }
       }
     }
