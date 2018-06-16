@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/16 v1
+ 2018/06/16 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -489,7 +489,9 @@ void zombieMoves() {
         }
       } else if (zombies.get(i).attacking(player[1])) {
         player[1].hit(); // Has the second player get hit
+        if (!mute) {
         hit.play(); // Playing hit sound effect
+        }
         if (player[1].isDead()) {
           player[1].setPos(0, 0); // Sets its position outisde of the player area
         }
@@ -512,7 +514,7 @@ void zombieMoves() {
   if ((int)random(200) == 1) { // Has a 20% chance of playing a zombie sound
     if (!mute)
       zombie.play();
-    zombie.amp(0.5);
+      zombie.amp(0.5);
   }
 }
 
