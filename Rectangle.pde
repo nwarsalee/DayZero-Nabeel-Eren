@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/16 v1
+2018/06/17 v1
 Game Summative
 Rectangle class
 Made by Eren Sulutas and Nabeel Warsalee
