@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/16 v1
+ 2018/06/17 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
@@ -20,22 +20,6 @@ class Enemy extends Person {
     coolDown = 0;
   }
 
-  // Constructor that initializes the Enemy, sets the life to 1
-  Enemy(float xStart, float yStart) {
-    super(1, xStart, yStart); // Automatically sets the lives to 1
-    x = xStart;
-    y = yStart;
-    player = 1;
-    coolDown = c;
-  }
-  
-  // Constructor that initializes the Enemy, sets the life to 1
-  Enemy(char dir, float xStart, float yStart) {
-    super(1, xStart, yStart, dir); // Automatically sets the lives to 1
-    x = xStart;
-    y = yStart;
-    coolDown = c;
-  }
   
   // Constructor that initializes the Enemy, sets the life to 1 and takes in a player parameter
   Enemy(char dir, float xStart, float yStart, int p) {
@@ -43,14 +27,6 @@ class Enemy extends Person {
     x = xStart;
     y = yStart;
     player = p;
-    coolDown = c;
-  }
-
-  // Constructor that initializes the Enemy, sets the life to whatever the user wants 
-  Enemy(int lives, float xStart, float yStart) {
-    super(lives, xStart, yStart);
-    x = xStart;
-    y = yStart;
     coolDown = c;
   }
 
