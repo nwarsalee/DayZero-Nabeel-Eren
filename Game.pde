@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/16 v6
+ 2018/06/17 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -497,9 +497,9 @@ void zombieMoves() {
         }
       }
       // Checking if the zombie is hit
-      if (zombies.get(i).isHit(bullets)) {
+      if (zombies.get(i).isHit()) {
         zombies.get(i).hit(); // Having the zombie take damage
-        bullets.remove(zombies.get(i).bulletHit(bullets)); // Removes the bullet that hit the zombie (index given with bulletHit method)
+        bullets.remove(zombies.get(i).bulletHit()); // Removes the bullet that hit the zombie (index given with bulletHit method)
         if (zombies.get(i).isDead()) { // If the zombie is dead, remove the zombie
           zombies.remove(i); // Removing the zombie from the arrayList/game
           zombiesLeft--; // Decreases the zombies left counter...
