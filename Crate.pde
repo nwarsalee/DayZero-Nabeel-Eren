@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/02 v1
+2018/06/17 v1
 Game Summative
 Crate class
 Made by Eren Sulutas and Nabeel Warsalee
