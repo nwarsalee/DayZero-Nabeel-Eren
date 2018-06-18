@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/18 v1
+ 2018/06/18 v2
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -227,7 +227,7 @@ int spawning(int wave) {
 void spawnZombies() {
   int waveZombies = spawning(waves); // The zombies for the wave is the return value of the recursive method
   for (int i=0; i < 65; i++) {
-    if (waveZombies > zombiesSpawned && (int)random(1, 50) == 1 && currentTime % 50 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
+    if (waveZombies > zombiesSpawned && (int)random(1, 100) == 1 && currentTime % 10 == 0) { // If the number of zombies spawned has not reached the limit for the round, and the time is divisible by 100ms, spawns
       setZombies();
       zombiesSpawned++;
     }
