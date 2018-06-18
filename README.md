@@ -26,7 +26,7 @@ Spot Check #2 - June 18th, 2018 - Level 4++ :+1:
 - [x] GitHub Code
 - [ ] Daily Notes were not kept completely up to date (Missing June 13-18 when check on June 18th) but you also had a to-do list which goes above and beyond so I can look past this issue.  Please complete the daily notes by the deadline though.
 
-### Note:
+# Note:
 * Sound 1.4.0 processing library is necessary in order to hear the sounds.
 * The leaderboard.txt file must be placed with the game files and not in the Data folder.
 * When adjusting the size of the window, only use values that are recommended. **If recommended values are not used, problems will occur in-game.** 
