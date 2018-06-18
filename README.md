@@ -20,11 +20,11 @@ Flow chart could go into more detail if there are more screens that follow.
 
 Spot Check #2 - June 18th, 2018 - Level 4++ :+1:
 --
--[x] Gantt Chart 
--[x] Flow Chart
--[x] Classes - Impeccable
--[x] GitHub Code
--[ ] Daily Notes were not kept completely up to date (Missing June 13-18 when check on June 18th) but you also had a to-do list which goes above and beyond so I can look past this issue.  Please complete the daily notes by the deadline though.
+- [x] Gantt Chart 
+- [x] Flow Chart
+- [x] Classes - Impeccable
+- [x] GitHub Code
+- [ ] Daily Notes were not kept completely up to date (Missing June 13-18 when check on June 18th) but you also had a to-do list which goes above and beyond so I can look past this issue.  Please complete the daily notes by the deadline though.
 
 ### Note:
 * Sound 1.4.0 processing library is necessary in order to hear the sounds.
