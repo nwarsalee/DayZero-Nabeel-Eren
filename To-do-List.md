@@ -50,7 +50,7 @@
 * ~Avoid loading images and audio files multiple times~
 
 ### Ideas
-* Have zombies fade in when spawning
+* ~Have zombies fade in when spawning~ (Not being done)
 * ~Introduce a reload mechanism to stop player from continuously shooting for a certain period of time~
 * ~Use invisible crates to block off buildings in the map~
 * ~Have the bullet location match with where the gun is on the player model~
