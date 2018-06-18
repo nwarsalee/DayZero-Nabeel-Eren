@@ -5,10 +5,11 @@
 * ~Get files onto Processing~
 * ~Finish adding graphical components.~
 * ~Start adding audio to the game.~
-* Refine the game and test it for bugs
-* Adjust values depending on desired game-flow (bullet speed, spawning speed, etc)
-* Write down a *'report'* of how our game meets the ICS4U expecations
-* Change the leaderboard file to contain current user high scores
+* ~Refine the game and test it for bugs~
+* ~Adjust values depending on desired game-flow (bullet speed, spawning speed, etc)~
+* ~Rescale the game for different window sizes~
+* ~Write down a *'report'* of how our game meets the ICS4U expecations~
+* ~Change the leaderboard file to contain current user high scores~
 * Do interview portion...
 
 ## Mechanics To do list
@@ -41,7 +42,7 @@
 * ~Adjust spawning of zombies so they spaw gradually.~
 * ~Set the crates up for the new map~
 * ~Have the zombies move out of the way when they encounter a crate~
-* Begin testing for bugs...
+* ~Begin testing for bugs...~
 
 ### Concerns
 * ~Make sure that when a lot of zombies spawn, they don't spawn on top of each other. They spawn in "mini-waves".~
