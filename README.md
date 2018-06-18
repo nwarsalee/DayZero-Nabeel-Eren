@@ -31,7 +31,7 @@ Spot Check #2 - June 18th, 2018 - Level 4++ :+1:
 * The leaderboard.txt file must be placed with the game files and not in the Data folder.
 * When adjusting the size of the window, only use values that are recommended. **If recommended values are not used, problems will occur in-game.** 
 * Recommended/supported values (1600x1600, 1440x1440, 1280x1280, 1120x1120, 960x960, 800x800, 640x640)
-* To adjust the size of the window, go to the setup method in the Game class and change the parameters of the size() function to the recommended values.
+* To adjust the size of the window, go to the setup method in the Game class (line 84) and change the parameters of the size() function to the recommended values.
 
 ### Sources:
 
