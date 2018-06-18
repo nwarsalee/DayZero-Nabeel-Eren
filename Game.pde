@@ -1,6 +1,6 @@
 /* 
  ICS4U
- 2018/06/17 v1
+ 2018/06/18 v1
  Game Summative
  Made by Eren Sulutas and Nabeel Warsalee
  */
@@ -54,7 +54,6 @@ void reset() {
   defenses.clear();
   // Resets the score
   score = 0;
-  // Resets the objects
   setDefenses();
   lastSize = 1; // Resets the zombie multiplier
   state = 0; // Game begins
