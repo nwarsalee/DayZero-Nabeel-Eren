@@ -1,13 +1,12 @@
 /* 
  ICS4U
- 2018/06/17 v1
+ 2018/06/18 v1
  Game Summative
  Enemy Class
  Made by Eren Sulutas and Nabeel Warsalee
  */
 
 class Enemy extends Person {
-  // PImage playerBody = loadImage(/* enter name of file */);
   private float x, y, coolDown, c = 100; // Float values for the enemy's x and y location and for it's cool down time
   private int player; // Int for the player that the zombie is following
   
