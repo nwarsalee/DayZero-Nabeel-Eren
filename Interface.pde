@@ -87,7 +87,6 @@ class Interface {
 
   // Instance method that displays the proper interface for gameplay 
   void gamePlay() {
-    // Game grid
     showBorder();
     image(imgMap, width/2, height/2, 3 * width / 4, 3 * width / 4);
     fill(255, 0, 0);
