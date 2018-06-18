@@ -1,6 +1,6 @@
 /* 
 ICS4U
-2018/06/17 v1
+2018/06/18 v1
 Game Summative
 Rectangle class
 Made by Eren Sulutas and Nabeel Warsalee
@@ -137,7 +137,6 @@ class Rectangle {
     if (newX >= shortest && newX < longest && newY >= shortest && newY < longest) {
       return true;
     } else {
-      println("Out of bounds...");
       return false;
     }
   }
@@ -153,7 +152,6 @@ class Rectangle {
     if (l >= shortest && l < longest && b >= shortest && b < longest) {
       return true;
     } else {
-      println("Out of bounds...");
       return false;
     }
   }
